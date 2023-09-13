@@ -12,7 +12,7 @@ import game.capabilities.Status;
 /**
  * A behavior class representing the behavior of attacking the player if they are adjacent to the actor.
  */
-public class AttackActorBehaviour implements Behaviour {
+public class AttackBehaviour implements Behaviour {
     /**
      * Get the action to perform for attacking the player if they are in an adjacent location.
      *

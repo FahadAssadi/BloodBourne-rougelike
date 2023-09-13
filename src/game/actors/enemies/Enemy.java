@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.behaviours.AttackActorBehaviour;
+import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public abstract class Enemy extends Actor {
 
         // Initialize default behaviors for enemies
         this.behaviours.put(999, new WanderBehaviour());
-        this.behaviours.put(1, new AttackActorBehaviour());
+        this.behaviours.put(1, new AttackBehaviour());
     }
 
     /**
