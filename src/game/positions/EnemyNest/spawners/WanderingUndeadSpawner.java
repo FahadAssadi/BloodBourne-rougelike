@@ -1,4 +1,4 @@
-package game.positions.spawners;
+package game.positions.EnemyNest.spawners;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.WanderingUndead;

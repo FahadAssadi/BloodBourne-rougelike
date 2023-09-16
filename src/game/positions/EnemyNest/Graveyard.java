@@ -1,4 +1,6 @@
-package game.positions.spawners;
+package game.positions.EnemyNest;
+
+import game.positions.EnemyNest.spawners.Spawner;
 
 /**
  * A special type of ground representing a graveyard.

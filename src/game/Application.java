@@ -9,9 +9,10 @@ import edu.monash.fit2099.engine.positions.World;
 import game.actors.Player;
 import game.displays.FancyMessage;
 import game.positions.*;
+import game.positions.EnemyNest.Graveyard;
 import game.positions.Void;
-import game.positions.spawners.HollowSoliderSpawner;
-import game.positions.spawners.WanderingUndeadSpawner;
+import game.positions.EnemyNest.spawners.HollowSoliderSpawner;
+import game.positions.EnemyNest.spawners.WanderingUndeadSpawner;
 import game.weapons.Broadsword;
 
 import java.util.Arrays;
