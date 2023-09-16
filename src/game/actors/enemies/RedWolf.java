@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.vials.HealingVial;
+import game.artifacts.vials.RefreshingVial;
+import game.behaviours.FollowBehaviour;
 import game.capabilities.Status;
 import game.misc.Utility;
 
@@ -25,6 +27,10 @@ public class RedWolf extends Enemy{
      */
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+
+        this.addBehaviour(1, new FollowBehaviour());
+
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
     }
 
     /**
@@ -36,25 +42,6 @@ public class RedWolf extends Enemy{
      */
     public RedWolf(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-    }
-
-    /**
-     * Define the behavior when the Red Wolf becomes unconscious.
-     * It may drop healing and refreshing vials based on random drop rates.
-     *
-     * @param actor The actor that caused the Red Wolf to become unconscious.
-     * @param map   The GameMap where the event occurred.
-     * @return A string representing the result of becoming unconscious.
-     */
-    @Override
-    public String unconscious(Actor actor, GameMap map) {
-        boolean dropsHealVial = Utility.getRandomEventOccurs(DEFAULT_HEAL_VIAL_DROP_RATE);
-
-        if (dropsHealVial) {
-            new DropAction(new HealingVial()).execute(this, map);
-        }
-
-        return super.unconscious(actor, map);
     }
 
     @Override

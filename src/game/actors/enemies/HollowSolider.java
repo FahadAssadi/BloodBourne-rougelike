@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
+import game.artifacts.OldKey;
 import game.artifacts.vials.HealingVial;
 import game.artifacts.vials.RefreshingVial;
 import game.capabilities.Status;
@@ -31,6 +32,10 @@ public class HollowSolider extends Enemy {
      */
     public HollowSolider(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
+        this.droppableItems.put(new DropAction(new RefreshingVial()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
+
     }
 
     /**
@@ -41,31 +46,6 @@ public class HollowSolider extends Enemy {
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB);
-    }
-
-    /**
-     * Define the behavior when the Hollow Solider becomes unconscious.
-     * It may drop healing and refreshing vials based on random drop rates.
-     *
-     * @param actor The actor that caused the Hollow Solider to become unconscious.
-     * @param map   The GameMap where the event occurred.
-     * @return A string representing the result of becoming unconscious.
-     */
-    @Override
-    public String unconscious(Actor actor, GameMap map) {
-        boolean dropsHealVial = Utility.getRandomEventOccurs(DEFAULT_HEAL_VIAL_DROP_RATE);
-
-        if (dropsHealVial) {
-            new DropAction(new HealingVial()).execute(this, map);
-        }
-
-        boolean dropsRefreshingVial = Utility.getRandomEventOccurs(DEFAULT_REFRESHING_VIAL_DROP_RATE);
-
-        if (dropsRefreshingVial) {
-            new DropAction(new RefreshingVial()).execute(this, map);
-        }
-
-        return super.unconscious(actor, map);
     }
 
     /**

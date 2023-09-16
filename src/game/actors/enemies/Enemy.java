@@ -7,9 +7,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.artifacts.OldKey;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.misc.Utility;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +25,10 @@ public abstract class Enemy extends Actor {
     // A map to store behaviors, where the key is an integer priority
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
 
+    // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
+    protected Map<DropAction, Integer> droppableItems = new HashMap<>();
+
+
     /**
      * Constructor for the Enemy class.
      *
@@ -33,8 +40,8 @@ public abstract class Enemy extends Actor {
         super(name, displayChar, hitPoints);
 
         // Initialize default behaviors for enemies
-        this.behaviours.put(999, new WanderBehaviour());
-        this.behaviours.put(1, new AttackBehaviour());
+        this.addBehaviour(0, new AttackBehaviour());
+        this.addBehaviour(2, new WanderBehaviour());
     }
 
     /**
@@ -56,16 +63,18 @@ public abstract class Enemy extends Actor {
         this.behaviours.remove(key);
     }
 
-    /**
-     * Define the behavior when the enemy actor becomes unconscious by natural causes.
-     * @param map where the actor fell unconscious
-     * @return A string representing the result of becoming unconscious.
-     */
-    @Override
-    public String unconscious(GameMap map) {
-        this.hurt(this.getAttribute(BaseActorAttributes.HEALTH));
 
-        return super.unconscious(map);
+    @Override
+    public String unconscious(Actor actor, GameMap map) {
+        this.droppableItems.forEach(
+            (dropAction, chance) ->  {
+                boolean dropActionOccurs = Utility.getRandomEventOccurs(chance);
+                if (dropActionOccurs) {
+                    dropAction.execute(this, map);
+                }
+            }
+        );
+        return super.unconscious(actor, map);
     }
 
     /**
