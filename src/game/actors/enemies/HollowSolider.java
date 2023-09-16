@@ -6,11 +6,9 @@ import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.artifacts.OldKey;
 import game.artifacts.vials.HealingVial;
-import game.artifacts.vials.RefreshingVial;
+import game.artifacts.vials.RefreshingFlask;
 import game.capabilities.Status;
-import game.misc.Utility;
 
 /**
  * A specific enemy type representing a Hollow Solider in the game.
@@ -34,7 +32,7 @@ public class HollowSolider extends Enemy {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
 
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-        this.droppableItems.put(new DropAction(new RefreshingVial()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
+        this.droppableItems.put(new DropAction(new RefreshingFlask()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
 
     }
 

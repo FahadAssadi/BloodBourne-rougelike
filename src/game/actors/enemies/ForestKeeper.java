@@ -7,10 +7,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.vials.HealingVial;
-import game.artifacts.vials.RefreshingVial;
 import game.behaviours.FollowBehaviour;
 import game.capabilities.Status;
-import game.misc.Utility;
 
 /**
  * A class that represents a special type of enemy called "Forest Keeper"
