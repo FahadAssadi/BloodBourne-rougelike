@@ -25,33 +25,35 @@ public class FollowBehaviour implements Behaviour {
     @Override
     public Action getAction(Actor actor, GameMap map) {
 
-        Actor target = null;
+        if (!map.contains(actor)) {
+            return null;
+        }
 
-        // Find location of the Player in the map if they exist
-        for (int y : map.getYRange()) {
-            for (int x : map.getXRange()) {
-                Location location = map.at(x, y);
-                if (location.containsAnActor()) {
-                    if (location.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
-                        target = location.getActor();
-                    }
+        Location actorLocation = map.locationOf(actor);
+        Location targetLocation = null;
+
+        // Find location of the player if the player is in the surroundings of the actor
+        for (Exit exit : actorLocation.getExits()) {
+            Location destination = exit.getDestination();
+            if (destination.containsAnActor()) {
+                if (destination.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
+                    targetLocation = map.locationOf(destination.getActor());
                 }
             }
         }
 
-        if (target == null || !map.contains(actor))
-            return null;
+        // Move closer to the player if the player is in the surroundings of the actor
+        if (targetLocation != null) {
+            int currentDistance = distance(actorLocation, targetLocation);
 
-        Location here = map.locationOf(actor);
-        Location there = map.locationOf(target);
+            for (Exit exit : actorLocation.getExits()) {
+                Location destination = exit.getDestination();
 
-        int currentDistance = distance(here, there);
-        for (Exit exit : here.getExits()) {
-            Location destination = exit.getDestination();
-            if (destination.canActorEnter(actor)) {
-                int newDistance = distance(destination, there);
-                if (newDistance < currentDistance) {
-                    return new MoveActorAction(destination, exit.getName());
+                if (destination.canActorEnter(actor)) {
+                    int newDistance = distance(destination, targetLocation);
+                    if (newDistance < currentDistance) {
+                        return new MoveActorAction(destination, exit.getName());
+                    }
                 }
             }
         }
