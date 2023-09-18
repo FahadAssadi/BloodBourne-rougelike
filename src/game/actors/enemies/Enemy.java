@@ -8,8 +8,10 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.actions.AttackAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.capabilities.Status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +22,7 @@ import java.util.Map;
  */
 public abstract class Enemy extends Actor {
     // A map to store behaviors, where the key is an integer priority
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    protected Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     /**
      * Constructor for the Enemy class.
@@ -31,30 +33,9 @@ public abstract class Enemy extends Actor {
      */
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-
-        // Initialize default behaviors for enemies
-        this.behaviours.put(999, new WanderBehaviour());
-        this.behaviours.put(1, new AttackBehaviour());
     }
 
-    /**
-     * Add a behavior to the enemy.
-     *
-     * @param key       The priority key for the behavior.
-     * @param behaviour The behavior to add.
-     */
-    protected void addBehaviour(int key, Behaviour behaviour){
-        this.behaviours.put(key, behaviour);
-    }
 
-    /**
-     * Remove a behavior from the enemy.
-     *
-     * @param key The priority key of the behavior to remove.
-     */
-    protected void removeBehaviour(int key){
-        this.behaviours.remove(key);
-    }
 
     /**
      * Define the behavior when the enemy actor becomes unconscious by natural causes.
@@ -89,4 +70,9 @@ public abstract class Enemy extends Actor {
         // If no valid action is found, return a DoNothingAction to represent inaction
         return new DoNothingAction();
     }
+
+   
+
+
+
 }

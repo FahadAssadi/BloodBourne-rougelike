@@ -1,6 +1,14 @@
 package game.actors.enemies;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.actions.AttackAction;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
+import game.capabilities.Status;
 
 /**
  * A class that represents a special type of enemy called "Forest Keeper"
@@ -21,8 +29,17 @@ public class ForestKeeper extends Enemy{
      *
      */
     public ForestKeeper() {
+
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.behaviours.put(2, new AttackBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());
+
+
+
+
     }
+
+
 
     /**
      * Custom constructor for the Forest Keeper Class.
@@ -39,5 +56,15 @@ public class ForestKeeper extends Enemy{
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
+    }
+
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        ActionList actions = new ActionList();
+        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+            actions.add(new AttackAction(this, direction));
+        }
+        return actions;
     }
 }

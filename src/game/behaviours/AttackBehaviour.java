@@ -13,27 +13,59 @@ import game.capabilities.Status;
  * A behavior class representing the behavior of attacking the player if they are adjacent to the actor.
  */
 public class AttackBehaviour implements Behaviour {
+
+    private Actor target;
+
+
     /**
-     * Get the action to perform for attacking the player if they are in an adjacent location.
+     * Retrieves the action to be performed by the wandering undead to attack a hostile actor if within range.
      *
-     * @param engine The actor performing the behavior.
-     * @param map   The game map in which the actor is located.
-     * @return An AttackAction if the player is adjacent, or null if not.
+     * This method checks for the presence of hostile actors in adjacent locations and returns an attack action
+     * if a hostile actor is found within melee range. If the hostile actor is not within melee range, no action is returned.
+     *
+     * @param actor The wandering undead actor performing the action.
+     * @param map   The game map containing the actor and other actors.
+     * @return An attack action to be performed on a nearby hostile actor if present; otherwise, null.
      */
+
     @Override
-    public Action getAction(Actor engine, GameMap map) {
-        for (Exit exit : map.locationOf(engine).getExits()) {
-            Location destination = exit.getDestination();
-
-            if (destination.containsAnActor()) {
-                Actor actor = destination.getActor();
-
-                if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-                    return new AttackAction(actor, map.locationOf(actor).toString());
-                }
-
+    public Action getAction(Actor actor, GameMap map) {
+        Location here = map.locationOf(actor);
+        for (Exit exit: here.getExits())
+        {
+            if (exit.getDestination().containsAnActor() && exit.getDestination().getActor().hasCapability(Status.HOSTILE_TO_ENEMY))
+            {
+                target  =  exit.getDestination().getActor();
             }
         }
+
+        if(!map.contains(target) || !map.contains(actor))
+            return null;
+
+        Location there = map.locationOf(target);
+
+		/*
+		<></>his if condition may seem redundant because if an actor is in one of the exits, it already warrants
+		the distance between the WanderingUndead and Player being 1
+		*/
+        int currentDistance = distance(here, there);
+        if(currentDistance <= 1)
+        {
+
+            return new AttackAction(target , there.toString());
+        }
+
         return null;
+    }
+
+    /**
+     * Compute the Manhattan distance between two locations.
+     *
+     * @param a the first location
+     * @param b the first location
+     * @return the number of steps between a and b if you only move in the four cardinal directions.
+     */
+    private int distance(Location a, Location b) {
+        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
     }
 }
