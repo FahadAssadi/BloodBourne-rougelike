@@ -7,9 +7,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.OldKey;
-import game.artifacts.vials.HealingVial;
+import game.artifacts.consumables.HealingVial;
 import game.behaviours.AttackBehaviour;
-import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
