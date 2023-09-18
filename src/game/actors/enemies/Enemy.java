@@ -7,12 +7,11 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.artifacts.OldKey;
+import game.actions.AttackAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
-import game.misc.Utility;
+import game.capabilities.Status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +22,7 @@ import java.util.Map;
  */
 public abstract class Enemy extends Actor {
     // A map to store behaviors, where the key is an integer priority
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
-
-    // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
-    protected Map<DropAction, Integer> droppableItems = new HashMap<>();
-
+    protected Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     /**
      * Constructor for the Enemy class.
@@ -38,43 +33,20 @@ public abstract class Enemy extends Actor {
      */
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-
-        // Initialize default behaviors for enemies
-        this.addBehaviour(0, new AttackBehaviour());
-        this.addBehaviour(2, new WanderBehaviour());
     }
+
+
 
     /**
-     * Add a behavior to the enemy.
-     *
-     * @param key       The priority key for the behavior.
-     * @param behaviour The behavior to add.
+     * Define the behavior when the enemy actor becomes unconscious by natural causes.
+     * @param map where the actor fell unconscious
+     * @return A string representing the result of becoming unconscious.
      */
-    protected void addBehaviour(int key, Behaviour behaviour){
-        this.behaviours.put(key, behaviour);
-    }
-
-    /**
-     * Remove a behavior from the enemy.
-     *
-     * @param key The priority key of the behavior to remove.
-     */
-    protected void removeBehaviour(int key){
-        this.behaviours.remove(key);
-    }
-
-
     @Override
-    public String unconscious(Actor actor, GameMap map) {
-        this.droppableItems.forEach(
-            (dropAction, chance) ->  {
-                boolean dropActionOccurs = Utility.getRandomEventOccurs(chance);
-                if (dropActionOccurs) {
-                    dropAction.execute(this, map);
-                }
-            }
-        );
-        return super.unconscious(actor, map);
+    public String unconscious(GameMap map) {
+        this.hurt(this.getAttribute(BaseActorAttributes.HEALTH));
+
+        return super.unconscious(map);
     }
 
     /**
@@ -98,4 +70,9 @@ public abstract class Enemy extends Actor {
         // If no valid action is found, return a DoNothingAction to represent inaction
         return new DoNothingAction();
     }
+
+   
+
+
+
 }
