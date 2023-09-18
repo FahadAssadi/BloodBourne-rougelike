@@ -144,13 +144,14 @@ public class Player extends Actor {
      */
     private void displayPlayerStats(Display display) {
         display.println(String.format(
-                "%s \nHP: %s/%s \nStamina: %s/%s",
+                "%s \nHP: %s/%s \nStamina: %s/%s \nRunes: %d",
 
                 this.name,
                 this.getAttribute(BaseActorAttributes.HEALTH),
                 this.getAttributeMaximum(BaseActorAttributes.HEALTH),
                 this.getAttribute(BaseActorAttributes.STAMINA),
-                this.getAttributeMaximum(BaseActorAttributes.STAMINA)
+                this.getAttributeMaximum(BaseActorAttributes.STAMINA),
+                this.getBalance()
         ));
     }
 }
