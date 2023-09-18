@@ -142,7 +142,7 @@ public class Application {
 
         ancientWoods.at(38,5).addItem(new Bloodberry());
         ancientWoods.at(32,10).addItem(new Bloodberry());
-        ancientWoods.at(28,13).addItem(new Bloodberry());
+        ancientWoods.at(28,11).addItem(new Bloodberry());
 
 
         // Printing the DESIGN BORNE logo
