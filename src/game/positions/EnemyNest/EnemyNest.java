@@ -1,30 +1,16 @@
-package game.positions;
+package game.positions.EnemyNest;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.positions.spawners.Spawner;
+import game.positions.EnemyNest.spawners.Spawner;
 
-/**
- * A special type of ground representing a graveyard.
- * This ground can spawn actors from a Spawner and restricts actor movement.
- * Created By:
- * @author Fahad Assadi
- */
-public class Graveyard extends Ground {
-    // Default display character for the Graveyard ground
-    private static final char DEFAULT_DISPLAY_CHAR = 'n';
-    // The spawner used to generate actors in the graveyard
+public abstract class EnemyNest extends Ground {
     private final Spawner spawner;
 
-    /**
-     * Constructor for the Graveyard ground.
-     *
-     * @param spawner The Spawner responsible for generating actors in the graveyard.
-     */
-    public Graveyard(Spawner spawner) {
-        super(DEFAULT_DISPLAY_CHAR);
+    public EnemyNest(char displayChar, Spawner spawner) {
+        super(displayChar);
         this.spawner = spawner;
     }
 

@@ -2,12 +2,12 @@ package game.actors.enemies;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.behaviours.AttackBehaviour;
+import game.artifacts.vials.HealingVial;
 import game.behaviours.FollowBehaviour;
-import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
 /**
@@ -29,19 +29,12 @@ public class ForestKeeper extends Enemy{
      *
      */
     public ForestKeeper() {
-
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.behaviours.put(1, new FollowBehaviour());
-        this.behaviours.put(2, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
 
+        this.addBehaviour(1, new FollowBehaviour());
 
-
-
-
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
     }
-
-
 
     /**
      * Custom constructor for the Forest Keeper Class.
@@ -54,13 +47,19 @@ public class ForestKeeper extends Enemy{
         super(name,displayChar,hitPoints);
     }
 
-
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
     }
 
-
+    /**
+     * Define allowable actions for the Forest Keeper based on the presence of hostile actors.
+     *
+     * @param otherActor The other actor (usually the player) to check for hostility.
+     * @param direction  The direction in which the action is allowed.
+     * @param map        The GameMap where the action occurs.
+     * @return A list of allowable actions for the Hollow Solider.
+     */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();

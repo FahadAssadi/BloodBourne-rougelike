@@ -10,16 +10,16 @@ import game.actions.ConsumeAction;
 /**
  * A specific consumable item representing a Refreshing Vial in the game.
  */
-public class RefreshingVial extends Item implements Consumable {
-    private static final String DEFAULT_NAME = "Refreshing Vial";
+public class RefreshingFlask extends Item implements Consumable {
+    private static final String DEFAULT_NAME = "Refreshing Flask";
     private static final char DEFAULT_DISPLAY_CHAR = 'u';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_STAMINA_RESTORATION = 0.2;
 
     /**
-     * Constructor for the RefreshingVial class.
+     * Constructor for the RefreshingFlask class.
      */
-    public RefreshingVial() {
+    public RefreshingFlask() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
     }
 
