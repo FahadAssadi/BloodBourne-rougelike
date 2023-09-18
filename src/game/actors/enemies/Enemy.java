@@ -7,8 +7,11 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.actions.AttackAction;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.WanderBehaviour;
+import game.capabilities.Status;
 import game.artifacts.OldKey;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
@@ -54,14 +57,6 @@ public abstract class Enemy extends Actor {
         this.behaviours.put(key, behaviour);
     }
 
-    /**
-     * Remove a behavior from the enemy.
-     *
-     * @param key The priority key of the behavior to remove.
-     */
-    protected void removeBehaviour(int key){
-        this.behaviours.remove(key);
-    }
 
 
     @Override
@@ -98,4 +93,9 @@ public abstract class Enemy extends Actor {
         // If no valid action is found, return a DoNothingAction to represent inaction
         return new DoNothingAction();
     }
+
+   
+
+
+
 }

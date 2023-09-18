@@ -22,53 +22,29 @@ import game.capabilities.Status;
 
 public class FollowBehaviour implements Behaviour {
 
-    @Override
-    public Action getAction(Actor actor, GameMap map) {
+	@Override
+	public Action getAction(Actor actor, GameMap map) {
 
-        if (!map.contains(actor)) {
-            return null;
-        }
+		if (!map.contains(actor)) {
+			return null;
+		}
 
-        Location actorLocation = map.locationOf(actor);
-        Location targetLocation = null;
+		Location here = map.locationOf(actor);
+		Location there = null;
 
-        // Find location of the player if the player is in the surroundings of the actor
-        for (Exit exit : actorLocation.getExits()) {
-            Location destination = exit.getDestination();
-            if (destination.containsAnActor()) {
-                if (destination.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
-                    targetLocation = map.locationOf(destination.getActor());
-                }
-            }
-        }
+		// Find location of the player if the player is in the surroundings of the actor
+		for (Exit exit : here.getExits()) {
+			Location destination = exit.getDestination();
+			if (destination.containsAnActor() && destination.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
 
-        // Move closer to the player if the player is in the surroundings of the actor
-        if (targetLocation != null) {
-            int currentDistance = distance(actorLocation, targetLocation);
+				there = destination;
+				return new MoveActorAction(there, exit.getName());
 
-            for (Exit exit : actorLocation.getExits()) {
-                Location destination = exit.getDestination();
+			}
+		}
 
-                if (destination.canActorEnter(actor)) {
-                    int newDistance = distance(destination, targetLocation);
-                    if (newDistance < currentDistance) {
-                        return new MoveActorAction(destination, exit.getName());
-                    }
-                }
-            }
-        }
+		// Move closer to the player if the player is in the surroundings of the actor
 
-        return null;
-    }
-
-    /**
-     * Compute the Manhattan distance between two locations.
-     *
-     * @param a the first location
-     * @param b the first location
-     * @return the number of steps between a and b if you only move in the four cardinal directions.
-     */
-    private int distance(Location a, Location b) {
-        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
-    }
+		return null;
+	}
 }
