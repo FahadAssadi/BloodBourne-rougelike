@@ -5,16 +5,16 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
-import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
+
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.AttackAction;
+
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
-import game.capabilities.Status;
-import game.artifacts.OldKey;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.WanderBehaviour;
+
+
+
 import game.misc.Utility;
 
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public abstract class Enemy extends Actor {
     // A map to store behaviors, where the key is an integer priority
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    protected Map <Integer, Behaviour> behaviours = new HashMap<>();
 
     // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
     protected Map<DropAction, Integer> droppableItems = new HashMap<>();

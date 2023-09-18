@@ -37,14 +37,12 @@ public class FollowBehaviour implements Behaviour {
 			Location destination = exit.getDestination();
 			if (destination.containsAnActor() && destination.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
 
+				// Move to the player's old location if the player is in the surroundings of the actor
 				there = destination;
 				return new MoveActorAction(there, exit.getName());
 
 			}
 		}
-
-		// Move closer to the player if the player is in the surroundings of the actor
-
 		return null;
 	}
 }
