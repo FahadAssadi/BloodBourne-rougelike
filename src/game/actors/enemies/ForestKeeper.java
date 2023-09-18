@@ -31,8 +31,10 @@ public class ForestKeeper extends Enemy{
     public ForestKeeper() {
 
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.behaviours.put(1, new FollowBehaviour());
         this.behaviours.put(2, new AttackBehaviour());
         this.behaviours.put(3, new WanderBehaviour());
+
 
 
 

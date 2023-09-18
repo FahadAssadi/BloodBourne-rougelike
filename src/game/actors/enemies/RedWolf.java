@@ -1,6 +1,5 @@
 package game.actors.enemies;
 
-import edu.monash.fit2099.demo.mars.behaviours.FollowBehaviour;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
@@ -9,6 +8,7 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.actors.Player;
 import game.behaviours.AttackBehaviour;
+import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
@@ -28,6 +28,7 @@ public class RedWolf extends Enemy{
      */
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.behaviours.put(1, new FollowBehaviour());
         this.behaviours.put(2, new AttackBehaviour());
         this.behaviours.put(3, new WanderBehaviour());
     }
