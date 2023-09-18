@@ -101,7 +101,7 @@ public class Application {
         // Created Locked Gates for Burial Grounds and Abandoned Village
         LockedGate gateToBurialGrounds = new LockedGate(new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds"));
         LockedGate gateToAbandonedVillage = new LockedGate(new MoveActorAction(gameMap.at(30,1), "to The Abandoned Village"));
-        LockedGate gateToAncientWoods = new LockedGate(new MoveActorAction(ancientWoods.at(15,1), "to The Ancient Woods"));
+        LockedGate gateToAncientWoods = new LockedGate(new MoveActorAction(ancientWoods.at(38,11), "to The Ancient Woods"));
 
         gameMap.at(30, 0).setGround(gateToBurialGrounds);
         burialGrounds.at(39,14).setGround(gateToAbandonedVillage);

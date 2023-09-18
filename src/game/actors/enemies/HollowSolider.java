@@ -8,6 +8,9 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.vials.HealingVial;
 import game.artifacts.vials.RefreshingFlask;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
 /**
@@ -30,10 +33,22 @@ public class HollowSolider extends Enemy {
      */
     public HollowSolider(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+    }
 
+    public HollowSolider(String name, char displayChar, int hitPoints) {
+        super(name, displayChar, hitPoints);
+    }
+
+    @Override
+    protected void addBehaviours() {
+        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());;
+    }
+
+    @Override
+    protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
         this.droppableItems.put(new DropAction(new RefreshingFlask()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
-
     }
 
     /**

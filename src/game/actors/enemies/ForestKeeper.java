@@ -36,17 +36,6 @@ public class ForestKeeper extends Enemy{
      */
     public ForestKeeper() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-
-
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-        this.behaviours.put(1, new FollowBehaviour());
-        this.behaviours.put(2, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
-
-
-
-
-
     }
 
     /**
@@ -58,13 +47,19 @@ public class ForestKeeper extends Enemy{
      */
     public ForestKeeper(String name, char displayChar, int hitPoints) {
         super(name,displayChar,hitPoints);
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-        this.behaviours.put(1, new FollowBehaviour());
-        this.behaviours.put(2, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
-
     }
 
+    @Override
+    protected void addBehaviours() {
+        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(2, new FollowBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());
+    }
+
+    @Override
+    protected void addDroppableItems() {
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
+    }
 
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {

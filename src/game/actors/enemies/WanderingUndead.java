@@ -8,8 +8,10 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.OldKey;
 import game.artifacts.vials.HealingVial;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-import game.misc.Utility;
 
 /**
  * A specific enemy type representing a Wandering Undead in the game.
@@ -29,9 +31,6 @@ public class WanderingUndead extends Enemy {
      */
     public WanderingUndead() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-
-        this.droppableItems.put(new DropAction(new OldKey()), DEFAULT_OLD_KEY_DROP_RATE);
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
     }
 
     /**
@@ -42,6 +41,18 @@ public class WanderingUndead extends Enemy {
      */
     public WanderingUndead(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+    }
+
+    @Override
+    protected void addBehaviours() {
+        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());
+    }
+
+    @Override
+    protected void addDroppableItems() {
+        this.droppableItems.put(new DropAction(new OldKey()), 100);
+        this.droppableItems.put(new DropAction(new HealingVial()), 100);
     }
 
     /**

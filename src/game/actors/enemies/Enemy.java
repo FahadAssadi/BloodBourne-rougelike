@@ -42,22 +42,13 @@ public abstract class Enemy extends Actor {
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
 
-        // Initialize default behaviors for enemies
-        this.addBehaviour(0, new AttackBehaviour());
-        this.addBehaviour(2, new WanderBehaviour());
+        this.addBehaviours();
+        this.addDroppableItems();
     }
 
-    /**
-     * Add a behavior to the enemy.
-     *
-     * @param key       The priority key for the behavior.
-     * @param behaviour The behavior to add.
-     */
-    protected void addBehaviour(int key, Behaviour behaviour){
-        this.behaviours.put(key, behaviour);
-    }
+    protected abstract void addBehaviours();
 
-
+    protected abstract void addDroppableItems();
 
     @Override
     public String unconscious(Actor actor, GameMap map) {
@@ -93,9 +84,4 @@ public abstract class Enemy extends Actor {
         // If no valid action is found, return a DoNothingAction to represent inaction
         return new DoNothingAction();
     }
-
-   
-
-
-
 }

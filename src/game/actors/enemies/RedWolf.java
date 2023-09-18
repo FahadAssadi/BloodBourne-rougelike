@@ -2,20 +2,15 @@ package game.actors.enemies;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.actors.Player;
 import game.artifacts.vials.HealingVial;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-
-
-
 
 public class RedWolf extends Enemy{
     // Default attributes for the Red Wolf
@@ -31,27 +26,26 @@ public class RedWolf extends Enemy{
 
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.behaviours.put(1, new FollowBehaviour());
-        this.behaviours.put(2, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-
     }
+
     /**
      * Constructor for the RedWolf class.
      */
     public RedWolf(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-
-        this.behaviours.put(1, new FollowBehaviour());
-        this.behaviours.put(2, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
     }
 
+    @Override
+    protected void addBehaviours() {
+        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(2, new FollowBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());
+    }
 
-
-
+    @Override
+    protected void addDroppableItems() {
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
+    }
 
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
