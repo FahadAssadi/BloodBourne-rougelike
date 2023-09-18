@@ -23,6 +23,11 @@ public class Bloodberry extends Item implements Consumable{
         super(name, displayChar, portable);
     }
 
+    public Bloodberry() {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
+    }
+
+
     @Override
     public void consume(Actor actor) {
         // Increase the actor's max health by the calculated amount
