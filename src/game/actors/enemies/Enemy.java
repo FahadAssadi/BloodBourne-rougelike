@@ -32,7 +32,6 @@ public abstract class Enemy extends Actor {
     protected Map<DropAction, Integer> droppableItems = new HashMap<>();
 
     protected static final int DEFAULT_RUNES_DROP_RATE = 100;
-    private int runesDropAmount;
 
     /**
      * Constructor for the Enemy class.
@@ -51,12 +50,6 @@ public abstract class Enemy extends Actor {
     protected abstract void addBehaviours();
 
     protected abstract void addDroppableItems();
-
-    public void setRunesDropAmount(int runesDropAmount) {
-        this.runesDropAmount = runesDropAmount;
-    }
-
-
 
     @Override
     public String unconscious(Actor actor, GameMap map) {
