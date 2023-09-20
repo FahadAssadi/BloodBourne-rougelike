@@ -6,10 +6,10 @@ import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.artifacts.vials.HealingVial;
-import game.artifacts.vials.RefreshingFlask;
+import game.artifacts.consumables.HealingVial;
+import game.artifacts.consumables.RefreshingFlask;
+import game.artifacts.consumables.Runes;
 import game.behaviours.AttackBehaviour;
-import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
@@ -49,6 +49,7 @@ public class HollowSolider extends Enemy {
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
         this.droppableItems.put(new DropAction(new RefreshingFlask()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(100)), DEFAULT_RUNES_DROP_RATE);
     }
 
     /**

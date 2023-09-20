@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.Ground;
 import game.actions.ConsumeAction;
-import game.artifacts.vials.Consumable;
+import game.artifacts.consumables.Consumable;
 
 public class Puddle extends Ground implements Consumable {
     private static final int DEFAULT_HEATH_RESTORATION = 1;

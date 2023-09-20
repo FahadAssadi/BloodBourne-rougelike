@@ -31,6 +31,7 @@ public abstract class Enemy extends Actor {
     // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
     protected Map<DropAction, Integer> droppableItems = new HashMap<>();
 
+    protected static final int DEFAULT_RUNES_DROP_RATE = 100;
 
     /**
      * Constructor for the Enemy class.

@@ -7,9 +7,9 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.OldKey;
-import game.artifacts.vials.HealingVial;
+import game.artifacts.consumables.HealingVial;
+import game.artifacts.consumables.Runes;
 import game.behaviours.AttackBehaviour;
-import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
@@ -51,8 +51,9 @@ public class WanderingUndead extends Enemy {
 
     @Override
     protected void addDroppableItems() {
-        this.droppableItems.put(new DropAction(new OldKey()), 100);
-        this.droppableItems.put(new DropAction(new HealingVial()), 100);
+        this.droppableItems.put(new DropAction(new OldKey()), DEFAULT_OLD_KEY_DROP_RATE);
+        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(50)), DEFAULT_RUNES_DROP_RATE);
     }
 
     /**

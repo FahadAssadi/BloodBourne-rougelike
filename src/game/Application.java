@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.actors.Player;
+import game.artifacts.consumables.Bloodberry;
 import game.displays.FancyMessage;
 import game.positions.*;
 import game.positions.EnemyNest.Bush;
@@ -138,6 +139,11 @@ public class Application {
         ancientWoods.at(25,3).setGround(bush1);
         ancientWoods.at(30,7).setGround(bush2);
         ancientWoods.at(35,11).setGround(bush3);
+
+        ancientWoods.at(38,5).addItem(new Bloodberry());
+        ancientWoods.at(32,10).addItem(new Bloodberry());
+        ancientWoods.at(28,11).addItem(new Bloodberry());
+
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
