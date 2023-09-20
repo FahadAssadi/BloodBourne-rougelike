@@ -8,8 +8,10 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.actions.TransactionAction;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.displays.FancyMessage;
@@ -44,6 +46,7 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
+        this.addCapability(Ability.TRANSACTS);
     }
 
     /**
@@ -60,6 +63,7 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
+        this.addCapability(Ability.TRANSACTS);
     }
 
     /**
@@ -153,5 +157,16 @@ public class Player extends Actor {
                 this.getAttributeMaximum(BaseActorAttributes.STAMINA),
                 this.getBalance()
         ));
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        ActionList actions = new ActionList();
+        if(otherActor.hasCapability(Ability.TRANSACTS)){
+            for (Item item: this.getItemInventory()) {
+                actions.add(new TransactionAction(item, this, otherActor));
+            }
+        }
+        return actions;
     }
 }

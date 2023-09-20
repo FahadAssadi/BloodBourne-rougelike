@@ -26,6 +26,8 @@ public class WanderingUndead extends Enemy {
     private static final int DEFAULT_OLD_KEY_DROP_RATE = 25;
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
 
+    private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
+
     /**
      * Constructor for the WanderingUndead class.
      */
@@ -53,7 +55,7 @@ public class WanderingUndead extends Enemy {
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new OldKey()), DEFAULT_OLD_KEY_DROP_RATE);
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-        this.droppableItems.put(new DropAction(new Runes(50)), DEFAULT_RUNES_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
     /**
