@@ -44,7 +44,7 @@ public class HollowSolider extends Enemy {
     @Override
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());;
+        this.behaviours.put(999, new WanderBehaviour());;
     }
 
     @Override

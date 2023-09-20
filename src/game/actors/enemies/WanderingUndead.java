@@ -10,6 +10,7 @@ import game.artifacts.OldKey;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.Runes;
 import game.behaviours.AttackBehaviour;
+import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
@@ -48,7 +49,7 @@ public class WanderingUndead extends Enemy {
     @Override
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
+        this.behaviours.put(999, new WanderBehaviour());
     }
 
     @Override
@@ -81,6 +82,7 @@ public class WanderingUndead extends Enemy {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
+            this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
     }
