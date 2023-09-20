@@ -26,7 +26,6 @@ public class WanderingUndead extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "whacks";
     private static final int DEFAULT_OLD_KEY_DROP_RATE = 25;
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
 
     /**
@@ -82,7 +81,6 @@ public class WanderingUndead extends Enemy {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
-            this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
     }
