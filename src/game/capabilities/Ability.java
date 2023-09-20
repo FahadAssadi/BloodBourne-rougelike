@@ -13,5 +13,6 @@ public enum Ability {
      * This ability suggests that an actor has the capability to walk on certain types of tiles or terrain
      * without encountering negative effects or hazards.
      */
-    WALKS_SAFE_TILES
+    WALKS_SAFE_TILES,
+    TRANSACTS
 }
