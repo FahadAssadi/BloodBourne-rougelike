@@ -25,6 +25,8 @@ public class RedWolf extends Enemy{
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "bites";
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
 
+    private static final int DEFAULT_RUNE_DROP_AMOUNT = 25;
+
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
     }
@@ -46,7 +48,7 @@ public class RedWolf extends Enemy{
     @Override
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
-        this.droppableItems.put(new DropAction(new Runes(25)), DEFAULT_RUNES_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
     @Override

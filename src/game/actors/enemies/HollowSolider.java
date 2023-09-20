@@ -28,6 +28,8 @@ public class HollowSolider extends Enemy {
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
     private static final int DEFAULT_REFRESHING_VIAL_DROP_RATE = 30;
 
+    private static final int DEFAULT_RUNE_DROP_AMOUNT = 100;
+
     /**
      * Constructor for the HollowSolider class.
      */
@@ -49,7 +51,7 @@ public class HollowSolider extends Enemy {
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
         this.droppableItems.put(new DropAction(new RefreshingFlask()), DEFAULT_REFRESHING_VIAL_DROP_RATE);
-        this.droppableItems.put(new DropAction(new Runes(100)), DEFAULT_RUNES_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
     /**
