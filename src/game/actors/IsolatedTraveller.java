@@ -2,18 +2,20 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.SellAction;
 import game.actions.TransactionAction;
-import game.artifacts.consumables.Bloodberry;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.capabilities.Ability;
+import game.capabilities.Status;
+import game.capabilities.TransactionType;
 import game.weapons.Broadsword;
 
+import javax.swing.tree.TreeNode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,17 +60,28 @@ public class IsolatedTraveller extends Actor {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return null;
+        return new DoNothingAction();
     }
 
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Ability.TRANSACTS)){
-            for (Item item: this.getItemInventory()) {
-                actions.add(new TransactionAction(item, this, otherActor));
-            }
+
+        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+            this.sellableItems.forEach(
+                (item, price) -> {
+                    actions.add(new TransactionAction(item, TransactionType.PURCHASE, otherActor, this, price));
+                }
+            );
+
+            // HOW DO WE GET THE PRICE THAT THE PLAYER IS SELLING AT ??? Can't access sellable items of player here
+            otherActor.getItemInventory().forEach(
+                (item) -> {
+                    actions.add(new TransactionAction(item, TransactionType.SELL, this, otherActor, 404));
+                }
+            );
         }
+
         return actions;
     }
 }

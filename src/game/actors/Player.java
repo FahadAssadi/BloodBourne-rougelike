@@ -17,6 +17,7 @@ import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.capabilities.TransactionType;
 import game.displays.FancyMessage;
 import game.weapons.Broadsword;
 
@@ -182,14 +183,20 @@ public class Player extends Actor {
         ));
     }
 
+
+    // APPROACH #1: But THIS DOESN'T GET CALLED IN processActorTurn
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Ability.TRANSACTS)){
-            for (Item item: this.getItemInventory()) {
-                actions.add(new TransactionAction(item, this, otherActor));
-            }
+
+        if(otherActor.hasCapability(Ability.TRANSACTS)) {
+            this.sellableItems.forEach(
+                (item, price) -> {
+                    actions.add(new TransactionAction(item, TransactionType.SELL, this, otherActor, price));
+                }
+            );
         }
+
         return actions;
     }
 }

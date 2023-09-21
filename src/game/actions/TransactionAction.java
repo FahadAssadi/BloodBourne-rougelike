@@ -4,28 +4,37 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.TransactionType;
 
 public class TransactionAction extends Action {
 
     private Item item;
-    private Actor seller;
+    private TransactionType type;
     private Actor buyer;
+    private Actor seller;
+    private double price;
 
-    public TransactionAction(Item item, Actor seller, Actor buyer) {
+    public TransactionAction(Item item, TransactionType type, Actor buyer, Actor seller, double price) {
         this.item = item;
-        this.seller = seller;
+        this.type = type;
         this.buyer = buyer;
+        this.seller = seller;
+        this.price = price;
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
         // TO-DO
+
         return null;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        // TO-DO
-        return null;
+        if (type == TransactionType.PURCHASE) {
+            return actor + "purchases " + item + " for " + price;
+        } else {
+            return actor + "sells " + item + " for " + price;
+        }
     }
 }

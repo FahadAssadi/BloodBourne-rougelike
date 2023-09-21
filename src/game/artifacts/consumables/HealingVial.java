@@ -4,7 +4,12 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
+import game.actions.TransactionAction;
+import game.capabilities.Ability;
+import game.capabilities.Status;
+import game.capabilities.TransactionType;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.
@@ -51,6 +56,11 @@ public class HealingVial extends Item implements Consumable {
         // Allow the owner actor to consume the Healing Vial
         actions.add(new ConsumeAction(this));
 
+        // APPROACH #2: ALLOWING PLAYER TO SELL EACH ITEM IN THEIR INVENTORY ONLY when in vicinity of Traveller
+        // Would need to implement this in every single item class
+        // actions.add(new TransactionAction(this, TransactionType.SELL, owner, owner, 0));
+
         return actions;
     }
+
 }
