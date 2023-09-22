@@ -10,8 +10,8 @@ import game.actions.PurchaseAction;
 import game.artifacts.PurchasableItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
-import game.artifacts.trickery.PricingTrickery;
-import game.artifacts.trickery.ScamTrickery;
+import game.artifacts.quirks.PricingQuirk;
+import game.artifacts.quirks.ScamQuirk;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
 
@@ -25,7 +25,7 @@ public class IsolatedTraveller extends Actor {
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
     private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
 
-    protected List<PurchasableItem> sellableItems = sellableItems = new ArrayList<>();;
+    protected List<PurchasableItem> sellableItems = sellableItems = new ArrayList<>();
     private static final int DEFAULT_HEALING_VIAL_PRICE = 100;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 75;
     private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
@@ -52,9 +52,9 @@ public class IsolatedTraveller extends Actor {
     }
 
     public void populateSellable() {
-        this.sellableItems.add(new PurchasableItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE, new PricingTrickery()));
-        this.sellableItems.add(new PurchasableItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE, new PricingTrickery()));
-        this.sellableItems.add(new PurchasableItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE, new ScamTrickery()));
+        this.sellableItems.add(new PurchasableItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE, new PricingQuirk(25, 50)));
+        this.sellableItems.add(new PurchasableItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE, new PricingQuirk(10, -20)));
+        this.sellableItems.add(new PurchasableItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE, new ScamQuirk(5)));
     }
 
     @Override

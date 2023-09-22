@@ -16,7 +16,6 @@ import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.capabilities.Ability;
 import game.capabilities.Status;
-import game.capabilities.TransactionType;
 import game.displays.FancyMessage;
 import game.artifacts.weapons.Broadsword;
 
