@@ -6,10 +6,8 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
-import game.actions.TransactionAction;
+import game.actions.SellAction;
 import game.capabilities.Ability;
-import game.capabilities.Status;
-import game.capabilities.TransactionType;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.

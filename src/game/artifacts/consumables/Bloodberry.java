@@ -5,9 +5,13 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
+import game.actions.SellAction;
+import game.artifacts.Sellable;
+import game.capabilities.Ability;
 
-public class Bloodberry extends Item implements Consumable{
+public class Bloodberry extends Item implements Consumable, Sellable {
     /***
      * Constructor.
      *  @param name the name of this Item

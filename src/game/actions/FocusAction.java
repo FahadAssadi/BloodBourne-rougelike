@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.capabilities.Status;
-import game.weapons.WeaponSkill;
+import game.artifacts.weapons.WeaponSkill;
 
 /**
  * An action representing the activation of a focus skill associated with a weapon.

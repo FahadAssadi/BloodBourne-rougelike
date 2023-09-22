@@ -1,4 +1,4 @@
-package game.weapons;
+package game.artifacts.weapons;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -6,6 +6,9 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.AttackAction;
 import game.actions.FocusAction;
+import game.actions.SellAction;
+import game.artifacts.Sellable;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**

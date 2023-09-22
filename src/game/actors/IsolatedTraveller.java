@@ -5,31 +5,37 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.TransactionAction;
+import game.actions.PurchaseAction;
+import game.artifacts.PurchasableItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
+import game.artifacts.trickery.PricingTrickery;
+import game.artifacts.trickery.ScamTrickery;
 import game.capabilities.Ability;
-import game.capabilities.Status;
-import game.capabilities.TransactionType;
-import game.weapons.Broadsword;
+import game.artifacts.weapons.Broadsword;
 
-import javax.swing.tree.TreeNode;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class IsolatedTraveller extends Actor {
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
-    private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesnt affect gameplay.
+    private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
 
-    protected Map<Item, Integer> sellableItems = new HashMap<>();
-    private static final int DEFAULT_VIAL_PRICE = 100;
-    private static final int DEFAULT_FLASK_PRICE = 75;
-    private static final int DEFAULT_SWORD_PRICE = 250;
+    protected List<PurchasableItem> sellableItems = sellableItems = new ArrayList<>();;
+    private static final int DEFAULT_HEALING_VIAL_PRICE = 100;
+    private static final int DEFAULT_REFRESHING_FLASK_PRICE = 75;
+    private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
+
+    public IsolatedTraveller() {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.addCapability(Ability.TRANSACTS);
+
+        this.populateSellable();
+    }
 
     /**
      * The constructor of the Actor class.
@@ -45,17 +51,10 @@ public class IsolatedTraveller extends Actor {
         this.populateSellable();
     }
 
-    public IsolatedTraveller() {
-        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Ability.TRANSACTS);
-
-        this.populateSellable();
-    }
-
     public void populateSellable() {
-        this.sellableItems.put(new HealingVial(), DEFAULT_VIAL_PRICE);
-        this.sellableItems.put(new RefreshingFlask(), DEFAULT_FLASK_PRICE);
-        this.sellableItems.put(new Broadsword(), DEFAULT_SWORD_PRICE);
+        this.sellableItems.add(new PurchasableItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE, new PricingTrickery()));
+        this.sellableItems.add(new PurchasableItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE, new PricingTrickery()));
+        this.sellableItems.add(new PurchasableItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE, new ScamTrickery()));
     }
 
     @Override
@@ -67,19 +66,8 @@ public class IsolatedTraveller extends Actor {
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
 
-        if (otherActor.hasCapability(Ability.TRANSACTS)) {
-            this.sellableItems.forEach(
-                (item, price) -> {
-                    actions.add(new TransactionAction(item, TransactionType.PURCHASE, otherActor, this, price));
-                }
-            );
-
-            // HOW DO WE GET THE PRICE THAT THE PLAYER IS SELLING AT ??? Can't access sellable items of player here
-            otherActor.getItemInventory().forEach(
-                (item) -> {
-                    actions.add(new TransactionAction(item, TransactionType.SELL, this, otherActor, 404));
-                }
-            );
+        for (PurchasableItem purchasableItem : this.sellableItems){
+            actions.add(new PurchaseAction(purchasableItem));
         }
 
         return actions;

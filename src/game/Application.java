@@ -20,7 +20,7 @@ import game.positions.EnemyNest.spawners.RedWolfSpawner;
 import game.positions.Void;
 import game.positions.EnemyNest.spawners.HollowSoliderSpawner;
 import game.positions.EnemyNest.spawners.WanderingUndeadSpawner;
-import game.weapons.Broadsword;
+import game.artifacts.weapons.Broadsword;
 
 import java.util.Arrays;
 import java.util.List;

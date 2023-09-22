@@ -1,4 +1,4 @@
-package game.weapons;
+package game.artifacts.weapons;
 
 /**
  * Contract for objects that have weapon skills in your game.

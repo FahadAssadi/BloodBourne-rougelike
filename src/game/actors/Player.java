@@ -11,7 +11,6 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.actions.TransactionAction;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
@@ -19,7 +18,7 @@ import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.capabilities.TransactionType;
 import game.displays.FancyMessage;
-import game.weapons.Broadsword;
+import game.artifacts.weapons.Broadsword;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -181,22 +180,5 @@ public class Player extends Actor {
                 this.getAttributeMaximum(BaseActorAttributes.STAMINA),
                 this.getBalance()
         ));
-    }
-
-
-    // APPROACH #1: But THIS DOESN'T GET CALLED IN processActorTurn
-    @Override
-    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        ActionList actions = new ActionList();
-
-        if(otherActor.hasCapability(Ability.TRANSACTS)) {
-            this.sellableItems.forEach(
-                (item, price) -> {
-                    actions.add(new TransactionAction(item, TransactionType.SELL, this, otherActor, price));
-                }
-            );
-        }
-
-        return actions;
     }
 }
