@@ -62,7 +62,7 @@ public class Bloodberry extends Item implements Consumable, Sellable {
     public ActionList allowableActions(Actor otherActor, Location location) {
         ActionList actions = new ActionList();
 
-        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+        if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(this, DEFAULT_BLOODBERRY_PRICE));
         }
 

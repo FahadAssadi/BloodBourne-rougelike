@@ -1,17 +1,14 @@
 package game.artifacts;
 
 import edu.monash.fit2099.engine.items.Item;
-import game.artifacts.quirks.Quirk;
 
 public class PurchasableItem {
-    private final Item item;
+    private Item item;
     private int price;
-    private final Quirk quirk;
 
-    public PurchasableItem(Item item, int originalPrice, Quirk quirk){
+    public PurchasableItem(Item item, int originalPrice){
         this.item = item;
         this.price = originalPrice;
-        this.quirk = quirk;
     }
 
     public Item getItem() {
@@ -22,8 +19,8 @@ public class PurchasableItem {
         return price;
     }
 
-    public Quirk getTrickery() {
-        return quirk;
+    public void setItem(Item item){
+        this.item = item;
     }
 
     public void setPrice(int price) {

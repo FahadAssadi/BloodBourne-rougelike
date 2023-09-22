@@ -62,7 +62,7 @@ public class HealingVial extends Item implements Consumable {
     public ActionList allowableActions(Actor otherActor, Location location) {
         ActionList actions = new ActionList();
 
-        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+        if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(this, DEFAULT_HEALING_VIAL_PRICE));
         }
 

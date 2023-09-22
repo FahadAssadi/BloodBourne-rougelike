@@ -6,23 +6,19 @@ import game.artifacts.PurchasableItem;
 import game.misc.Utility;
 
 public class ScamQuirk implements Quirk {
+    private final double probability;
 
-    private final double occurrenceChance;
-    public ScamQuirk(double chance) {
-
-        this.occurrenceChance = chance;
+    public ScamQuirk(double probability) {
+        this.probability = probability;
     }
 
     @Override
-    public void perform(Actor actor, Item item, int price) {
-
-        if (!Utility.getRandomEventOccurs(occurrenceChance))
-        {
-            actor.addItemToInventory(item);
-        }
-        actor.deductBalance(price);
-
+    public void perform(PurchasableItem purchasableItem) {
+        purchasableItem.setItem(null);
     }
 
-
+    @Override
+    public boolean doesOccur() {
+        return Utility.getRandomEventOccurs(this.probability);
+    }
 }

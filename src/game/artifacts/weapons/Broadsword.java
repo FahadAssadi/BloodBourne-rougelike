@@ -145,7 +145,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
 
         actions.add(new AttackAction(otherActor, location.toString(), this));
 
-        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+        if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(this, DEFAULT_BROADSWORD_PRICE));
         }
 

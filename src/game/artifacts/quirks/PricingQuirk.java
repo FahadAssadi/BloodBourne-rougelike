@@ -1,34 +1,26 @@
 package game.artifacts.quirks;
 
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.items.Item;
 import game.artifacts.PurchasableItem;
 import game.misc.Utility;
 
 public class PricingQuirk implements Quirk {
-    private double occurrenceChance;
-    private double pricePercentage;
+    private final double probability;
+    private final double pricePercentage;
 
-    public PricingQuirk(double occurrenceChance, double pricePercentage) {
-        this.occurrenceChance = occurrenceChance;
+    public PricingQuirk(double probability, double pricePercentage) {
+        this.probability = probability;
         this.pricePercentage = pricePercentage;
     }
 
     @Override
-    public void perform(Actor actor, Item item, int price) {
+    public void perform(PurchasableItem purchasableItem) {
+        int priceChange = (int) (purchasableItem.getPrice() * (1 + this.pricePercentage/100));
 
-        if (!Utility.getRandomEventOccurs(occurrenceChance))
-        {
-            actor.deductBalance(price);
-            actor.addItemToInventory(item);
-        }
-        else {
-            int markedUpPrice =  (int) (price * (1+this.pricePercentage/100));
-            actor.deductBalance(markedUpPrice);
-            actor.addItemToInventory(item);
-        }
-
+        purchasableItem.setPrice(priceChange);
     }
 
-
+    @Override
+    public boolean doesOccur() {
+        return Utility.getRandomEventOccurs(this.probability);
+    }
 }

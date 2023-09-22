@@ -11,13 +11,9 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.artifacts.consumables.Bloodberry;
-import game.artifacts.consumables.HealingVial;
-import game.artifacts.consumables.RefreshingFlask;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.displays.FancyMessage;
-import game.artifacts.weapons.Broadsword;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +36,6 @@ public class Player extends Actor {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final int DEFAULT_STAMINA_RESTORATION_PERCENTAGE = 1;
 
-    protected Map<Item, Integer> sellableItems = new HashMap<>();
-    private static final int DEFAULT_VIAL_PRICE = 35;
-    private static final int DEFAULT_FLASK_PRICE = 25;
-    private static final int DEFAULT_SWORD_PRICE = 100;
-    private static final int DEFAULT_BERRY_PRICE = 10;
-
     /**
      * Default constructor for the Player class.
      * It initializes the Player with default attributes.
@@ -57,9 +47,6 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
-        this.addCapability(Ability.TRANSACTS);
-
-        this.populateSellable();
     }
 
     /**
@@ -76,16 +63,6 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
-        this.addCapability(Ability.TRANSACTS);
-
-        this.populateSellable();
-    }
-
-    public void populateSellable() {
-        this.sellableItems.put(new HealingVial(), DEFAULT_VIAL_PRICE);
-        this.sellableItems.put(new RefreshingFlask(), DEFAULT_FLASK_PRICE);
-        this.sellableItems.put(new Broadsword(), DEFAULT_SWORD_PRICE);
-        this.sellableItems.put(new Bloodberry(), DEFAULT_BERRY_PRICE);
     }
 
     /**
@@ -159,6 +136,9 @@ public class Player extends Actor {
 
         // Printing the current hit points and stamina of the player
         this.displayPlayerStats(display);
+
+        // TEMP adding runes every turn
+        this.addBalance(500);
 
         // return/print the console menu
         Menu menu = new Menu(actions);
