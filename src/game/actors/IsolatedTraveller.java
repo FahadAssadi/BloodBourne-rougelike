@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.PurchaseAction;
-import game.artifacts.PurchasableItem;
+import game.artifacts.TransactionItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.artifacts.quirks.PricingQuirk;
@@ -20,12 +20,12 @@ import java.util.Map;
 
 
 public class IsolatedTraveller extends Actor {
+    protected Map<TransactionItem, Quirk> sellableItems = new HashMap<>();
+
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
     private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
-
-    protected Map<PurchasableItem, Quirk> sellableItems = sellableItems = new HashMap<>();
     private static final int DEFAULT_HEALING_VIAL_PRICE = 100;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 75;
     private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
@@ -52,9 +52,9 @@ public class IsolatedTraveller extends Actor {
     }
 
     public void populateSellable() {
-        this.sellableItems.put(new PurchasableItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE), new PricingQuirk(25, 50));
-        this.sellableItems.put(new PurchasableItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE), new PricingQuirk(10, -20));
-        this.sellableItems.put(new PurchasableItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE), new ScamQuirk(5));
+        this.sellableItems.put(new TransactionItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE), new PricingQuirk(25, 50));
+        this.sellableItems.put(new TransactionItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE), new PricingQuirk(10, -20));
+        this.sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE), new ScamQuirk(5));
     }
 
     @Override

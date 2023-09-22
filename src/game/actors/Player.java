@@ -47,6 +47,9 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
+
+        // TEMP adding runes
+        this.addBalance(5000);
     }
 
     /**
@@ -136,9 +139,6 @@ public class Player extends Actor {
 
         // Printing the current hit points and stamina of the player
         this.displayPlayerStats(display);
-
-        // TEMP adding runes every turn
-        this.addBalance(500);
 
         // return/print the console menu
         Menu menu = new Menu(actions);

@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.PricingQuirk;
 import game.capabilities.Ability;
 
 /**
@@ -63,7 +65,10 @@ public class HealingVial extends Item implements Consumable {
         ActionList actions = new ActionList();
 
         if (otherActor.hasCapability(Ability.TRADES)) {
-            actions.add(new SellAction(this, DEFAULT_HEALING_VIAL_PRICE));
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_HEALING_VIAL_PRICE),
+                    new PricingQuirk(10, 100)
+            ));
         }
 
         return actions;

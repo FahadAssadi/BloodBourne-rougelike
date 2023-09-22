@@ -8,6 +8,8 @@ import game.actions.AttackAction;
 import game.actions.FocusAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.NoQuirk;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
@@ -146,7 +148,10 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
         actions.add(new AttackAction(otherActor, location.toString(), this));
 
         if (otherActor.hasCapability(Ability.TRADES)) {
-            actions.add(new SellAction(this, DEFAULT_BROADSWORD_PRICE));
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_BROADSWORD_PRICE),
+                    new NoQuirk()
+            ));
         }
 
         return actions;

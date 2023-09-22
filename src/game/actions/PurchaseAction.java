@@ -3,16 +3,16 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.artifacts.PurchasableItem;
+import game.artifacts.TransactionItem;
 import game.artifacts.quirks.Quirk;
 
 public class PurchaseAction extends Action {
 
-    private final PurchasableItem purchasableItem;
+    private final TransactionItem transactionItem;
     private final Quirk quirk;
 
-    public PurchaseAction(PurchasableItem purchasableItem, Quirk quirk){
-        this.purchasableItem = purchasableItem;
+    public PurchaseAction(TransactionItem transactionItem, Quirk quirk){
+        this.transactionItem = transactionItem;
         this.quirk = quirk;
     }
 
@@ -20,22 +20,22 @@ public class PurchaseAction extends Action {
     public String execute(Actor actor, GameMap map) {
         // Check if the quirk occurs
         if (this.quirk.doesOccur()){
-            this.quirk.perform(this.purchasableItem);
+            this.quirk.perform(this.transactionItem);
         }
 
         // Add the item if it's not null
-        if (this.purchasableItem.getItem() != null){
-            actor.addItemToInventory(this.purchasableItem.getItem());
+        if (this.transactionItem.getItem() != null){
+            actor.addItemToInventory(this.transactionItem.getItem());
         }
 
         // Deduct the price of the item
-        actor.deductBalance(this.purchasableItem.getPrice());
+        actor.deductBalance(this.transactionItem.getPrice());
 
-        return actor + " purchased " + purchasableItem.getItem() + " for " + purchasableItem.getPrice();
+        return actor + " purchased " + transactionItem.getItem() + " for " + transactionItem.getPrice();
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " purchases " + purchasableItem.getItem() + " for " + purchasableItem.getPrice();
+        return actor + " purchases " + transactionItem.getItem() + " for " + transactionItem.getPrice();
     }
 }

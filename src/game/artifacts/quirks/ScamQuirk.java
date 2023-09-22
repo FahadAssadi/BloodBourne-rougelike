@@ -1,8 +1,6 @@
 package game.artifacts.quirks;
 
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.items.Item;
-import game.artifacts.PurchasableItem;
+import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
 public class ScamQuirk implements Quirk {
@@ -13,8 +11,8 @@ public class ScamQuirk implements Quirk {
     }
 
     @Override
-    public void perform(PurchasableItem purchasableItem) {
-        purchasableItem.setItem(null);
+    public void perform(TransactionItem transactionItem) {
+        transactionItem.setItem(null);
     }
 
     @Override

@@ -9,6 +9,8 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.ScamQuirk;
 import game.capabilities.Ability;
 
 /**
@@ -64,7 +66,10 @@ public class RefreshingFlask extends Item implements Consumable, Sellable {
         ActionList actions = new ActionList();
 
         if (otherActor.hasCapability(Ability.TRADES)) {
-            actions.add(new SellAction(this, DEFAULT_REFRESHING_FLASK_PRICE));
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_REFRESHING_FLASK_PRICE),
+                    new ScamQuirk(50)
+            ));
         }
 
         return actions;

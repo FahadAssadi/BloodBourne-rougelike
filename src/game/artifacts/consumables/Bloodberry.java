@@ -9,6 +9,9 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.NoQuirk;
+import game.artifacts.quirks.PricingQuirk;
 import game.capabilities.Ability;
 
 public class Bloodberry extends Item implements Consumable, Sellable {
@@ -63,7 +66,10 @@ public class Bloodberry extends Item implements Consumable, Sellable {
         ActionList actions = new ActionList();
 
         if (otherActor.hasCapability(Ability.TRADES)) {
-            actions.add(new SellAction(this, DEFAULT_BLOODBERRY_PRICE));
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_BLOODBERRY_PRICE),
+                    new NoQuirk()
+            ));
         }
 
         return actions;

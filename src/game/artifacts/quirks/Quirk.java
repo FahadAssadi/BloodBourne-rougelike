@@ -1,10 +1,10 @@
 package game.artifacts.quirks;
 
-import game.artifacts.PurchasableItem;
+import game.artifacts.TransactionItem;
 
 public interface Quirk {
 
-    void perform(PurchasableItem purchasableItem);
+    void perform(TransactionItem transactionItem);
 
     boolean doesOccur();
 }

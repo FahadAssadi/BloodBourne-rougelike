@@ -1,6 +1,6 @@
 package game.artifacts.quirks;
 
-import game.artifacts.PurchasableItem;
+import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
 public class PricingQuirk implements Quirk {
@@ -13,10 +13,10 @@ public class PricingQuirk implements Quirk {
     }
 
     @Override
-    public void perform(PurchasableItem purchasableItem) {
-        int priceChange = (int) (purchasableItem.getPrice() * (1 + this.pricePercentage/100));
+    public void perform(TransactionItem transactionItem) {
+        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
 
-        purchasableItem.setPrice(priceChange);
+        transactionItem.setPrice(priceChange);
     }
 
     @Override

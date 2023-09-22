@@ -2,11 +2,11 @@ package game.artifacts;
 
 import edu.monash.fit2099.engine.items.Item;
 
-public class PurchasableItem {
+public class TransactionItem {
     private Item item;
     private int price;
 
-    public PurchasableItem(Item item, int originalPrice){
+    public TransactionItem(Item item, int originalPrice){
         this.item = item;
         this.price = originalPrice;
     }
