@@ -17,7 +17,7 @@ import game.capabilities.Status;
  * Created By:
  * @author Fahad Assadi
  */
-public class Broadsword extends WeaponItem implements WeaponSkill {
+public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
     // Default attributes for the Broadsword
     private static final String DEFAULT_NAME = "Broadsword";
     private static final char DEFAULT_DISPLAY_CHAR = '1';
@@ -27,6 +27,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill {
     private static final float DEFAULT_DAMAGE_MULTIPLIER = 1.0f;
     private int skillDuration;
     private int skillTimer;
+    private static final int DEFAULT_BROADSWORD_PRICE = 100;
 
     /**
      * Default constructor for the Broadsword class.
@@ -143,6 +144,10 @@ public class Broadsword extends WeaponItem implements WeaponSkill {
         ActionList actions = new ActionList();
 
         actions.add(new AttackAction(otherActor, location.toString(), this));
+
+        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+            actions.add(new SellAction(this, DEFAULT_BROADSWORD_PRICE));
+        }
 
         return actions;
     }

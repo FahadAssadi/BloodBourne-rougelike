@@ -14,11 +14,13 @@ import game.capabilities.Ability;
 /**
  * A specific consumable item representing a Refreshing Vial in the game.
  */
-public class RefreshingFlask extends Item implements Consumable {
+public class RefreshingFlask extends Item implements Consumable, Sellable {
     private static final String DEFAULT_NAME = "Refreshing Flask";
     private static final char DEFAULT_DISPLAY_CHAR = 'u';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_STAMINA_RESTORATION = 0.2;
+    private static final int DEFAULT_REFRESHING_FLASK_PRICE = 25;
+
 
     /**
      * Constructor for the RefreshingFlask class.
@@ -53,6 +55,17 @@ public class RefreshingFlask extends Item implements Consumable {
         ActionList actions = new ActionList();
 
         actions.add(new ConsumeAction(this));
+
+        return actions;
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+
+        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+            actions.add(new SellAction(this, DEFAULT_REFRESHING_FLASK_PRICE));
+        }
 
         return actions;
     }

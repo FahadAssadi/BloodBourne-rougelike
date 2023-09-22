@@ -23,6 +23,8 @@ public class Bloodberry extends Item implements Consumable, Sellable {
     private static final char DEFAULT_DISPLAY_CHAR = '*';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final int DEFAULT_MAXHEALTH_INCREASE = 5;
+    private static final int DEFAULT_BLOODBERRY_PRICE = 10;
+
 
     public Bloodberry(String name, char displayChar, boolean portable) {
         super(name, displayChar, portable);
@@ -55,4 +57,16 @@ public class Bloodberry extends Item implements Consumable, Sellable {
 
         return actions;
     }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+
+        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+            actions.add(new SellAction(this, DEFAULT_BLOODBERRY_PRICE));
+        }
+
+        return actions;
+    }
+
 }

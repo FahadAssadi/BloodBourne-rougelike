@@ -17,6 +17,7 @@ public class HealingVial extends Item implements Consumable {
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_HEATH_RESTORATION = 0.1;
+    private static final int DEFAULT_HEALING_VIAL_PRICE = 35;
 
     /**
      * Constructor for the HealingVial class.
@@ -54,9 +55,16 @@ public class HealingVial extends Item implements Consumable {
         // Allow the owner actor to consume the Healing Vial
         actions.add(new ConsumeAction(this));
 
-        // APPROACH #2: ALLOWING PLAYER TO SELL EACH ITEM IN THEIR INVENTORY ONLY when in vicinity of Traveller
-        // Would need to implement this in every single item class
-        // actions.add(new TransactionAction(this, TransactionType.SELL, owner, owner, 0));
+        return actions;
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+
+        if (otherActor.hasCapability(Ability.TRANSACTS)) {
+            actions.add(new SellAction(this, DEFAULT_HEALING_VIAL_PRICE));
+        }
 
         return actions;
     }
