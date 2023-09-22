@@ -11,7 +11,6 @@ import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.artifacts.quirks.NoQuirk;
-import game.artifacts.quirks.PricingQuirk;
 import game.capabilities.Ability;
 
 public class Bloodberry extends Item implements Consumable, Sellable {

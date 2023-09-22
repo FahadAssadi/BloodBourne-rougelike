@@ -10,7 +10,7 @@ import game.actors.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.consumables.HealingVial;
-import game.displays.FancyMessage;
+import game.misc.displays.FancyMessage;
 import game.positions.*;
 import game.positions.EnemyNest.Bush;
 import game.positions.EnemyNest.Graveyard;

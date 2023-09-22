@@ -1,4 +1,4 @@
-package game.displays;
+package game.misc.displays;
 
 /**
  * Fancy messages used to print the game title

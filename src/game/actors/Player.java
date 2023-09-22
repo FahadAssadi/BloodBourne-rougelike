@@ -8,15 +8,11 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.capabilities.Ability;
 import game.capabilities.Status;
-import game.displays.FancyMessage;
-
-import java.util.HashMap;
-import java.util.Map;
+import game.misc.displays.FancyMessage;
 
 /**
  * Class representing the Player.
