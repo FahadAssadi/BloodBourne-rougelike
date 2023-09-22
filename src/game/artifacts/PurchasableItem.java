@@ -29,4 +29,4 @@ public class PurchasableItem {
     public void setPrice(int price) {
         this.price = price;
     }
-    }
+}

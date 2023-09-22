@@ -16,6 +16,9 @@ public class PurchaseAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         // EXECUTION TO-DO
+       purchasableItem.getTrickery().perform(actor,purchasableItem.getItem(), purchasableItem.getPrice());
+
+
         return actor + " purchased " + purchasableItem.getItem() + " for " + purchasableItem.getPrice();
     }
 
