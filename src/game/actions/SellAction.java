@@ -24,12 +24,12 @@ public class SellAction extends Action {
             this.quirk.perform(this.transactionItem);
         }
 
-        // Add the item if it's not null
+        // Remove the item if it's null
         if (this.transactionItem.getItem() == null){
             actor.removeItemFromInventory(item);
         }
 
-        // Deduct the price of the item
+        // Add the price of the item
         actor.addBalance(this.transactionItem.getPrice());
 
         return actor + " sold " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();

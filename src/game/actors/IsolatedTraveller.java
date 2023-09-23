@@ -15,6 +15,8 @@ import game.artifacts.quirks.Quirk;
 import game.artifacts.quirks.ScamQuirk;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
+import game.capabilities.Status;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,7 @@ public class IsolatedTraveller extends Actor {
     public IsolatedTraveller() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.TRADES);
+        this.addCapability(Status.FRIENDLY);
 
         this.populateSellable();
     }

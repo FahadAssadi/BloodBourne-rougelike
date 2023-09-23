@@ -19,4 +19,5 @@ public enum Status {
      * This status indicates that an actor possesses a key.
      */
     POSSESS_KEY,
+    FRIENDLY,
 }
