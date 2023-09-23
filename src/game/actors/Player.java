@@ -43,9 +43,6 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
-
-        // TEMP adding runes
-        this.addBalance(5000);
     }
 
     /**

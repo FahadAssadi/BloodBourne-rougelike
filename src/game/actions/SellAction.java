@@ -21,18 +21,20 @@ public class SellAction extends Action {
         Item item = this.transactionItem.getItem();
 
         if (this.quirk.doesOccur()){
-            this.quirk.perform(this.transactionItem);
+            this.quirk.perform(actor, this.transactionItem);
         }
 
         // Remove the item if it's null
         if (this.transactionItem.getItem() == null){
             actor.removeItemFromInventory(item);
+        } else {
+            // Remove the item and add the balance
+            actor.removeItemFromInventory(this.transactionItem.getItem());
+            // Add the price of the item
+            actor.addBalance(this.transactionItem.getPrice());
         }
 
-        // Add the price of the item
-        actor.addBalance(this.transactionItem.getPrice());
-
-        return actor + " sold " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();
+        return actor + " sold " + item + " for " + (this.transactionItem.getItem() == null ? 0 : this.transactionItem.getPrice());
     }
 
     @Override

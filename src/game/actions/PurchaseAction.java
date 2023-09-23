@@ -2,6 +2,7 @@ package game.actions;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.TransactionItem;
 import game.artifacts.quirks.Quirk;
@@ -18,9 +19,15 @@ public class PurchaseAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
+        Item item = this.transactionItem.getItem();
+
         // Check if the quirk occurs
         if (this.quirk.doesOccur()){
-            this.quirk.perform(this.transactionItem);
+            this.quirk.perform(actor, this.transactionItem);
+        }
+
+        if (this.transactionItem.getPrice() > actor.getBalance()){
+            return actor + " needs " + (this.transactionItem.getPrice() - actor.getBalance()) + " more to purchase " + item;
         }
 
         // Add the item if it's not null
@@ -31,7 +38,7 @@ public class PurchaseAction extends Action {
         // Deduct the price of the item
         actor.deductBalance(this.transactionItem.getPrice());
 
-        return actor + " purchased " + transactionItem.getItem() + " for " + transactionItem.getPrice();
+        return actor + " purchased " + (this.transactionItem.getItem() == null ? " nothing " : item) + " for " + transactionItem.getPrice();
     }
 
     @Override
