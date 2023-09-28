@@ -9,7 +9,7 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.PricingQuirk;
+import game.actors.merchants.quirks.PricingQuirk;
 import game.capabilities.Ability;
 
 /**

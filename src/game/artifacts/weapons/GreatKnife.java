@@ -9,11 +9,8 @@ import game.actions.AttackAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.NoQuirk;
-import game.artifacts.quirks.ScamQuirk;
-import game.artifacts.weapons.skills.FocusSkill;
+import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.skills.Skill;
-import game.artifacts.weapons.skills.StabAndStepSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
@@ -59,7 +56,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
-        this.SkillTimer();
     }
 
     /**
@@ -78,10 +74,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
 
     @Override
     public void ResetWeapon() {
-    }
-
-    @Override
-    public void SkillTimer() {
     }
 
     /**
@@ -117,7 +109,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
                     new TransactionItem(this, DEFAULT_GREAT_KNIFE_PRICE),
-                    new ScamQuirk(0.10)
+                    new ScamQuirk(10)
             ));
         }
 

@@ -1,4 +1,4 @@
-package game.actors;
+package game.actors.merchants;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -10,9 +10,9 @@ import game.actions.PurchaseAction;
 import game.artifacts.TransactionItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
-import game.artifacts.quirks.PricingQuirk;
-import game.artifacts.quirks.Quirk;
-import game.artifacts.quirks.ScamQuirk;
+import game.actors.merchants.quirks.PricingQuirk;
+import game.actors.merchants.quirks.Quirk;
+import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;

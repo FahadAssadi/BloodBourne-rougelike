@@ -1,4 +1,4 @@
-package game.artifacts.quirks;
+package game.actors.merchants.quirks;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import game.artifacts.TransactionItem;

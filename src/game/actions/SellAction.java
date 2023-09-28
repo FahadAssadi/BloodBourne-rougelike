@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.Quirk;
+import game.actors.merchants.quirks.Quirk;
 
 public class SellAction extends Action {
     private final TransactionItem transactionItem;

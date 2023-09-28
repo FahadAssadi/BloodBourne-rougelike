@@ -9,7 +9,7 @@ import game.actions.AttackAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.NoQuirk;
+import game.actors.merchants.quirks.NoQuirk;
 import game.artifacts.weapons.skills.FocusSkill;
 import game.artifacts.weapons.skills.Skill;
 import game.capabilities.Ability;
@@ -91,7 +91,6 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
-    @Override
     public void SkillTimer() {
         if (!this.hasCapability(Status.SKILL_ACTIVE)){
             this.skillTimer++;
