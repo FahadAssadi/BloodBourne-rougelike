@@ -3,6 +3,7 @@ package game.artifacts.weapons.skills;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
+import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 
 public abstract class Skill {
@@ -18,7 +19,7 @@ public abstract class Skill {
         return this.weaponItem;
     }
 
-    public abstract String ProcessWeaponSkill(Actor actor);
+    public abstract String ProcessWeaponSkill(Actor actor, GameMap map);
 
     protected void ConsumeStamina(Actor actor){
         // Consume stamina from the actor

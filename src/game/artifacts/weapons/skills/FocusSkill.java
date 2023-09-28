@@ -1,6 +1,7 @@
 package game.artifacts.weapons.skills;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.capabilities.Status;
 
@@ -16,7 +17,7 @@ public class FocusSkill extends Skill{
     }
 
     @Override
-    public String ProcessWeaponSkill(Actor actor) {
+    public String ProcessWeaponSkill(Actor actor, GameMap map) {
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Consume stamina from the actor
