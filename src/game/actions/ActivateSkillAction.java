@@ -14,7 +14,7 @@ public class ActivateSkillAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        return this.skill.ProcessWeaponSkill(actor, map);
+        return this.skill.processWeaponSkill(actor, map);
     }
 
     @Override

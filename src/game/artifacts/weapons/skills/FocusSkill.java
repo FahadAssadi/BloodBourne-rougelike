@@ -17,11 +17,11 @@ public class FocusSkill extends Skill{
     }
 
     @Override
-    public String ProcessWeaponSkill(Actor actor, GameMap map) {
+    public String processWeaponSkill(Actor actor, GameMap map) {
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Consume stamina from the actor
-        this.ConsumeStamina(actor);
+        this.consumeStamina(actor);
 
         // Increase the weapon's damage multiplier and update hit rate
         this.weaponItem.increaseDamageMultiplier(this.increaseDamageMultiplierBy);

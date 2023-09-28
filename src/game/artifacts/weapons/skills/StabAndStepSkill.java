@@ -19,11 +19,11 @@ public class StabAndStepSkill extends Skill{
     }
 
     @Override
-    public String ProcessWeaponSkill(Actor actor, GameMap map) {
+    public String processWeaponSkill(Actor actor, GameMap map) {
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Consume stamina from the actor
-        this.ConsumeStamina(actor);
+        this.consumeStamina(actor);
 
         // Attack the enemy
         new AttackAction(otherActor, map.locationOf(otherActor).toString(), this.getWeaponItem()).execute(actor, map);
@@ -36,7 +36,6 @@ public class StabAndStepSkill extends Skill{
                 new MoveActorAction(destination, destination.toString()).execute(actor, map);
                 break;
             }
-
         }
 
         // TODO: ADD THE MESSAGE
