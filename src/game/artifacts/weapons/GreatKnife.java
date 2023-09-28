@@ -18,7 +18,7 @@ import game.capabilities.Ability;
 import game.capabilities.Status;
 
 public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
-    // Default attributes for the Broadsword
+    // Default attributes for the Great Knife
     private static final String DEFAULT_NAME = "Great Knife";
     private static final char DEFAULT_DISPLAY_CHAR = '>';
     private static final int DEFAULT_DAMAGE = 75;
@@ -29,8 +29,8 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     private int skillTimer;
 
     /**
-     * Default constructor for the Broadsword class.
-     * Initializes the Broadsword with default attributes.
+     * Default constructor for the Great Knife class.
+     * Initializes the Great Knife with default attributes.
      */
     public GreatKnife() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_DAMAGE, DEFAULT_VERB, DEFAULT_HITRATE);
@@ -38,12 +38,12 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Constructor for the BroadSword class with custom attributes.
+     * Constructor for the Great Knife class with custom attributes.
      *
-     * @param name        Name to call the Broadsword in the UI
-     * @param displayChar Character to represent the Broadsword in the UI
+     * @param name        Name to call the Great Knife in the UI
+     * @param displayChar Character to represent the Great Knife in the UI
      * @param damage      Broadsword's starting damage
-     * @param verb        The verb that the Broadsword will use in the UI
+     * @param verb        The verb that the Great Knife will use in the UI
      * @param hitRate     The chance the weapon has at hitting the target
      */
     public GreatKnife(String name, char displayChar, int damage, String verb, int hitRate) {
@@ -52,10 +52,10 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Tick method when the Broadsword is carried.
+     * Tick method when the Great Knife is carried.
      *
-     * @param currentLocation Current location of the Broadsword
-     * @param actor           Actor carrying the Broadsword
+     * @param currentLocation Current location of the Great Knife
+     * @param actor           Actor carrying the Great Knife
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
@@ -63,9 +63,9 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Tick method when the Broadsword is on the ground.
+     * Tick method when the Great Knife is on the ground.
      *
-     * @param currentLocation Current location of the Broadsword
+     * @param currentLocation Current location of the Great Knife
      */
     @Override
     public void tick(Location currentLocation) {
@@ -85,7 +85,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Get a list of allowable actions for the Broadsword when it's in an unspecified location.
+     * Get a list of allowable actions for the Great Knife when it's in an unspecified location.
      *
      * @param actor The actor interacting with the Broadsword
      * @return ActionList containing allowable actions
@@ -100,7 +100,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Get a list of allowable actions for the Broadsword when it's in a specific location.
+     * Get a list of allowable actions for the Great Knife when it's in a specific location.
      *
      * @param otherActor The actor interacting with the Broadsword
      * @param location   The specific location of the Broadsword

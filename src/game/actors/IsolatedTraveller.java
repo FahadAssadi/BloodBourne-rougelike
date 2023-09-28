@@ -13,6 +13,7 @@ import game.artifacts.consumables.RefreshingFlask;
 import game.artifacts.quirks.PricingQuirk;
 import game.artifacts.quirks.Quirk;
 import game.artifacts.quirks.ScamQuirk;
+import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
 import game.capabilities.Status;
@@ -60,7 +61,7 @@ public class IsolatedTraveller extends Actor {
         sellableItems.put(new TransactionItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE), new PricingQuirk(25, 50));
         sellableItems.put(new TransactionItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE), new PricingQuirk(10, -20));
         sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE), new ScamQuirk(5));
-        sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_GREAT_KNIFE_PRICE), new PricingQuirk(0.05, 300));
+        sellableItems.put(new TransactionItem(new GreatKnife(), DEFAULT_GREAT_KNIFE_PRICE), new PricingQuirk(0.05, 300));
 
         return sellableItems;
     }
