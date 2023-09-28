@@ -79,7 +79,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
 
     @Override
     public void AddSkill(){
-        this.skill = new FocusSkill(this, 0.1f, 90, 20);
+        this.skill = new FocusSkill(this, 0.1f, 90);
     }
 
     @Override
