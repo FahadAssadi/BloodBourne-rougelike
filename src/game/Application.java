@@ -162,14 +162,14 @@ public class Application {
         Player player = new Player();
 //        world.addPlayer(player, gameMap.at(29, 5));
 
-        // TESTING: Starting in Ancient Woods
-        world.addPlayer(player, ancientWoods.at(20, 5));
-        ancientWoods.at(20,6).addItem(new HealingVial());
-
 
         // Added the Broadsword on the map
         Item broadsword = new Broadsword();
         gameMap.at(27, 6).addItem(broadsword);
+
+        // TESTING: Starting in Ancient Woods
+        world.addPlayer(player, ancientWoods.at(20, 5));
+        ancientWoods.at(20,6).addItem(new Broadsword());
 
         world.run();
     }
