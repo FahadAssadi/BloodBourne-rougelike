@@ -51,6 +51,6 @@ public class Puddle extends Ground implements Consumable {
 
     @Override
     public String toString() {
-        return "Puddle";
+        return "Water Puddle";
     }
 }

@@ -38,7 +38,7 @@ public class PurchaseAction extends Action {
         // Deduct the price of the item
         actor.deductBalance(this.transactionItem.getPrice());
 
-        return actor + " purchased " + (this.transactionItem.getItem() == null ? " nothing " : item) + " for " + transactionItem.getPrice();
+        return actor + " purchased " + (this.transactionItem.getItem() == null ? " nothing " : item) + " for " + transactionItem.getPrice() + " runes.";
     }
 
     @Override

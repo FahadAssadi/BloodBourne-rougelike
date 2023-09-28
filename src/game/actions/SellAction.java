@@ -34,7 +34,7 @@ public class SellAction extends Action {
             actor.addBalance(this.transactionItem.getPrice());
         }
 
-        return actor + " sold " + item + " for " + (this.transactionItem.getItem() == null ? 0 : this.transactionItem.getPrice());
+        return actor + " sold " + item + " for " + (this.transactionItem.getItem() == null ? 0 : this.transactionItem.getPrice()) + " runes.";
     }
 
     @Override
