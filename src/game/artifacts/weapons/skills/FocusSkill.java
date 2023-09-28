@@ -11,7 +11,7 @@ public class FocusSkill extends Skill{
     private final float increaseDamageMultiplierBy;
     private final int updateHitRateBy;
 
-    public FocusSkill(WeaponItem weaponItem, double staminaDecreasePercentage, float increaseDamageMultiplierBy, int updateHitRateBy,) {
+    public FocusSkill(WeaponItem weaponItem, double staminaDecreasePercentage, float increaseDamageMultiplierBy, int updateHitRateBy) {
         super(weaponItem);
         this.staminaDecreasePercentage = staminaDecreasePercentage;
         this.increaseDamageMultiplierBy = increaseDamageMultiplierBy;
