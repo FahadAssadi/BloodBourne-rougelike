@@ -29,6 +29,7 @@ public class IsolatedTraveller extends Actor {
     private static final int DEFAULT_HEALING_VIAL_PRICE = 100;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 75;
     private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
+    private static final int DEFAULT_GREAT_KNIFE_PRICE = 300;
 
     public IsolatedTraveller() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -53,17 +54,22 @@ public class IsolatedTraveller extends Actor {
         return new DoNothingAction();
     }
 
-    @Override
-    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        ActionList actions = new ActionList();
-
+    private Map<TransactionItem, Quirk> generateSellingMenu() {
         Map<TransactionItem, Quirk> sellableItems = new HashMap<>();
 
         sellableItems.put(new TransactionItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE), new PricingQuirk(25, 50));
         sellableItems.put(new TransactionItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE), new PricingQuirk(10, -20));
         sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE), new ScamQuirk(5));
+        sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_GREAT_KNIFE_PRICE), new PricingQuirk(0.05, 300));
 
-        sellableItems.forEach(((purchasableItem, quirk) -> {
+        return sellableItems;
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        ActionList actions = new ActionList();
+
+        generateSellingMenu().forEach(((purchasableItem, quirk) -> {
             actions.add(new PurchaseAction(purchasableItem, quirk));
         }));
 
