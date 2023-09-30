@@ -10,7 +10,7 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.ScamQuirk;
+import game.actors.merchants.quirks.ScamQuirk;
 import game.capabilities.Ability;
 
 /**
@@ -29,6 +29,11 @@ public class RefreshingFlask extends Item implements Consumable, Sellable {
      */
     public RefreshingFlask() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
+    }
+
+    @Override
+    public int getSellingPrice() {
+        return DEFAULT_REFRESHING_FLASK_PRICE;
     }
 
     /**
@@ -67,7 +72,7 @@ public class RefreshingFlask extends Item implements Consumable, Sellable {
 
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
-                    new TransactionItem(this, DEFAULT_REFRESHING_FLASK_PRICE),
+                    new TransactionItem(this, this.getSellingPrice()),
                     new ScamQuirk(50)
             ));
         }

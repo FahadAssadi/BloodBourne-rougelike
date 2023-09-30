@@ -9,8 +9,8 @@ import game.actions.AttackAction;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.artifacts.consumables.Runes;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.WanderBehaviour;
+import game.actors.behaviours.AttackBehaviour;
+import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 
 /**

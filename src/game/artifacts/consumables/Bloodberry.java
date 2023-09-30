@@ -10,7 +10,7 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.artifacts.quirks.NoQuirk;
+import game.actors.merchants.quirks.NoQuirk;
 import game.capabilities.Ability;
 
 public class Bloodberry extends Item implements Consumable, Sellable {
@@ -36,6 +36,10 @@ public class Bloodberry extends Item implements Consumable, Sellable {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
     }
 
+    @Override
+    public int getSellingPrice() {
+        return DEFAULT_BLOODBERRY_PRICE;
+    }
 
     @Override
     public void consume(Actor actor) {
@@ -66,12 +70,13 @@ public class Bloodberry extends Item implements Consumable, Sellable {
 
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
-                    new TransactionItem(this, DEFAULT_BLOODBERRY_PRICE),
+                    new TransactionItem(this, this.getSellingPrice()),
                     new NoQuirk()
             ));
         }
 
         return actions;
     }
+
 
 }

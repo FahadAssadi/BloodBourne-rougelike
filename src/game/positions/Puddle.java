@@ -5,8 +5,10 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.Ground;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.artifacts.consumables.Consumable;
+import game.capabilities.Status;
 
 public class Puddle extends Ground implements Consumable {
     private static final int DEFAULT_HEATH_RESTORATION = 1;
@@ -32,16 +34,23 @@ public class Puddle extends Ground implements Consumable {
     /**
      * Define allowable actions related to the Puddle for the owner actor.
      *
-     * @param owner The actor who is on the Puddle.
+     * @param actor The actor who is on the Puddle.
      * @return An ActionList containing the allowable actions for the owner actor.
      */
     @Override
-    public ActionList allowableActions(Actor owner) {
+    public ActionList allowableActions(Actor actor, Location location, String direction){
         ActionList actions = new ActionList();
 
-        // Allow the owner actor to consume the Puddle
-        actions.add(new ConsumeAction(this));
+        if (location.containsAnActor() && actor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+            // Allow the owner actor to consume the Puddle
+            actions.add(new ConsumeAction(this));
+        }
 
         return actions;
+    }
+
+    @Override
+    public String toString() {
+        return "Water Puddle";
     }
 }

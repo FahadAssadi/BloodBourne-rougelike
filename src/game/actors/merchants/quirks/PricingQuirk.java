@@ -1,5 +1,6 @@
-package game.artifacts.quirks;
+package game.actors.merchants.quirks;
 
+import edu.monash.fit2099.engine.actors.Actor;
 import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
@@ -13,7 +14,7 @@ public class PricingQuirk implements Quirk {
     }
 
     @Override
-    public void perform(TransactionItem transactionItem) {
+    public void perform(Actor actor, TransactionItem transactionItem) {
         int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
 
         transactionItem.setPrice(priceChange);

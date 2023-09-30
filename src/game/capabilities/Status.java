@@ -11,6 +11,8 @@ public enum Status {
      * This status indicates that an actor is hostile towards enemies or other actors.
      */
     HOSTILE_TO_ENEMY,
+    FRIENDLY,
+    HOSTILE,
     /**
      * This status represents the activation of a special skill or ability for an actor.
      */
@@ -19,4 +21,5 @@ public enum Status {
      * This status indicates that an actor possesses a key.
      */
     POSSESS_KEY,
+
 }
