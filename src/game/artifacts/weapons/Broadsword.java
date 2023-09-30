@@ -12,6 +12,7 @@ import game.artifacts.TransactionItem;
 import game.actors.merchants.quirks.NoQuirk;
 import game.artifacts.weapons.skills.FocusSkill;
 import game.artifacts.weapons.skills.Skill;
+import game.artifacts.weapons.skills.TimedWeaponSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
@@ -21,7 +22,10 @@ import game.capabilities.Status;
  * Created By:
  * @author Fahad Assadi
  */
-public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
+public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable {
+    // Instance Variables for BroadSword
+    private int skillTimer;
+
     // Default attributes for the Broadsword
     private static final String DEFAULT_NAME = "Broadsword";
     private static final char DEFAULT_DISPLAY_CHAR = '1';
@@ -30,8 +34,9 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
     private static final int DEFAULT_HITRATE = 80;
     private static final float DEFAULT_DAMAGE_MULTIPLIER = 1.0f;
     private static final int DEFAULT_BROADSWORD_PRICE = 100;
-    private Skill skill;
-    private int skillTimer;
+    private static final int DEFAULT_SKILL_DURATION = 5;
+    private static final float DEFAULT_DAMAGE_MULTIPLIER_INCREASE = 0.1f;
+    private static final int DEFAULT_UPDATED_HITRATE = 90;
 
     /**
      * Default constructor for the Broadsword class.
@@ -39,7 +44,6 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
      */
     public Broadsword() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_DAMAGE, DEFAULT_VERB, DEFAULT_HITRATE);
-        this.AddSkill();
     }
 
     /**
@@ -53,7 +57,11 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
      */
     public Broadsword(String name, char displayChar, int damage, String verb, int hitRate) {
         super(name, displayChar, damage, verb, hitRate);
-        this.AddSkill();
+    }
+
+    @Override
+    public int getSellingPrice() {
+        return DEFAULT_BROADSWORD_PRICE;
     }
 
     /**
@@ -64,7 +72,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
-        this.SkillTimer();
+        this.processSkillTimer();
     }
 
     /**
@@ -74,16 +82,16 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
      */
     @Override
     public void tick(Location currentLocation) {
-        this.ResetWeapon();
+        this.resetWeapon();
     }
 
     @Override
-    public void AddSkill(){
-        this.skill = new FocusSkill(this, 0.1f, 90);
+    public Skill getSkill(Actor actor){
+        return new FocusSkill(this, DEFAULT_DAMAGE_MULTIPLIER_INCREASE, DEFAULT_UPDATED_HITRATE);
     }
 
     @Override
-    public void ResetWeapon() {
+    public void resetWeapon() {
         this.updateDamageMultiplier(DEFAULT_DAMAGE_MULTIPLIER);
         this.updateHitRate(DEFAULT_HITRATE);
 
@@ -91,12 +99,13 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
-    public void SkillTimer() {
-        if (!this.hasCapability(Status.SKILL_ACTIVE)){
+    @Override
+    public void processSkillTimer() {
+        if (this.hasCapability(Status.SKILL_ACTIVE)){
             this.skillTimer++;
 
-            if (this.skillTimer == 5){
-                this.ResetWeapon();
+            if (this.skillTimer == DEFAULT_SKILL_DURATION){
+                this.resetWeapon();
             }
         }
     }
@@ -111,7 +120,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
     public ActionList allowableActions(Actor actor){
         ActionList actions = new ActionList();
 
-        actions.add(new ActivateSkillAction(this.skill));
+        actions.add(new ActivateSkillAction(this.getSkill(actor)));
 
         return actions;
     }
@@ -127,18 +136,20 @@ public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
     public ActionList allowableActions(Actor otherActor, Location location){
         ActionList actions = new ActionList();
 
-        if (!otherActor.hasCapability(Status.FRIENDLY)){
+        if (otherActor.hasCapability(Status.HOSTILE)){
             actions.add(new AttackAction(otherActor, location.toString(), this));
         }
 
 
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
-                    new TransactionItem(this, DEFAULT_BROADSWORD_PRICE),
+                    new TransactionItem(this, this.getSellingPrice()),
                     new NoQuirk()
             ));
         }
 
         return actions;
     }
+
+
 }

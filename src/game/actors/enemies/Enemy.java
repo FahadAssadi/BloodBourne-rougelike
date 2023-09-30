@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.Status;
 import game.misc.Utility;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ public abstract class Enemy extends Actor {
 
         this.addBehaviours();
         this.addDroppableItems();
+        this.addCapability(Status.HOSTILE);
     }
 
     protected abstract void addBehaviours();

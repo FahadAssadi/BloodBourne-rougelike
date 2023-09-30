@@ -18,6 +18,7 @@ public class FocusSkill extends Skill{
 
     @Override
     public String processWeaponSkill(Actor actor, GameMap map) {
+        // Adding the Skill Active Status.
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Consume stamina from the actor

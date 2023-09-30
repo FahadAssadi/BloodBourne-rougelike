@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.World;
 import game.actors.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
+import game.artifacts.weapons.GreatKnife;
 import game.misc.displays.FancyMessage;
 import game.positions.*;
 import game.positions.EnemyNest.Bush;
@@ -157,18 +158,20 @@ public class Application {
             }
         }
 
-        // Adding the player on the map
-        Player player = new Player();
+//        // Adding the player on the map
+//        Player player = new Player();
 //        world.addPlayer(player, gameMap.at(29, 5));
-
-
-        // Added the Broadsword on the map
-        Item broadsword = new Broadsword();
-        gameMap.at(27, 6).addItem(broadsword);
+//
+//
+//        // Added the Broadsword on the map
+//        Item broadsword = new Broadsword();
+//        gameMap.at(27, 6).addItem(broadsword);
 
         // TESTING: Starting in Ancient Woods
+        Player player = new Player();
+        player.addBalance(50000);
         world.addPlayer(player, ancientWoods.at(20, 5));
-        ancientWoods.at(20,6).addItem(new Broadsword());
+        ancientWoods.at(20,6).addItem(new GreatKnife());
 
         world.run();
     }

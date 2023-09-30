@@ -11,6 +11,8 @@ import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.skills.Skill;
+import game.artifacts.weapons.skills.StabAndStepSkill;
+import game.artifacts.weapons.skills.WeaponSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
@@ -22,8 +24,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     private static final String DEFAULT_VERB = "slashes";
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
-    private Skill skill;
-    private int skillTimer;
 
     /**
      * Default constructor for the Great Knife class.
@@ -31,7 +31,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
      */
     public GreatKnife() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_DAMAGE, DEFAULT_VERB, DEFAULT_HITRATE);
-        this.AddSkill();
     }
 
     /**
@@ -45,7 +44,11 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
      */
     public GreatKnife(String name, char displayChar, int damage, String verb, int hitRate) {
         super(name, displayChar, damage, verb, hitRate);
-        this.AddSkill();
+    }
+
+    @Override
+    public int getSellingPrice() {
+        return DEFAULT_GREAT_KNIFE_PRICE;
     }
 
     /**
@@ -65,31 +68,19 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
      */
     @Override
     public void tick(Location currentLocation) {
-        this.ResetWeapon();
+        this.resetWeapon();
     }
 
     @Override
-    public void AddSkill(){
+    public Skill getSkill(Actor otherActor){
+        return new StabAndStepSkill(this, otherActor);
     }
 
     @Override
-    public void ResetWeapon() {
+    public void resetWeapon() {
+        this.removeCapability(Status.SKILL_ACTIVE);
     }
 
-    /**
-     * Get a list of allowable actions for the Great Knife when it's in an unspecified location.
-     *
-     * @param actor The actor interacting with the Broadsword
-     * @return ActionList containing allowable actions
-     */
-    @Override
-    public ActionList allowableActions(Actor actor){
-        ActionList actions = new ActionList();
-
-        actions.add(new ActivateSkillAction(this.skill));
-
-        return actions;
-    }
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
@@ -102,18 +93,21 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     public ActionList allowableActions(Actor otherActor, Location location){
         ActionList actions = new ActionList();
 
-        if (!otherActor.hasCapability(Status.FRIENDLY)){
+        // ENEMIES.
+        if (otherActor.hasCapability(Status.HOSTILE)){
             actions.add(new AttackAction(otherActor, location.toString(), this));
+            actions.add(new ActivateSkillAction(this.getSkill(otherActor)));
         }
 
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
-                    new TransactionItem(this, DEFAULT_GREAT_KNIFE_PRICE),
+                    new TransactionItem(this, this.getSellingPrice()),
                     new ScamQuirk(10)
             ));
         }
 
         return actions;
     }
+
 
 }

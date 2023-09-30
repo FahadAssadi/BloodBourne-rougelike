@@ -36,6 +36,10 @@ public class Bloodberry extends Item implements Consumable, Sellable {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
     }
 
+    @Override
+    public int getSellingPrice() {
+        return DEFAULT_BLOODBERRY_PRICE;
+    }
 
     @Override
     public void consume(Actor actor) {
@@ -66,12 +70,13 @@ public class Bloodberry extends Item implements Consumable, Sellable {
 
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
-                    new TransactionItem(this, DEFAULT_BLOODBERRY_PRICE),
+                    new TransactionItem(this, this.getSellingPrice()),
                     new NoQuirk()
             ));
         }
 
         return actions;
     }
+
 
 }
