@@ -40,6 +40,7 @@ public class Application {
 
         World world = new World(new Display());
 
+
         FancyGroundFactory groundFactory = new FancyGroundFactory(
                 new Dirt(), new Wall(), new Floor(), new Puddle(),
                 new Void()
@@ -122,7 +123,6 @@ public class Application {
         GameMap burialGrounds = new GameMap(groundFactory, map2);
         GameMap ancientWoods = new GameMap(groundFactory, map3);
         GameMap bossMap = new GameMap(groundFactory, map4);
-
         world.addGameMap(gameMap);
         world.addGameMap(burialGrounds);
         world.addGameMap(ancientWoods);
