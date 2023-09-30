@@ -12,11 +12,12 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
+import game.weather.WeatherSusceptible;
 
 /**
  * A class that represents a special type of enemy called "Forest Keeper"
  */
-public class ForestKeeper extends Enemy{
+public class ForestKeeper extends Enemy implements WeatherSusceptible {
 
     // Default attributes for the Forest Keeper
     private static final String DEFAULT_NAME = "Forest Keeper";
@@ -82,5 +83,15 @@ public class ForestKeeper extends Enemy{
             this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
+    }
+
+    @Override
+    public void sunnyWeather() {
+
+    }
+
+    @Override
+    public void rainyWeather() {
+
     }
 }

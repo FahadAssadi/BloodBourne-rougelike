@@ -12,8 +12,9 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
+import game.weather.WeatherSusceptible;
 
-public class RedWolf extends Enemy{
+public class RedWolf extends Enemy implements WeatherSusceptible {
     // Default attributes for the Red Wolf
     private static final String DEFAULT_NAME = "Red Wolf";
     private static final char DEFAULT_DISPLAY_CHAR = 'r';
@@ -71,5 +72,15 @@ public class RedWolf extends Enemy{
             this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
+    }
+
+    @Override
+    public void sunnyWeather() {
+
+    }
+
+    @Override
+    public void rainyWeather() {
+
     }
 }
