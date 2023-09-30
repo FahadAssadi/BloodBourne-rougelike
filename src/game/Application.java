@@ -6,9 +6,11 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actors.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
-import game.displays.FancyMessage;
+import game.artifacts.consumables.HealingVial;
+import game.misc.displays.FancyMessage;
 import game.positions.*;
 import game.positions.EnemyNest.Bush;
 import game.positions.EnemyNest.Graveyard;
@@ -18,7 +20,7 @@ import game.positions.EnemyNest.spawners.RedWolfSpawner;
 import game.positions.Void;
 import game.positions.EnemyNest.spawners.HollowSoliderSpawner;
 import game.positions.EnemyNest.spawners.WanderingUndeadSpawner;
-import game.weapons.Broadsword;
+import game.artifacts.weapons.Broadsword;
 
 import java.util.Arrays;
 import java.util.List;
@@ -144,6 +146,7 @@ public class Application {
         ancientWoods.at(32,10).addItem(new Bloodberry());
         ancientWoods.at(28,11).addItem(new Bloodberry());
 
+        ancientWoods.at(20,3).addActor(new IsolatedTraveller());
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
@@ -157,7 +160,12 @@ public class Application {
 
         // Adding the player on the map
         Player player = new Player();
-        world.addPlayer(player, gameMap.at(29, 5));
+//        world.addPlayer(player, gameMap.at(29, 5));
+
+        // TESTING: Starting in Ancient Woods
+        world.addPlayer(player, ancientWoods.at(20, 5));
+        ancientWoods.at(20,6).addItem(new HealingVial());
+
 
         // Added the Broadsword on the map
         Item broadsword = new Broadsword();

@@ -7,7 +7,6 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.capabilities.Status;
 
 /**
  * A class that figures out a MoveAction that will move the actor one step
@@ -21,40 +20,27 @@ import game.capabilities.Status;
  */
 
 public class FollowBehaviour implements Behaviour {
+	private final Actor target;
+
+	public FollowBehaviour(Actor target) {
+		this.target = target;
+	}
 
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
-
-		if (!map.contains(actor)) {
+		if(!map.contains(target) || !map.contains(actor))
 			return null;
-		}
 
-		Location actorLocation = map.locationOf(actor);
-		Location targetLocation = null;
+		Location here = map.locationOf(actor);
+		Location there = map.locationOf(target);
 
-		// Find location of the player if the player is in the surroundings of the actor
-		for (Exit exit : actorLocation.getExits()) {
+		int currentDistance = distance(here, there);
+		for (Exit exit : here.getExits()) {
 			Location destination = exit.getDestination();
-			if (destination.containsAnActor()) {
-				if (destination.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
-					targetLocation = map.locationOf(destination.getActor());
-					break;
-				}
-			}
-		}
-
-		// Move closer to the player if the player is in the surroundings of the actor
-		if (targetLocation != null) {
-			int currentDistance = distance(actorLocation, targetLocation);
-
-			for (Exit exit : actorLocation.getExits()) {
-				Location destination = exit.getDestination();
-
-				if (destination.canActorEnter(actor)) {
-					int newDistance = distance(destination, targetLocation);
-					if (newDistance < currentDistance) {
-						return new MoveActorAction(destination, exit.getName());
-					}
+			if (destination.canActorEnter(actor)) {
+				int newDistance = distance(destination, there);
+				if (newDistance < currentDistance) {
+					return new MoveActorAction(destination, exit.getName());
 				}
 			}
 		}

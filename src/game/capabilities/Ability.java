@@ -14,5 +14,5 @@ public enum Ability {
      * without encountering negative effects or hazards.
      */
     WALKS_SAFE_TILES,
-    TRANSACTS
+    TRADES,
 }

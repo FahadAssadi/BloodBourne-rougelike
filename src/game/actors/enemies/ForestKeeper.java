@@ -51,8 +51,7 @@ public class ForestKeeper extends Enemy{
     @Override
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(2, new FollowBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
+        this.behaviours.put(999, new WanderBehaviour());
     }
 
     @Override
@@ -80,6 +79,7 @@ public class ForestKeeper extends Enemy{
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
+            this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
     }

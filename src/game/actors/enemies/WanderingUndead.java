@@ -25,7 +25,6 @@ public class WanderingUndead extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "whacks";
     private static final int DEFAULT_OLD_KEY_DROP_RATE = 25;
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
 
     /**
@@ -48,7 +47,7 @@ public class WanderingUndead extends Enemy {
     @Override
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
+        this.behaviours.put(999, new WanderBehaviour());
     }
 
     @Override

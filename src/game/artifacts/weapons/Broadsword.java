@@ -1,4 +1,4 @@
-package game.weapons;
+package game.artifacts.weapons;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -6,6 +6,11 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.AttackAction;
 import game.actions.FocusAction;
+import game.actions.SellAction;
+import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.NoQuirk;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**
@@ -14,7 +19,7 @@ import game.capabilities.Status;
  * Created By:
  * @author Fahad Assadi
  */
-public class Broadsword extends WeaponItem implements WeaponSkill {
+public class Broadsword extends WeaponItem implements WeaponSkill, Sellable {
     // Default attributes for the Broadsword
     private static final String DEFAULT_NAME = "Broadsword";
     private static final char DEFAULT_DISPLAY_CHAR = '1';
@@ -24,6 +29,7 @@ public class Broadsword extends WeaponItem implements WeaponSkill {
     private static final float DEFAULT_DAMAGE_MULTIPLIER = 1.0f;
     private int skillDuration;
     private int skillTimer;
+    private static final int DEFAULT_BROADSWORD_PRICE = 100;
 
     /**
      * Default constructor for the Broadsword class.
@@ -140,6 +146,13 @@ public class Broadsword extends WeaponItem implements WeaponSkill {
         ActionList actions = new ActionList();
 
         actions.add(new AttackAction(otherActor, location.toString(), this));
+
+        if (otherActor.hasCapability(Ability.TRADES)) {
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_BROADSWORD_PRICE),
+                    new NoQuirk()
+            ));
+        }
 
         return actions;
     }

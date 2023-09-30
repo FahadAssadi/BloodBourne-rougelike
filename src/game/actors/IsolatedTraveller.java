@@ -2,23 +2,40 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.AttackAction;
-import game.actions.SellAction;
-import game.actions.TransactionAction;
+import game.actions.PurchaseAction;
+import game.artifacts.TransactionItem;
+import game.artifacts.consumables.HealingVial;
+import game.artifacts.consumables.RefreshingFlask;
+import game.artifacts.quirks.PricingQuirk;
+import game.artifacts.quirks.Quirk;
+import game.artifacts.quirks.ScamQuirk;
 import game.capabilities.Ability;
-import game.capabilities.Status;
+import game.artifacts.weapons.Broadsword;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class IsolatedTraveller extends Actor {
+    protected Map<TransactionItem, Quirk> sellableItems = new HashMap<>();
+
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
-    private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesnt affect gameplay.
+    private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
+    private static final int DEFAULT_HEALING_VIAL_PRICE = 100;
+    private static final int DEFAULT_REFRESHING_FLASK_PRICE = 75;
+    private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
 
-//    private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
+    public IsolatedTraveller() {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.addCapability(Ability.TRADES);
+
+        this.populateSellable();
+    }
 
     /**
      * The constructor of the Actor class.
@@ -29,26 +46,30 @@ public class IsolatedTraveller extends Actor {
      */
     public IsolatedTraveller(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Ability.TRANSACTS);
+        this.addCapability(Ability.TRADES);
+
+        this.populateSellable();
     }
-    public IsolatedTraveller() {
-        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Ability.TRANSACTS);
+
+    public void populateSellable() {
+        this.sellableItems.put(new TransactionItem(new HealingVial(), DEFAULT_HEALING_VIAL_PRICE), new PricingQuirk(25, 50));
+        this.sellableItems.put(new TransactionItem(new RefreshingFlask(), DEFAULT_REFRESHING_FLASK_PRICE), new PricingQuirk(10, -20));
+        this.sellableItems.put(new TransactionItem(new Broadsword(), DEFAULT_BROAD_SWORD_PRICE), new ScamQuirk(5));
     }
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return null;
+        return new DoNothingAction();
     }
 
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Ability.TRANSACTS)){
-            for (Item item: this.getItemInventory()) {
-                actions.add(new TransactionAction(item, this, otherActor));
-            }
-        }
+
+        this.sellableItems.forEach(((purchasableItem, quirk) -> {
+            actions.add(new PurchaseAction(purchasableItem, quirk));
+        }));
+
         return actions;
     }
 }

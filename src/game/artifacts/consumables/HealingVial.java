@@ -4,16 +4,23 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
+import game.actions.SellAction;
+import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
+import game.artifacts.quirks.PricingQuirk;
+import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.
  */
-public class HealingVial extends Item implements Consumable {
+public class HealingVial extends Item implements Consumable, Sellable {
     private static final String DEFAULT_NAME = "Healing Vial";
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_HEATH_RESTORATION = 0.1;
+    private static final int DEFAULT_HEALING_VIAL_PRICE = 35;
 
     /**
      * Constructor for the HealingVial class.
@@ -53,4 +60,19 @@ public class HealingVial extends Item implements Consumable {
 
         return actions;
     }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+
+        if (otherActor.hasCapability(Ability.TRADES)) {
+            actions.add(new SellAction(
+                    new TransactionItem(this, DEFAULT_HEALING_VIAL_PRICE),
+                    new PricingQuirk(10, 100)
+            ));
+        }
+
+        return actions;
+    }
+
 }

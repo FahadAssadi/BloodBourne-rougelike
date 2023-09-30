@@ -5,20 +5,13 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
-
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
-
-import game.behaviours.AttackBehaviour;
-import game.behaviours.WanderBehaviour;
-
-
-
 import game.misc.Utility;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * An abstract class representing enemies in the game.
@@ -26,13 +19,12 @@ import java.util.Map;
  */
 public abstract class Enemy extends Actor {
     // A map to store behaviors, where the key is an integer priority
-    protected Map <Integer, Behaviour> behaviours = new HashMap<>();
+    protected Map <Integer, Behaviour> behaviours = new TreeMap<>();
 
     // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
     protected Map<DropAction, Integer> droppableItems = new HashMap<>();
 
     protected static final int DEFAULT_RUNES_DROP_RATE = 100;
-    private int runesDropAmount;
 
     /**
      * Constructor for the Enemy class.
@@ -51,12 +43,6 @@ public abstract class Enemy extends Actor {
     protected abstract void addBehaviours();
 
     protected abstract void addDroppableItems();
-
-    public void setRunesDropAmount(int runesDropAmount) {
-        this.runesDropAmount = runesDropAmount;
-    }
-
-
 
     @Override
     public String unconscious(Actor actor, GameMap map) {
