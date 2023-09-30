@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actors.enemies.ForestWatcher;
 import game.actors.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
@@ -195,6 +196,8 @@ public class Application {
         bossMap.at(19, 10).setGround(bossBush3);
 
         bossMap.at(9,15).addItem(new GiantHammer());
+
+        bossMap.at(20, 10).addActor(new ForestWatcher(gateToAncientWoods));
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
