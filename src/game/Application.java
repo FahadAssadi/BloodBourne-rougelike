@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.World;
 import game.actors.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
+import game.artifacts.weapons.GiantHammer;
 import game.artifacts.weapons.GreatKnife;
 import game.misc.displays.FancyMessage;
 import game.positions.*;
@@ -192,6 +193,8 @@ public class Application {
         bossMap.at(18, 3).setGround(bossBush1);
         bossMap.at(20, 5).setGround(bossBush2);
         bossMap.at(19, 10).setGround(bossBush3);
+
+        bossMap.at(9,15).addItem(new GiantHammer());
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
