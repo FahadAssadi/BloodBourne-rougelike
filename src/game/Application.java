@@ -92,25 +92,54 @@ public class Application {
                 "+++++..............~~~~~~~~~~~........~~~........~~~~~......"
         );
 
+        List<String> map4 = Arrays.asList(
+                "~~~~.......+++......~+++++..............",
+                "~~~~.......+++.......+++++..............",
+                "~~~++......+++........++++..............",
+                "~~~++......++...........+..............+",
+                "~~~~~~...........+.......~~~++........++",
+                "~~~~~~..........++++....~~~~++++......++",
+                "~~~~~~...........+++++++~~~~.++++.....++",
+                "~~~~~..............++++++~~...+++.....++",
+                "......................+++......++.....++",
+                ".......................+~~............++",
+                ".......................~~~~...........++",
+                "........................~~++...........+",
+                ".....++++...............+++++...........",
+                ".....++++~..............+++++...........",
+                "......+++~~.............++++...........~",
+                ".......++..++++.......................~~",
+                "...........+++++......................~~",
+                "...........++++++.....................~~",
+                "..........~~+++++......................~",
+                ".........~~~~++++..................~~..~"
+        );
+
         // Created game maps for Abandoned Village and Burial Grounds
         GameMap gameMap = new GameMap(groundFactory, map);
         GameMap burialGrounds = new GameMap(groundFactory, map2);
         GameMap ancientWoods = new GameMap(groundFactory, map3);
+        GameMap bossMap = new GameMap(groundFactory, map4);
 
         world.addGameMap(gameMap);
         world.addGameMap(burialGrounds);
         world.addGameMap(ancientWoods);
+        world.addGameMap(bossMap);
 
         // Created Locked Gates for Burial Grounds and Abandoned Village
         LockedGate gateToBurialGrounds = new LockedGate(new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds"));
         LockedGate gateToAbandonedVillage = new LockedGate(new MoveActorAction(gameMap.at(30,1), "to The Abandoned Village"));
         LockedGate gateToAncientWoods = new LockedGate(new MoveActorAction(ancientWoods.at(38,11), "to The Ancient Woods"));
+        LockedGate gateToBossMap = new LockedGate(new MoveActorAction(bossMap.at(6,1), "to The Boss Map"));
 
         gameMap.at(30, 0).setGround(gateToBurialGrounds);
         burialGrounds.at(39,14).setGround(gateToAbandonedVillage);
 
         burialGrounds.at(29,4).setGround(gateToAncientWoods);
         ancientWoods.at(20,11).setGround(gateToBurialGrounds);
+
+        ancientWoods.at(6, 1).setGround(gateToBossMap);
+        bossMap.at(18, 1).setGround(gateToAncientWoods);
 
         Graveyard wanderingUndeadGraveyard1 = new Graveyard(new WanderingUndeadSpawner());
         Graveyard wanderingUndeadGraveyard2 = new Graveyard(new WanderingUndeadSpawner());
@@ -147,6 +176,22 @@ public class Application {
         ancientWoods.at(28,11).addItem(new Bloodberry());
 
         ancientWoods.at(20,3).addActor(new IsolatedTraveller());
+
+        Hut bossHut1 = new Hut(new ForestKeeperSpawner());
+        Hut bossHut2 = new Hut(new ForestKeeperSpawner());
+        Hut bossHut3 = new Hut(new ForestKeeperSpawner());
+
+        Bush bossBush1 = new Bush(new RedWolfSpawner());
+        Bush bossBush2 = new Bush(new RedWolfSpawner());
+        Bush bossBush3 = new Bush(new RedWolfSpawner());
+
+        bossMap.at(6, 3).setGround(bossHut1);
+        bossMap.at(3, 11).setGround(bossHut2);
+        bossMap.at(8, 10).setGround(bossHut3);
+
+        bossMap.at(18, 3).setGround(bossBush1);
+        bossMap.at(20, 5).setGround(bossBush2);
+        bossMap.at(19, 10).setGround(bossBush3);
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
