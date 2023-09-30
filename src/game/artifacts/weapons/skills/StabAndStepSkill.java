@@ -11,11 +11,9 @@ import game.capabilities.Status;
 
 public class StabAndStepSkill extends Skill{
     private static final double DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE = 25;
-    private final Actor otherActor;
 
     public StabAndStepSkill(WeaponItem weaponItem, Actor otherActor) {
-        super(weaponItem, DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE);
-        this.otherActor = otherActor;
+        super(weaponItem, otherActor, DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE);
     }
 
     @Override
@@ -25,20 +23,21 @@ public class StabAndStepSkill extends Skill{
         // Consume stamina from the actor
         this.consumeStamina(actor);
 
+        String message;
+
         // Attack the enemy
-        new AttackAction(otherActor, map.locationOf(otherActor).toString(), this.getWeaponItem()).execute(actor, map);
+        message = new AttackAction(this.getTargetActor(), map.locationOf(this.getTargetActor()).toString(), this.getWeaponItem()).execute(actor, map);
 
         // Step away to safety
         for (Exit exit : map.locationOf(actor).getExits()) {
             Location destination = exit.getDestination();
 
             if (destination.canActorEnter(actor)) {
-                new MoveActorAction(destination, destination.toString()).execute(actor, map);
+                message += "\n" + new MoveActorAction(destination, destination.toString()).execute(actor, map);
                 break;
             }
         }
 
-        // TODO: ADD THE MESSAGE
-        return null;
+        return message;
     }
 }

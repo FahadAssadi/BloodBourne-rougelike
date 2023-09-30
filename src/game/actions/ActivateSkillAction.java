@@ -7,7 +7,6 @@ import game.artifacts.weapons.skills.Skill;
 
 public class ActivateSkillAction extends Action {
     private final Skill skill;
-
     public ActivateSkillAction(Skill skill){
         this.skill = skill;
     }
@@ -19,6 +18,14 @@ public class ActivateSkillAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " activates the skill of " + this.skill.getWeaponItem();
+        String message = actor + " activates the skill of " + this.skill.getWeaponItem();
+
+        Actor targetActor = this.skill.getTargetActor();
+
+        if (!(targetActor == null)){
+            message += " on " + targetActor;
+        }
+
+        return message;
     }
 }

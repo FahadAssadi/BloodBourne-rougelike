@@ -7,16 +7,22 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 
 public abstract class Skill {
-    protected WeaponItem weaponItem;
-    protected double staminaDecreasePercentage;
+    protected final WeaponItem weaponItem;
+    protected final double staminaDecreasePercentage;
+    protected final Actor targetActor;
 
-    public Skill(WeaponItem weaponItem, double staminaDecreasePercentage){
+    public Skill(WeaponItem weaponItem, Actor targetActor, double staminaDecreasePercentage){
         this.weaponItem = weaponItem;
+        this.targetActor = targetActor;
         this.staminaDecreasePercentage = staminaDecreasePercentage;
     }
 
     public WeaponItem getWeaponItem(){
         return this.weaponItem;
+    }
+
+    public Actor getTargetActor(){
+        return this.targetActor;
     }
 
     public abstract String processWeaponSkill(Actor actor, GameMap map);
