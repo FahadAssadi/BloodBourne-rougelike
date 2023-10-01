@@ -11,11 +11,11 @@ public interface Quirk {
 
     // From the point of view of the merchant
     // (ie: the merchant is selling)
-    void performSelling(Actor actor, TransactionItem transactionItem);
+    String performMerchantSelling(Actor actor, TransactionItem transactionItem);
 
     // From the point of view of the merchant
     // (ie: the merchant is purchasing)
-    void performPurchasing(Actor actor, TransactionItem transactionItem);
+    String performMerchantPurchasing(Actor actor, TransactionItem transactionItem);
 
     boolean doesOccur();
 }

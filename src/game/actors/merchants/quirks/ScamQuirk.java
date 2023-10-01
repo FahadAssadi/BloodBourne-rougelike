@@ -1,6 +1,7 @@
 package game.actors.merchants.quirks;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
@@ -11,9 +12,30 @@ public class ScamQuirk implements Quirk {
         this.probability = probability;
     }
 
+//    @Override
+//    public void perform(Actor actor, TransactionItem transactionItem) {
+//        transactionItem.setItem(null);
+//    }
+
     @Override
-    public void perform(Actor actor, TransactionItem transactionItem) {
-        transactionItem.setItem(null);
+    public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
+        int price = transactionItem.getPrice();
+        int actorBalance = actor.getBalance();
+
+        int balanceToDeduct = Math.min(price, actorBalance);
+
+        actor.deductBalance(balanceToDeduct);
+
+        return actor + " purchases nothing for " + balanceToDeduct;
+    }
+
+    @Override
+    public String performMerchantPurchasing(Actor actor, TransactionItem transactionItem) {
+        Item item = transactionItem.getItem();
+
+        actor.removeItemFromInventory(item);
+
+        return actor + " sells " + item + " for 0 runes.";
     }
 
     @Override

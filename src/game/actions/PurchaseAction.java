@@ -19,26 +19,21 @@ public class PurchaseAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        Item item = this.transactionItem.getItem();
+        String message;
 
         // Check if the quirk occurs
         if (this.quirk.doesOccur()){
-            this.quirk.perform(actor, this.transactionItem);
-        }
-
-        if (this.transactionItem.getPrice() > actor.getBalance()){
-            return actor + " needs " + (this.transactionItem.getPrice() - actor.getBalance()) + " more to purchase " + item;
-        }
-
-        // Add the item if it's not null
-        if (this.transactionItem.getItem() != null){
+            message = this.quirk.performMerchantSelling(actor, this.transactionItem);
+            
+        } else {
+            // Add the item and deduct the balance
             actor.addItemToInventory(this.transactionItem.getItem());
+            actor.deductBalance(this.transactionItem.getPrice());
+
+            message = actor + " purchases " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();
         }
 
-        // Deduct the price of the item
-        actor.deductBalance(this.transactionItem.getPrice());
-
-        return actor + " purchased " + (this.transactionItem.getItem() == null ? " nothing " : item) + " for " + transactionItem.getPrice() + " runes.";
+        return message;
     }
 
     @Override
