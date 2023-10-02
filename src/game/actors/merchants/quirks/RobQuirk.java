@@ -23,7 +23,7 @@ public class RobQuirk implements Quirk{
         Item item = transactionItem.getItem();
 
         actor.removeItemFromInventory(item);
-        new ScamQuirk(100).performMerchantSelling(actor,transactionItem);
+        new ScamQuirk().performMerchantSelling(actor,transactionItem);
 
         return actor + " sells " + item + " for -" + Math.min(actor.getBalance(), transactionItem.getPrice());
     }

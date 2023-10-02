@@ -12,6 +12,10 @@ public class ScamQuirk implements Quirk {
         this.probability = probability;
     }
 
+    public ScamQuirk() {
+        this.probability = 100;
+    }
+
     @Override
     public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
         int price = transactionItem.getPrice();
