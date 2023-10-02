@@ -2,7 +2,6 @@ package game.actions;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.TransactionItem;
 import game.actors.merchants.quirks.Quirk;
@@ -26,6 +25,11 @@ public class PurchaseAction extends Action {
             message = this.quirk.performMerchantSelling(actor, this.transactionItem);
             
         } else {
+            // Check if the actor has sufficient funds to purchase the item.
+            if (actor.getBalance() < this.transactionItem.getPrice()){
+                return actor + " needs " + (this.transactionItem.getPrice() - actor.getBalance()) + " more to complete the purchase.";
+            }
+
             // Add the item and deduct the balance
             actor.addItemToInventory(this.transactionItem.getItem());
             actor.deductBalance(this.transactionItem.getPrice());

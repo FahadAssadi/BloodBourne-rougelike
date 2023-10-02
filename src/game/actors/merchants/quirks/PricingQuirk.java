@@ -16,19 +16,23 @@ public class PricingQuirk implements Quirk {
 
     @Override
     public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
-        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
         Item item = transactionItem.getItem();
+        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
 
-        actor.deductBalance(priceChange);
+        if (actor.getBalance() < priceChange){
+            return actor + " needs " + (priceChange - actor.getBalance()) + " more to complete the purchase.";
+        }
+
         actor.addItemToInventory(item);
+        actor.deductBalance(priceChange);
 
         return actor + " purchases " + item + " for " + priceChange;
     }
 
     @Override
     public String performMerchantPurchasing(Actor actor, TransactionItem transactionItem) {
-        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
         Item item = transactionItem.getItem();
+        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
 
         actor.addBalance(priceChange);
         actor.removeItemFromInventory(item);

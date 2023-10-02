@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
+import game.actors.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.merchants.quirks.ScamQuirk;
@@ -102,7 +103,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
         if (otherActor.hasCapability(Ability.TRADES)) {
             actions.add(new SellAction(
                     new TransactionItem(this, this.getSellingPrice()),
-                    new ScamQuirk(10)
+                    new RobQuirk(10)
             ));
         }
 
