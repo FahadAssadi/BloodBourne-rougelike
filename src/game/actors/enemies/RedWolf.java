@@ -1,7 +1,9 @@
 package game.actors.enemies;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
@@ -13,6 +15,7 @@ import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 import game.weather.WeatherSusceptible;
+import game.weather.WeatherTypes;
 
 public class RedWolf extends Enemy implements WeatherSusceptible {
     // Default attributes for the Red Wolf
@@ -51,6 +54,13 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
+
+    @Override
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        forceWeatherChanges();
+        return super.playTurn(actions, lastAction, map, display);
+    }
+
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
@@ -76,11 +86,22 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
 
     @Override
     public void sunnyWeather() {
+        if (isCorrectWeather(WeatherTypes.SUNNY))
+        {
+            this.updateDamageMultiplier(3);
+            System.out.println("The Red Wolf grows more aggressive!");
+        }
 
     }
 
     @Override
     public void rainyWeather() {
+        if (isCorrectWeather(WeatherTypes.RAINY))
+        {
+            this.updateDamageMultiplier(1);
+            System.out.println("The Red Wolf calms down!");
+
+        }
 
     }
 }

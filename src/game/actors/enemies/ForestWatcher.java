@@ -1,8 +1,10 @@
 package game.actors.enemies;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
@@ -16,6 +18,8 @@ import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
 import game.positions.LockedGate;
+import game.weather.Weather;
+import game.weather.WeatherTypes;
 
 /**
  * A class that represents a special type of enemy called "Forest Watcher"
@@ -32,6 +36,8 @@ public class ForestWatcher extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
 
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 5000;
+
+    private  int tickCounter = 0;
 
     // Custom attributes
     private Ground postDeathFormation;
@@ -58,6 +64,16 @@ public class ForestWatcher extends Enemy {
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
         this.behaviours.put(999, new WanderBehaviour());
+    }
+
+    @Override
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (tickCounter %3 == 0){
+            Weather.setNextWeather();
+        }
+        tickCounter+=1;
+
+        return super.playTurn(actions, lastAction, map, display);
     }
 
     @Override
