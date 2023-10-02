@@ -21,5 +21,10 @@ public enum Status {
      * This status indicates that an actor possesses a key.
      */
     POSSESS_KEY,
+    /**
+     * This status indicates that an actor cannot die in the void.
+     */
+    VOID_PROOF
+
 
 }
