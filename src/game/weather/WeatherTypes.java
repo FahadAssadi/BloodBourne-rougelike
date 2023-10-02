@@ -1,6 +1,6 @@
 package game.weather;
 
-public enum weathers {
+public enum WeatherTypes {
     SUNNY,
     RAINY
 }
