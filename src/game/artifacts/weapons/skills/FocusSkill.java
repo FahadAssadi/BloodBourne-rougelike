@@ -21,9 +21,6 @@ public class FocusSkill extends Skill{
         // Adding the Skill Active Status.
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
-        // Consume stamina from the actor
-        this.consumeStamina(actor);
-
         // Increase the weapon's damage multiplier and update hit rate
         this.weaponItem.increaseDamageMultiplier(this.increaseDamageMultiplierBy);
         this.weaponItem.updateHitRate(this.updateHitRateBy);

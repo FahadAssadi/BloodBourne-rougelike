@@ -18,6 +18,13 @@ public class StabAndStepSkill extends Skill{
 
     @Override
     public String processWeaponSkill(Actor actor, GameMap map) {
+        // Consume stamina from the actor
+        boolean sufficientStamina = this.consumeStamina(actor);
+
+        if (!sufficientStamina){
+            return actor + " has insufficient stamina.";
+        }
+
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Consume stamina from the actor
