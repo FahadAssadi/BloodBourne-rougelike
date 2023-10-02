@@ -30,6 +30,7 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
 
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 25;
+    private int tickCounter =0;
 
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -57,6 +58,8 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+
         forceWeatherChanges();
         return super.playTurn(actions, lastAction, map, display);
     }

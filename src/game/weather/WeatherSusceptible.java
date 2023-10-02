@@ -10,10 +10,11 @@ public interface WeatherSusceptible {
     {
         return Weather.getWeather() == correctWeatherType;
     }
-    default void forceWeatherChanges()
-    {
-        sunnyWeather();
-        rainyWeather();
+    default void forceWeatherChanges() {
+        if (Weather.getHasWeatherUpdated()) {
+            sunnyWeather();
+            rainyWeather();
+        }
     }
 
 }

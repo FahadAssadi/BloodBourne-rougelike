@@ -71,6 +71,9 @@ public class ForestWatcher extends Enemy {
         if (tickCounter %3 == 0){
             Weather.setNextWeather();
         }
+        else {
+            Weather.setHasWeatherUpdated(false);
+        }
         tickCounter+=1;
 
         return super.playTurn(actions, lastAction, map, display);
