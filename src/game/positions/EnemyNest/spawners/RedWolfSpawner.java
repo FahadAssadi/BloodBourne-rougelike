@@ -5,8 +5,10 @@ import game.actors.enemies.RedWolf;
 import game.misc.Utility;
 import game.weather.WeatherSusceptible;
 
-public class RedWolfSpawner implements Spawner{
-    private static final int SPAWN_CHANCE = 30;
+public class RedWolfSpawner implements Spawner, WeatherSusceptible {
+    private static final int DEFAULT_SPAWN_CHANCE = 30;
+    private static final int RAINY_SPAWN_CHANCE = 45;
+    private int SPAWN_CHANCE = DEFAULT_SPAWN_CHANCE;
 
     /**
      * Spawn a new instance of the RedWolf enemy actor.
@@ -27,5 +29,23 @@ public class RedWolfSpawner implements Spawner{
     @Override
     public boolean doesSpawn() {
         return Utility.getRandomEventOccurs(SPAWN_CHANCE);
+    }
+
+
+    @Override
+    public String processWeather() {
+        return null;
+    }
+
+    @Override
+    public String sunnyWeather() {
+        this.SPAWN_CHANCE = DEFAULT_SPAWN_CHANCE;
+        return "The red wolves are becoming less active";
+    }
+
+    @Override
+    public String rainyWeather() {
+        this.SPAWN_CHANCE = RAINY_SPAWN_CHANCE;
+        return "The red wolves are becoming more active";
     }
 }
