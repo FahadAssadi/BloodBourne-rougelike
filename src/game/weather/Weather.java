@@ -1,37 +1,46 @@
 package game.weather;
 
+import game.weather.states.WeatherState;
+import game.weather.states.RainyState;
+import game.weather.states.SunnyState;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Weather {
-
     private static Weather weather;
-    private final WeatherTypes weatherType;
-    public static final WeatherTypes[] allWeatherTypes = WeatherTypes.values();
-    private static int currentIndex = 0;
+    private WeatherState weatherState;
+    private List<WeatherState> weatherStateList;
+    private int currentWeatherIndex = -1;
 
-    private static boolean hasWeatherUpdated;
-
-    private Weather(WeatherTypes weatherType) {
-        this.weatherType = weatherType;
+    private Weather(){
+        this.createWeatherStates();
+        this.weatherTransition();
     }
 
-    public static WeatherTypes getWeather() {
-        if (weather == null) {
-            weather = new Weather(WeatherTypes.SUNNY);
+    private void createWeatherStates(){
+        this.weatherStateList = new ArrayList<>(Arrays.asList(
+                new SunnyState(),
+                new RainyState()
+        ));
+    }
+
+    public static Weather getWeather() {
+        if (weather == null){
+            weather = new Weather();
         }
-        return weather.weatherType;
+
+        return weather;
     }
 
-    public static void setNextWeather() {
-        currentIndex = (currentIndex + 1) % allWeatherTypes.length;
-        Weather.weather = new Weather(allWeatherTypes[currentIndex]);
-        hasWeatherUpdated = true;
-
-
+    public WeatherState getWeatherState(){
+        return weather.weatherState;
     }
 
-    public static boolean getHasWeatherUpdated() {
-        return hasWeatherUpdated;
-    }
-    public static void setHasWeatherUpdated(boolean newBoolean) {
-        hasWeatherUpdated = newBoolean;
+    public void weatherTransition(){
+        this.currentWeatherIndex = (this.currentWeatherIndex + 1) % this.weatherStateList.size();
+
+        this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
     }
 }

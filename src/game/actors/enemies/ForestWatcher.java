@@ -15,7 +15,7 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
-import game.weather2.Weather;
+import game.weather.Weather;
 
 
 /**

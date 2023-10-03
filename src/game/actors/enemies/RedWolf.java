@@ -14,8 +14,8 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-import game.weather2.Weather;
-import game.weather2.WeatherSusceptible;
+import game.weather.Weather;
+import game.weather.WeatherSusceptible;
 
 
 public class RedWolf extends Enemy implements WeatherSusceptible {
