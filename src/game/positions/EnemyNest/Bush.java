@@ -11,12 +11,17 @@ public class Bush extends EnemyNest implements WeatherSusceptible {
     }
 
     @Override
-    public void sunnyWeather() {
-
+    public String processWeather() {
+        return null;
     }
 
     @Override
-    public void rainyWeather() {
+    public String sunnyWeather() {
+        return null;
+    }
 
+    @Override
+    public String rainyWeather() {
+        return null;
     }
 }

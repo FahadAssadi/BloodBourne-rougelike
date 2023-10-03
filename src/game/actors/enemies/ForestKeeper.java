@@ -12,6 +12,7 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
+import game.weather.Weather;
 import game.weather.WeatherSusceptible;
 
 /**
@@ -30,6 +31,8 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
 
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
+
+    private static final int DEFAULT_HEAL_POINTS_WHEN_RAINY = 10;
 
     /** Default constructor for the Forest Keeper Class.
      *
@@ -86,12 +89,18 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
     }
 
     @Override
-    public void sunnyWeather() {
-
+    public String processWeather() {
+        return Weather.getWeather().getWeatherState().processWeather(this);
     }
 
     @Override
-    public void rainyWeather() {
+    public String sunnyWeather() {
+        return "";
+    }
 
+    @Override
+    public String rainyWeather() {
+        this.heal(DEFAULT_HEAL_POINTS_WHEN_RAINY);
+        return this + " feels rejuvenated.";
     }
 }

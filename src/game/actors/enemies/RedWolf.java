@@ -93,12 +93,12 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
     @Override
     public String sunnyWeather() {
         this.updateDamageMultiplier(3);
-        return "The Red Wolf grows more aggressive!";
+        return "The red wolves are becoming more aggressive.";
     }
 
     @Override
     public String rainyWeather() {
         this.updateDamageMultiplier(1);
-        return "The Ref Wolf calms down";
+        return "The red wolves are becoming less aggressive.";
     }
 }
