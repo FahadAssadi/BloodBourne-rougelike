@@ -18,23 +18,21 @@ public class SellAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        Item item = this.transactionItem.getItem();
+        String message;
 
+        // Check if the quirk occurs
         if (this.quirk.doesOccur()){
-            this.quirk.perform(actor, this.transactionItem);
-        }
+            message = this.quirk.performMerchantPurchasing(actor, this.transactionItem);
 
-        // Remove the item if it's null
-        if (this.transactionItem.getItem() == null){
-            actor.removeItemFromInventory(item);
         } else {
             // Remove the item and add the balance
             actor.removeItemFromInventory(this.transactionItem.getItem());
-            // Add the price of the item
             actor.addBalance(this.transactionItem.getPrice());
+
+            message = actor + " sold " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();
         }
 
-        return actor + " sold " + item + " for " + (this.transactionItem.getItem() == null ? 0 : this.transactionItem.getPrice()) + " runes.";
+        return message;
     }
 
     @Override

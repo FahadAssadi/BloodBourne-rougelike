@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.artifacts.consumables.Runes;
@@ -12,46 +13,48 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
-import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
+import game.misc.displays.FancyMessage;
 import game.weather.Weather;
-import game.weather.WeatherSusceptible;
+
 
 /**
- * A class that represents a special type of enemy called "Forest Keeper"
+ * A class that represents a special type of enemy called "Forest Watcher"
  */
-public class ForestKeeper extends Enemy implements WeatherSusceptible {
+public class ForestWatcher extends Enemy {
 
-    // Default attributes for the Forest Keeper
-    private static final String DEFAULT_NAME = "Forest Keeper";
-    private static final char DEFAULT_DISPLAY_CHAR = '8';
-    private static final int DEFAULT_HITPOINTS = 125;
-    private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 25;
-    private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 75;
+    // Default attributes for the Forest Watcher
+    private static final String DEFAULT_NAME = "Abxervyer, the Forest Watcher";
+    private static final char DEFAULT_DISPLAY_CHAR = 'Y';
+    private static final int DEFAULT_HITPOINTS = 2000;
+    private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 80;
+    private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 25;
 
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
-    private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
 
-    private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
+    private static final int DEFAULT_RUNE_DROP_AMOUNT = 5000;
 
-    private static final int DEFAULT_HEAL_POINTS_WHEN_RAINY = 10;
+    private  int tickCounter = 0;
 
-    /** Default constructor for the Forest Keeper Class.
+    // Custom attributes
+    private Ground postDeathFormation;
+
+    /** Default constructor for the Forest Watcher Class.
      *
      */
-    public ForestKeeper() {
+    public ForestWatcher() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.addCapability(Status.VOID_PROOF);
     }
 
     /**
-     * Custom constructor for the Forest Keeper Class.
+     * Custom constructor for the Forest Watcher Class.
      *
-     * @param name        The name of the enemy.
-     * @param displayChar The character representing the enemy in the display.
-     * @param hitPoints   The enemy's starting hit points.
      */
-    public ForestKeeper(String name, char displayChar, int hitPoints) {
-        super(name,displayChar,hitPoints);
+    public ForestWatcher(Ground postDeathFormation) {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.postDeathFormation = postDeathFormation;
+        this.addCapability(Status.VOID_PROOF);
     }
 
     @Override
@@ -61,8 +64,23 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
     }
 
     @Override
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (this.weatherEffects() != null) {
+            display.println(this.weatherEffects());
+        }
+
+        return super.playTurn(actions, lastAction, map, display);
+    }
+
+    public String weatherEffects(){
+        if (++tickCounter % 3 == 0){
+            return Weather.getWeather().weatherTransition();
+        }
+        return null;
+    }
+
+    @Override
     protected void addDroppableItems() {
-        this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
@@ -72,14 +90,18 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
     }
 
     @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        display.print(this.processWeather());
+    public String unconscious(Actor actor, GameMap map) {
+        // Once the boss is defeated, the location where the boss last stood turns into a Gate to the Ancient Wood
+        map.locationOf(this).setGround(postDeathFormation);
 
-        return super.playTurn(actions, lastAction, map, display);
+        // Print message when the boss is defeated
+        System.out.println(FancyMessage.BOSS_DIED);
+
+        return super.unconscious(actor, map);
     }
 
     /**
-     * Define allowable actions for the Forest Keeper based on the presence of hostile actors.
+     * Define allowable actions for the Forest Watcher based on the presence of hostile actors.
      *
      * @param otherActor The other actor (usually the player) to check for hostility.
      * @param direction  The direction in which the action is allowed.
@@ -94,21 +116,5 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
             this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
-    }
-
-    @Override
-    public String processWeather() {
-        return Weather.getWeather().getWeatherState().processWeather(this);
-    }
-
-    @Override
-    public String sunnyWeather() {
-        return "";
-    }
-
-    @Override
-    public String rainyWeather() {
-        this.heal(DEFAULT_HEAL_POINTS_WHEN_RAINY);
-        return this + " feels rejuvenated.\n";
     }
 }

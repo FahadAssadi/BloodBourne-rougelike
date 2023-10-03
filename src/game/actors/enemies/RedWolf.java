@@ -1,7 +1,9 @@
 package game.actors.enemies;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
@@ -12,8 +14,11 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
+import game.weather.Weather;
+import game.weather.WeatherSusceptible;
 
-public class RedWolf extends Enemy{
+
+public class RedWolf extends Enemy implements WeatherSusceptible {
     // Default attributes for the Red Wolf
     private static final String DEFAULT_NAME = "Red Wolf";
     private static final char DEFAULT_DISPLAY_CHAR = 'r';
@@ -51,6 +56,13 @@ public class RedWolf extends Enemy{
     }
 
     @Override
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        display.println(this.processWeather());
+
+        return super.playTurn(actions, lastAction, map, display);
+    }
+
+    @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
     }
@@ -71,5 +83,22 @@ public class RedWolf extends Enemy{
             this.behaviours.put(2, new FollowBehaviour(otherActor));
         }
         return actions;
+    }
+
+    @Override
+    public String processWeather() {
+        return Weather.getWeather().getWeatherState().processWeather(this);
+    }
+
+    @Override
+    public String sunnyWeather() {
+        this.updateDamageMultiplier(3);
+        return "The red wolves are becoming more aggressive.";
+    }
+
+    @Override
+    public String rainyWeather() {
+        this.updateDamageMultiplier(1);
+        return "The red wolves are becoming less aggressive.";
     }
 }

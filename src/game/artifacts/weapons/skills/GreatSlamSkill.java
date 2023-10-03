@@ -19,12 +19,16 @@ public class GreatSlamSkill extends Skill {
 
     @Override
     public String processWeaponSkill(Actor actor, GameMap map) {
+        // Consume stamina from the actor
+        boolean sufficientStamina = this.consumeStamina(actor);
+
+        if (!sufficientStamina){
+            return actor + " has insufficient stamina.";
+        }
+
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
-        // Consume stamina from the actor
-        this.consumeStamina(actor);
         int splashDamage = (int) (0.5 * getWeaponItem().damage());
-
 
         String message;
 
@@ -39,7 +43,6 @@ public class GreatSlamSkill extends Skill {
             }
         }
         message += "\n" + "SLAMMED everyone for " + splashDamage + " damage";
-
 
         return message;
     }

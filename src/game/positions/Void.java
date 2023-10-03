@@ -3,6 +3,7 @@ package game.positions;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.capabilities.Status;
 
 /**
  * A special type of ground representing a void or empty space.
@@ -33,7 +34,7 @@ public class Void extends Ground {
         Actor actor = location.getActor();
 
         // Check if an actor is present on this ground
-        if (actor != null){
+        if (actor != null && !actor.hasCapability(Status.VOID_PROOF)){
             // Make the actor unconscious by calling the unconscious method
             actor.unconscious(location.map());
         }

@@ -27,10 +27,16 @@ public abstract class Skill {
 
     public abstract String processWeaponSkill(Actor actor, GameMap map);
 
-    protected void consumeStamina(Actor actor){
+    protected boolean consumeStamina(Actor actor){
         // Consume stamina from the actor
         int decreaseStaminaBy = (int) Math.round(actor.getAttribute(BaseActorAttributes.STAMINA) * this.staminaDecreasePercentage/100);
-        actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, decreaseStaminaBy);
+
+        if (actor.getAttribute(BaseActorAttributes.STAMINA) > decreaseStaminaBy){
+            actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, decreaseStaminaBy);
+            return true;
+        }
+
+        return false;
     }
 
 }

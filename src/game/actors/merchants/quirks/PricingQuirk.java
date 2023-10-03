@@ -1,6 +1,7 @@
 package game.actors.merchants.quirks;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
@@ -14,10 +15,29 @@ public class PricingQuirk implements Quirk {
     }
 
     @Override
-    public void perform(Actor actor, TransactionItem transactionItem) {
+    public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
+        Item item = transactionItem.getItem();
         int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
 
-        transactionItem.setPrice(priceChange);
+        if (actor.getBalance() < priceChange){
+            return actor + " needs " + (priceChange - actor.getBalance()) + " more to complete the purchase.";
+        }
+
+        actor.addItemToInventory(item);
+        actor.deductBalance(priceChange);
+
+        return actor + " purchases " + item + " for " + priceChange;
+    }
+
+    @Override
+    public String performMerchantPurchasing(Actor actor, TransactionItem transactionItem) {
+        Item item = transactionItem.getItem();
+        int priceChange = (int) (transactionItem.getPrice() * (1 + this.pricePercentage/100));
+
+        actor.addBalance(priceChange);
+        actor.removeItemFromInventory(item);
+
+        return actor + " sells " + item + " for " + priceChange;
     }
 
     @Override

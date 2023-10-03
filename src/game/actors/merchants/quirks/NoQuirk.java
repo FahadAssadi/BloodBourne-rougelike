@@ -6,8 +6,13 @@ import game.artifacts.TransactionItem;
 public class NoQuirk implements Quirk{
 
     @Override
-    public void perform(Actor actor, TransactionItem transactionItem) {
-        // Do Nothing
+    public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
+        return null;
+    }
+
+    @Override
+    public String performMerchantPurchasing(Actor actor, TransactionItem transactionItem) {
+        return null;
     }
 
     @Override
