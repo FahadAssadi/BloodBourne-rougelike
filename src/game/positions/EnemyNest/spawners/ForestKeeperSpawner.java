@@ -29,24 +29,11 @@ public class ForestKeeperSpawner implements Spawner {
      */
     @Override
     public boolean doesSpawn() {
-        return Utility.getRandomEventOccurs(SPAWN_CHANCE);
+        return Utility.getRandomEventOccurs(spawnChance);
     }
 
-    @Override
-    public String processWeather() {
-        return Weather.getWeather().getWeatherState().processWeather(this);
-    }
-
-    @Override
-    public String sunnyWeather() {
-        this.SPAWN_CHANCE = SUNNY_SPAWN_CHANCE;
-        return "The forest keepers are becoming more active";
-    }
-
-    @Override
-    public String rainyWeather() {
-        this.SPAWN_CHANCE = DEFAULT_SPAWN_CHANCE;
-        return "The forest keepers are becoming less active";
+    public void setSpawnChance(int spawnChance) {
+        this.spawnChance = spawnChance;
     }
 }
 
