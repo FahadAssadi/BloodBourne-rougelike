@@ -3,8 +3,9 @@ package game.positions.EnemyNest.spawners;
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.ForestKeeper;
 import game.misc.Utility;
+import game.weather.WeatherSusceptible;
 
-public class ForestKeeperSpawner implements Spawner{
+public class ForestKeeperSpawner implements Spawner, WeatherSusceptible {
     private static final int SPAWN_CHANCE = 15;
 
     /**
@@ -26,5 +27,21 @@ public class ForestKeeperSpawner implements Spawner{
     @Override
     public boolean doesSpawn() {
         return Utility.getRandomEventOccurs(SPAWN_CHANCE);
+    }
+
+    @Override
+    public String processWeather() {
+
+        return null;
+    }
+
+    @Override
+    public String sunnyWeather() {
+        return null;
+    }
+
+    @Override
+    public String rainyWeather() {
+        return null;
     }
 }

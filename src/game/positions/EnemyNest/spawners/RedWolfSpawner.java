@@ -3,6 +3,7 @@ package game.positions.EnemyNest.spawners;
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.RedWolf;
 import game.misc.Utility;
+import game.weather.WeatherSusceptible;
 
 public class RedWolfSpawner implements Spawner{
     private static final int SPAWN_CHANCE = 30;
