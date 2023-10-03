@@ -6,10 +6,14 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
+import game.actions.SellAction;
+import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.Sellable;
+import game.artifacts.TransactionItem;
 import game.artifacts.weapons.skills.GreatSlamSkill;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.WeaponSkill;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
@@ -77,33 +81,27 @@ public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
     }
 
     /**
-     * Get a list of allowable actions for the Broadsword when it's in an unspecified location.
+     * Get a list of allowable actions for the Giant hammer when it's in a specific location.
      *
-     * @param actor The actor interacting with the Broadsword
-     * @return ActionList containing allowable actions
-     */
-    @Override
-    public ActionList allowableActions(Actor actor){
-        ActionList actions = new ActionList();
-
-        actions.add(new ActivateSkillAction(this.getSkill(actor)));
-
-        return actions;
-    }
-
-    /**
-     * Get a list of allowable actions for the Broadsword when it's in a specific location.
-     *
-     * @param otherActor The actor interacting with the Broadsword
-     * @param location   The specific location of the Broadsword
+     * @param otherActor The actor interacting with the Giant hammer
+     * @param location   The specific location of the Giant hammer
      * @return ActionList containing allowable actions
      */
     @Override
     public ActionList allowableActions(Actor otherActor, Location location){
         ActionList actions = new ActionList();
 
+        // ENEMIES.
         if (otherActor.hasCapability(Status.HOSTILE)){
             actions.add(new AttackAction(otherActor, location.toString(), this));
+            actions.add(new ActivateSkillAction(this.getSkill(otherActor)));
+        }
+
+        if (otherActor.hasCapability(Ability.TRADES)) {
+            actions.add(new SellAction(
+                    new TransactionItem(this, this.getSellingPrice()),
+                    new ScamQuirk(10)
+            ));
         }
 
         return actions;
