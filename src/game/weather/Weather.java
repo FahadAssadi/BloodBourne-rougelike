@@ -12,7 +12,7 @@ public class Weather {
     private static Weather weather;
     private WeatherState weatherState;
     private List<WeatherState> weatherStateList;
-    private int currentWeatherIndex = -1;
+    private int currentWeatherIndex = 0;
 
     private Weather(){
         this.createWeatherStates();
@@ -43,6 +43,6 @@ public class Weather {
 
         this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
 
-        return "The weather is now " + this.weatherState + "...";
+        return "The weather is now " + this.weatherState.toString() + "...";
     }
 }

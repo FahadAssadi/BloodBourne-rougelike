@@ -8,6 +8,8 @@ import edu.monash.fit2099.engine.actors.Actor;
  * @author Fahad Assadi
  */
 public interface Spawner {
+
+
     /**
      * Spawn an actor.
      *
@@ -20,4 +22,9 @@ public interface Spawner {
      * @return `true` if the spawner should spawn an actor, `false` otherwise.
      */
     boolean doesSpawn();
+
+    default void setSpawnChance(int spawnChance)
+    {
+
+    };
 }

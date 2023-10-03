@@ -7,10 +7,9 @@ import game.misc.Utility;
 import game.weather.Weather;
 import game.weather.WeatherSusceptible;
 
-public class ForestKeeperSpawner implements Spawner, WeatherSusceptible {
+public class ForestKeeperSpawner implements Spawner {
     private static final int DEFAULT_SPAWN_CHANCE = 15;
-    private static final int SUNNY_SPAWN_CHANCE = 30;
-    private int SPAWN_CHANCE = SUNNY_SPAWN_CHANCE;
+    private int spawnChance = DEFAULT_SPAWN_CHANCE;
 
     /**
      * Spawn a new instance of the ForestKeeper enemy actor.

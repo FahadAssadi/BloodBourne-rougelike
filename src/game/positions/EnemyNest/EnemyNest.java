@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.positions.EnemyNest.spawners.Spawner;
 
 public abstract class EnemyNest extends Ground {
-    private final Spawner spawner;
+    protected final Spawner spawner;
 
     public EnemyNest(char displayChar, Spawner spawner) {
         super(displayChar);
