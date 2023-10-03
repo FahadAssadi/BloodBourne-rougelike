@@ -21,8 +21,8 @@ public class Weather {
 
     private void createWeatherStates(){
         this.weatherStateList = new ArrayList<>(Arrays.asList(
-                new SunnyState(),
-                new RainyState()
+            new SunnyState(),
+            new RainyState()
         ));
     }
 
@@ -38,9 +38,11 @@ public class Weather {
         return weather.weatherState;
     }
 
-    public void weatherTransition(){
+    public String weatherTransition(){
         this.currentWeatherIndex = (this.currentWeatherIndex + 1) % this.weatherStateList.size();
 
         this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
+
+        return "The weather is now " + this.weatherState + "...";
     }
 }

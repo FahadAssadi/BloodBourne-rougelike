@@ -7,4 +7,9 @@ public class SunnyState implements WeatherState {
     public String processWeather(WeatherSusceptible weatherSusceptible) {
         return weatherSusceptible.sunnyWeather();
     }
+
+    @Override
+    public String toString() {
+        return "sunny";
+    }
 }

@@ -65,15 +65,18 @@ public class ForestWatcher extends Enemy {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        this.weatherEffects();
+        if (this.weatherEffects() != null) {
+            display.println(this.weatherEffects());
+        }
 
         return super.playTurn(actions, lastAction, map, display);
     }
 
-    public void weatherEffects(){
+    public String weatherEffects(){
         if (++tickCounter % 3 == 0){
-            Weather.getWeather().weatherTransition();
+            return Weather.getWeather().weatherTransition();
         }
+        return null;
     }
 
     @Override
