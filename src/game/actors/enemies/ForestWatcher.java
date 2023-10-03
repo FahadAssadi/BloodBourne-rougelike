@@ -2,7 +2,6 @@ package game.actors.enemies;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -14,12 +13,10 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
-import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
-import game.positions.LockedGate;
-import game.weather.Weather;
-import game.weather.WeatherTypes;
+import game.weather2.Weather;
+
 
 /**
  * A class that represents a special type of enemy called "Forest Watcher"
@@ -68,15 +65,15 @@ public class ForestWatcher extends Enemy {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (tickCounter %3 == 0){
-            Weather.setNextWeather();
-        }
-        else {
-            Weather.setHasWeatherUpdated(false);
-        }
-        tickCounter+=1;
+        this.weatherEffects();
 
         return super.playTurn(actions, lastAction, map, display);
+    }
+
+    public void weatherEffects(){
+        if (++tickCounter % 3 == 0){
+            Weather.getWeather().weatherTransition();
+        }
     }
 
     @Override

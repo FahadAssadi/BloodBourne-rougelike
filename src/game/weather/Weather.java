@@ -1,8 +1,5 @@
 package game.weather;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Weather {
 
     private static Weather weather;

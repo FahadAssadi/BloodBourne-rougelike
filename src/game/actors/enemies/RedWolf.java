@@ -14,8 +14,9 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-import game.weather.WeatherSusceptible;
-import game.weather.WeatherTypes;
+import game.weather2.Weather;
+import game.weather2.WeatherSusceptible;
+
 
 public class RedWolf extends Enemy implements WeatherSusceptible {
     // Default attributes for the Red Wolf
@@ -30,7 +31,6 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
 
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 25;
-    private int tickCounter =0;
 
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -55,12 +55,10 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
-
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        display.println(this.processWeather());
 
-
-        forceWeatherChanges();
         return super.playTurn(actions, lastAction, map, display);
     }
 
@@ -88,23 +86,19 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
     }
 
     @Override
-    public void sunnyWeather() {
-        if (isCorrectWeather(WeatherTypes.SUNNY))
-        {
-            this.updateDamageMultiplier(3);
-            System.out.println("The Red Wolf grows more aggressive!");
-        }
-
+    public String processWeather() {
+        return Weather.getWeather().getWeatherState().processWeather(this);
     }
 
     @Override
-    public void rainyWeather() {
-        if (isCorrectWeather(WeatherTypes.RAINY))
-        {
-            this.updateDamageMultiplier(1);
-            System.out.println("The Red Wolf calms down!");
+    public String sunnyWeather() {
+        this.updateDamageMultiplier(3);
+        return "The Red Wolf grows more aggressive!";
+    }
 
-        }
-
+    @Override
+    public String rainyWeather() {
+        this.updateDamageMultiplier(1);
+        return "The Ref Wolf calms down";
     }
 }
