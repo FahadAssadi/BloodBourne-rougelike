@@ -73,7 +73,7 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        display.println(this.processWeather());
+        display.print(this.processWeather());
 
         return super.playTurn(actions, lastAction, map, display);
     }
@@ -109,6 +109,6 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
     @Override
     public String rainyWeather() {
         this.heal(DEFAULT_HEAL_POINTS_WHEN_RAINY);
-        return this + " feels rejuvenated.";
+        return this + " feels rejuvenated.\n";
     }
 }
