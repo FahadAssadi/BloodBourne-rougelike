@@ -25,12 +25,12 @@ public class Bush extends EnemyNest implements SunnySusceptible, RainySusceptibl
     @Override
     public String sunnyWeather() {
         spawner.setSpawnChance(SUNNY_SPAWN_CHANCE);
-        return "The red wolves are becoming less active";
+        return "The number of Red Wolves is starting to dwindle!";
     }
 
     @Override
     public String rainyWeather() {
         spawner.setSpawnChance(RAINY_SPAWN_CHANCE);
-        return "The red wolves are becoming more active";
+        return "The number of Red Wolves is starting to increase!";
     }
 }

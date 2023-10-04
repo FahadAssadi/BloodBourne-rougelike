@@ -95,6 +95,6 @@ public class ForestKeeper extends Enemy implements RainySusceptible {
     @Override
     public String rainyWeather() {
         this.heal(DEFAULT_HEAL_POINTS_WHEN_RAINY);
-        return this + " feels rejuvenated.\n";
+        return this + " feels rejuvenated.";
     }
 }
