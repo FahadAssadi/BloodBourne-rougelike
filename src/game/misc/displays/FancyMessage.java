@@ -29,5 +29,15 @@ public class FancyMessage {
                     "   .JMML.    `\"bmmd\"'    `bmmmmd\"'      .JMMmmmdP' .JMML..JMMmmmmMMM .JMMmmmdP'   \n";
 
     public static String BOSS_DIED =
-            "################# ! THE BOSS HAS DIED ! #################";
+            "                                                                                                                                      \n" +
+                    "                                                                                                                                      \n" +
+                    "`7MM\"\"\"Yp,   .g8\"\"8q.    .M\"\"\"bgd  .M\"\"\"bgd     `7MMF'  `7MMF'      db       .M\"\"\"bgd     `7MM\"\"\"Yb. `7MMF'`7MM\"\"\"YMM  `7MM\"\"\"Yb.     \n" +
+                    "  MM    Yb .dP'    `YM. ,MI    \"Y ,MI    \"Y       MM      MM       ;MM:     ,MI    \"Y       MM    `Yb. MM    MM    `7    MM    `Yb.   \n" +
+                    "  MM    dP dM'      `MM `MMb.     `MMb.           MM      MM      ,V^MM.    `MMb.           MM     `Mb MM    MM   d      MM     `Mb   \n" +
+                    "  MM\"\"\"bg. MM        MM   `YMMNq.   `YMMNq.       MMmmmmmmMM     ,M  `MM      `YMMNq.       MM      MM MM    MMmmMM      MM      MM   \n" +
+                    "  MM    `Y MM.      ,MP .     `MM .     `MM       MM      MM     AbmmmqMA   .     `MM       MM     ,MP MM    MM   Y  ,   MM     ,MP   \n" +
+                    "  MM    ,9 `Mb.    ,dP' Mb     dM Mb     dM       MM      MM    A'     VML  Mb     dM       MM    ,dP' MM    MM     ,M   MM    ,dP',, \n" +
+                    ".JMMmmmd9    `\"bmmd\"'   P\"Ybmmd\"  P\"Ybmmd\"      .JMML.  .JMML..AMA.   .AMMA.P\"Ybmmd\"      .JMMmmmdP' .JMML..JMMmmmmMMM .JMMmmmdP'  db \n" +
+                    "                                                                                                                                      \n" +
+                    "                                                                                                                                      ";
 }

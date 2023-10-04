@@ -51,11 +51,11 @@ public class Weather {
         return weather.weatherState;
     }
 
-    public String weatherTransition(){
+    public void weatherTransition(){
         this.currentWeatherIndex = (this.currentWeatherIndex + 1) % this.weatherStateList.size();
 
         this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
 
-        return "The weather is now " + this.weatherState.toString() + "...";
+        new Display().println( "The weather is now " + this.weatherState.toString() + "...");
     }
 }
