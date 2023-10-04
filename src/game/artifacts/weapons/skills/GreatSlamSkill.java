@@ -11,6 +11,10 @@ import game.capabilities.Status;
 
 public class GreatSlamSkill extends Skill {
     private static final double DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE = 5;
+    private static  final float  SPLASH_DAMAGE_MULTIPLIER = 0.5F;
+    private static  final float  DEFAULT_SPLASH_DAMAGE_MULTIPLIER = 1.0F;
+
+
 
     public GreatSlamSkill(WeaponItem weaponItem, Actor otherActor) {
         super(weaponItem, otherActor, DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE);
@@ -39,7 +43,9 @@ public class GreatSlamSkill extends Skill {
         for (Exit exit : map.locationOf(getTargetActor()).getExits()) {
             Location destination = exit.getDestination();
             if (destination.containsAnActor()) {
-                destination.getActor().hurt(splashDamage);
+                this.getWeaponItem().updateDamageMultiplier(SPLASH_DAMAGE_MULTIPLIER);
+                new AttackAction(destination.getActor(),destination.toString(),this.getWeaponItem());
+                this.getWeaponItem().updateDamageMultiplier(DEFAULT_SPLASH_DAMAGE_MULTIPLIER);
             }
         }
         message += "\n" + "SLAMMED everyone for " + splashDamage + " damage";
