@@ -17,6 +17,6 @@ public class NoQuirk implements Quirk{
 
     @Override
     public boolean doesOccur() {
-        return true;
+        return false;
     }
 }
