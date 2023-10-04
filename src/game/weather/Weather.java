@@ -1,5 +1,6 @@
 package game.weather;
 
+import edu.monash.fit2099.engine.displays.Display;
 import game.weather.states.WeatherState;
 import game.weather.states.RainyState;
 import game.weather.states.SunnyState;
@@ -12,7 +13,19 @@ public class Weather {
     private static Weather weather;
     private WeatherState weatherState;
     private List<WeatherState> weatherStateList;
+
+    private static final List<SunnySusceptible> sunnySusceptibles = new ArrayList<>();
+    private static final List<RainySusceptible> rainySusceptibles = new ArrayList<>();
+
     private int currentWeatherIndex = 0;
+
+    public static List<SunnySusceptible> getSunnySusceptibles() {
+        return sunnySusceptibles;
+    }
+
+    public static List<RainySusceptible> getRainySusceptibles() {
+        return rainySusceptibles;
+    }
 
     private Weather(){
         this.createWeatherStates();

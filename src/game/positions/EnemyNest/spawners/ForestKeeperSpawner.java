@@ -2,10 +2,7 @@ package game.positions.EnemyNest.spawners;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.ForestKeeper;
-import game.actors.enemies.RedWolf;
 import game.misc.Utility;
-import game.weather.Weather;
-import game.weather.WeatherSusceptible;
 
 public class ForestKeeperSpawner implements Spawner {
     private static final int DEFAULT_SPAWN_CHANCE = 15;

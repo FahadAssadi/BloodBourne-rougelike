@@ -14,11 +14,12 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-import game.weather.Weather;
-import game.weather.WeatherSusceptible;
+import game.weather.RainySusceptible;
+import game.weather.SunnySusceptible;
 
 
-public class RedWolf extends Enemy implements WeatherSusceptible {
+
+public class RedWolf extends Enemy implements SunnySusceptible, RainySusceptible {
     // Default attributes for the Red Wolf
     private static final String DEFAULT_NAME = "Red Wolf";
     private static final char DEFAULT_DISPLAY_CHAR = 'r';
@@ -34,6 +35,8 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
 
     public RedWolf() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        registerAsRainySusceptible();
+        registerAsSunnySusceptible();
     }
 
     /**
@@ -41,6 +44,8 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
      */
     public RedWolf(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+        registerAsRainySusceptible();
+        registerAsSunnySusceptible();
     }
 
     @Override
@@ -55,12 +60,7 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        display.println(this.processWeather());
 
-        return super.playTurn(actions, lastAction, map, display);
-    }
 
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
@@ -85,10 +85,7 @@ public class RedWolf extends Enemy implements WeatherSusceptible {
         return actions;
     }
 
-    @Override
-    public String processWeather() {
-        return Weather.getWeather().getWeatherState().processWeather(this);
-    }
+
 
     @Override
     public String sunnyWeather() {

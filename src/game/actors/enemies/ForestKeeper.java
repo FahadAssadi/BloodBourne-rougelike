@@ -14,13 +14,12 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
-import game.weather.Weather;
-import game.weather.WeatherSusceptible;
+import game.weather.RainySusceptible;
 
 /**
  * A class that represents a special type of enemy called "Forest Keeper"
  */
-public class ForestKeeper extends Enemy implements WeatherSusceptible {
+public class ForestKeeper extends Enemy implements RainySusceptible {
 
     // Default attributes for the Forest Keeper
     private static final String DEFAULT_NAME = "Forest Keeper";
@@ -41,6 +40,7 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
      */
     public ForestKeeper() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        registerAsRainySusceptible();
     }
 
     /**
@@ -52,6 +52,7 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
      */
     public ForestKeeper(String name, char displayChar, int hitPoints) {
         super(name,displayChar,hitPoints);
+        registerAsRainySusceptible();
     }
 
     @Override
@@ -71,12 +72,6 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
     }
 
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        display.print(this.processWeather());
-
-        return super.playTurn(actions, lastAction, map, display);
-    }
 
     /**
      * Define allowable actions for the Forest Keeper based on the presence of hostile actors.
@@ -96,15 +91,6 @@ public class ForestKeeper extends Enemy implements WeatherSusceptible {
         return actions;
     }
 
-    @Override
-    public String processWeather() {
-        return Weather.getWeather().getWeatherState().processWeather(this);
-    }
-
-    @Override
-    public String sunnyWeather() {
-        return "";
-    }
 
     @Override
     public String rainyWeather() {

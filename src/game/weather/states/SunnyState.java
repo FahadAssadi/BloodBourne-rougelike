@@ -1,11 +1,16 @@
 package game.weather.states;
 
-import game.weather.WeatherSusceptible;
+import edu.monash.fit2099.engine.displays.Display;
+import game.weather.SunnySusceptible;
+import game.weather.Weather;
 
 public class SunnyState implements WeatherState {
     @Override
-    public String processWeather(WeatherSusceptible weatherSusceptible) {
-        return weatherSusceptible.sunnyWeather();
+    public void processWeatherState() {
+        for (SunnySusceptible sunnySusceptible: Weather.getSunnySusceptibles()) {
+            new Display().println(sunnySusceptible.sunnyWeather());
+
+        }
     }
 
     @Override

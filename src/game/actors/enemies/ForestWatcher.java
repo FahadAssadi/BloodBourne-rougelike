@@ -76,6 +76,7 @@ public class ForestWatcher extends Enemy {
     }
 
     public String weatherEffects(){
+        Weather.getWeather().getWeatherState().processWeatherState(); // Weather Stops changing after death.
         if (tickCounter++ % 3 == 0){
             return Weather.getWeather().weatherTransition();
 
