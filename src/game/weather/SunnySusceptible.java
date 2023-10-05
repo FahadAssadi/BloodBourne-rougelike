@@ -6,7 +6,7 @@ public interface SunnySusceptible{
 
     default void registerAsSunnySusceptible()
     {
-        Weather.getSunnySusceptibles().add(this);
+        WeatherSusceptiblesManager.getSunnySusceptibles().add(this);
     }
 
 }

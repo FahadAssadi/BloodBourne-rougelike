@@ -8,7 +8,7 @@ public interface RainySusceptible{
 
     default void registerAsRainySusceptible()
     {
-        Weather.getRainySusceptibles().add(this);
+        WeatherSusceptiblesManager.getRainySusceptibles().add(this);
     }
 
 }

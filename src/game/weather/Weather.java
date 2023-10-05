@@ -14,18 +14,7 @@ public class Weather {
     private WeatherState weatherState;
     private List<WeatherState> weatherStateList;
 
-    private static final List<SunnySusceptible> sunnySusceptibles = new ArrayList<>();
-    private static final List<RainySusceptible> rainySusceptibles = new ArrayList<>();
-
     private int currentWeatherIndex = 0;
-
-    public static List<SunnySusceptible> getSunnySusceptibles() {
-        return sunnySusceptibles;
-    }
-
-    public static List<RainySusceptible> getRainySusceptibles() {
-        return rainySusceptibles;
-    }
 
     private Weather(){
         this.createWeatherStates();
