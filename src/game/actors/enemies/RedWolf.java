@@ -1,9 +1,7 @@
 package game.actors.enemies;
 
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
@@ -17,20 +15,15 @@ import game.capabilities.Status;
 import game.weather.RainySusceptible;
 import game.weather.SunnySusceptible;
 
-
-
 public class RedWolf extends Enemy implements SunnySusceptible, RainySusceptible {
     // Default attributes for the Red Wolf
     private static final String DEFAULT_NAME = "Red Wolf";
     private static final char DEFAULT_DISPLAY_CHAR = 'r';
     private static final int DEFAULT_HITPOINTS = 25;
     private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 15;
-
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
-
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "bites";
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 25;
 
     public RedWolf() {
@@ -60,8 +53,6 @@ public class RedWolf extends Enemy implements SunnySusceptible, RainySusceptible
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
-
-
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
@@ -84,8 +75,6 @@ public class RedWolf extends Enemy implements SunnySusceptible, RainySusceptible
         }
         return actions;
     }
-
-
 
     @Override
     public String sunnyWeather() {
