@@ -21,7 +21,9 @@ import game.capabilities.Status;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * A class representing an isolated traveler who serves as a merchant in the game.
+ */
 public class IsolatedTraveller extends Actor {
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
@@ -32,6 +34,9 @@ public class IsolatedTraveller extends Actor {
     private static final int DEFAULT_BROAD_SWORD_PRICE = 250;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 300;
 
+    /**
+     * Constructor for the IsolatedTraveller class with default attributes.
+     */
     public IsolatedTraveller() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.TRADES);
@@ -50,11 +55,25 @@ public class IsolatedTraveller extends Actor {
         this.addCapability(Ability.TRADES);
     }
 
+    /**
+     * Defines the actions that the Isolated Traveller can perform during its turn.
+     *
+     * @param actions    The list of allowable actions for the Isolated Traveller.
+     * @param lastAction The last action performed by the Isolated Traveller.
+     * @param map        The GameMap where the Isolated Traveller is located.
+     * @param display    The display used to show messages.
+     * @return A DoNothingAction since the Isolated Traveller does not perform actions in this method.
+     */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         return new DoNothingAction();
     }
 
+    /**
+     * Generates a menu of sellable items along with their associated quirks for the Isolated Traveller.
+     *
+     * @return A map of sellable items and their associated quirks.
+     */
     private Map<TransactionItem, Quirk> generateSellingMenu() {
         Map<TransactionItem, Quirk> sellableItems = new HashMap<>();
 
@@ -66,6 +85,14 @@ public class IsolatedTraveller extends Actor {
         return sellableItems;
     }
 
+    /**
+     * Defines the allowable actions for the Isolated Traveller based on the presence of other actors and their direction.
+     *
+     * @param otherActor The other actor (usually the player) to check for actions.
+     * @param direction  The direction in which the action is allowed.
+     * @param map        The GameMap where the action occurs.
+     * @return A list of allowable actions for the Isolated Traveller, including purchasing items with associated quirks.
+     */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();

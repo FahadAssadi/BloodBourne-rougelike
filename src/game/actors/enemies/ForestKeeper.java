@@ -15,7 +15,34 @@ import game.capabilities.Status;
 import game.weather.susceptibles.RainySusceptible;
 
 /**
- * A class that represents a special type of enemy called "Forest Keeper"
+ * A class that represents a special type of enemy called "Forest Keeper."
+ *
+ * The ForestKeeper class extends the Enemy class and represents a unique enemy in the game.
+ * It defines its behaviors, droppable items, and special characteristics when it's raining.
+ *
+ * Default attributes:
+ * - Name: "Forest Keeper"
+ * - Display Character: '8'
+ * - Hit Points: 125
+ * - Intrinsic Weapon Damage: 25
+ * - Intrinsic Weapon Hit Rate: 75%
+ * - Intrinsic Weapon Verb: "knocks"
+ * - Healing Vial Drop Rate: 20%
+ * - Rune Drop Amount: 50
+ * - Healing Points When Rainy: 10
+ *
+ * Behaviors:
+ * - AttackBehaviour: The Forest Keeper can attack hostile actors.
+ * - WanderBehaviour: The Forest Keeper can wander randomly.
+ *
+ * Capabilities:
+ * - It has the "HOSTILE" capability.
+ *
+ * Special Interfaces:
+ * - It implements the "RainySusceptible" interface, which allows it to heal when it's raining.
+ *
+ * Created by:
+ * Modified by: Fahad Assadi
  */
 public class ForestKeeper extends Enemy implements RainySusceptible {
 
@@ -25,16 +52,16 @@ public class ForestKeeper extends Enemy implements RainySusceptible {
     private static final int DEFAULT_HITPOINTS = 125;
     private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 25;
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 75;
-
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
-
     private static final int DEFAULT_HEAL_POINTS_WHEN_RAINY = 10;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+    private static final int DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY = 2;
+    private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
 
-    /** Default constructor for the Forest Keeper Class.
-     *
+    /**
+     * Default constructor for the Forest Keeper Class.
      */
     public ForestKeeper() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -53,18 +80,29 @@ public class ForestKeeper extends Enemy implements RainySusceptible {
         registerAsRainySusceptible();
     }
 
+    /**
+     * Adds the AttackBehaviour and WanderBehaviour to the behaviors map.
+     */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(999, new WanderBehaviour());
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_WANDER_BEHAVIOUR_PRIORITY, new WanderBehaviour());
     }
 
+    /**
+     * Adds droppable items (Healing Vial and Runes) to the droppableItems map with their drop rates.
+     */
     @Override
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
+    /**
+     * Returns the intrinsic weapon for the Forest Keeper.
+     *
+     * @return An IntrinsicWeapon representing the Forest Keeper's attack.
+     */
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
@@ -84,11 +122,17 @@ public class ForestKeeper extends Enemy implements RainySusceptible {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
-            this.behaviours.put(2, new FollowBehaviour(otherActor));
+            this.behaviours.put(DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY, new FollowBehaviour(otherActor));
         }
         return actions;
     }
 
+    /**
+     * Overrides the rainyWeather method from the RainySusceptible interface.
+     * The Forest Keeper heals when it's raining.
+     *
+     * @return A message indicating the healing effect when it's rainy.
+     */
     @Override
     public String rainyWeather() {
         this.heal(DEFAULT_HEAL_POINTS_WHEN_RAINY);

@@ -15,6 +15,28 @@ import game.capabilities.Status;
 
 /**
  * A specific enemy type representing a Wandering Undead in the game.
+ *
+ * The WanderingUndead class extends the Enemy class and represents a specific enemy type in the game.
+ * It defines its behaviors, droppable items, and default attributes.
+ *
+ * Default attributes:
+ * - Name: "Wandering Undead"
+ * - Display Character: 't'
+ * - Hit Points: 100
+ * - Intrinsic Weapon Damage: 30
+ * - Intrinsic Weapon Verb: "whacks"
+ * - Old Key Drop Rate: 25%
+ * - Healing Vial Drop Rate: 20%
+ * - Rune Drop Amount: 50
+ *
+ * Behaviors:
+ * - AttackBehaviour: The Wandering Undead can attack hostile actors.
+ * - WanderBehaviour: The Wandering Undead can wander randomly.
+ *
+ * Created By:
+ * @author Fahad Assadi
+ * Modified by:
+ * @author Fahad Assadi
  */
 public class WanderingUndead extends Enemy {
     // Default attributes for the Wandering Undead
@@ -26,6 +48,8 @@ public class WanderingUndead extends Enemy {
     private static final int DEFAULT_OLD_KEY_DROP_RATE = 25;
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 50;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+    private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
 
     /**
      * Constructor for the WanderingUndead class.
@@ -44,12 +68,18 @@ public class WanderingUndead extends Enemy {
         super(name, displayChar, hitPoints);
     }
 
+    /**
+     * Adds the AttackBehaviour and WanderBehaviour to the behaviors map.
+     */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(999, new WanderBehaviour());
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_WANDER_BEHAVIOUR_PRIORITY, new WanderBehaviour());
     }
 
+    /**
+     * Adds droppable items (Old Key, Healing Vial, and Runes) to the droppableItems map with their drop rates.
+     */
     @Override
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new OldKey()), DEFAULT_OLD_KEY_DROP_RATE);

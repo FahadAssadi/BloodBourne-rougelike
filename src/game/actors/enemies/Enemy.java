@@ -16,6 +16,11 @@ import java.util.TreeMap;
 
 /**
  * An abstract class representing enemies in the game.
+ *
+ * This abstract class extends the Actor class from the game engine and is used as a base class
+ * for defining various enemy types in the game. It provides functionality for adding behaviors and
+ * droppable items to enemies.
+ *
  * @author Fahad Assadi
  */
 public abstract class Enemy extends Actor {
@@ -42,10 +47,27 @@ public abstract class Enemy extends Actor {
         this.addCapability(Status.HOSTILE);
     }
 
+    /**
+     * Abstract method to be implemented by concrete enemy classes to add behaviors.
+     * This method should populate the 'behaviours' map with various behaviors.
+     */
     protected abstract void addBehaviours();
 
+    /**
+     * Abstract method to be implemented by concrete enemy classes to add droppable items.
+     * This method should populate the 'droppableItems' map with items that can be dropped
+     * by the enemy upon defeat, along with their drop rates.
+     */
     protected abstract void addDroppableItems();
 
+    /**
+     * Overrides the unconscious method to handle the dropping of items when the enemy is defeated.
+     * It uses the 'droppableItems' map to determine which items to drop and their drop rates.
+     *
+     * @param actor The actor that defeated this enemy.
+     * @param map   The game map in which the enemy was defeated.
+     * @return A message indicating the result of the unconscious action.
+     */
     @Override
     public String unconscious(Actor actor, GameMap map) {
         this.droppableItems.forEach(
