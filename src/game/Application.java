@@ -234,14 +234,9 @@ public class Application {
             }
         }
 
-//        // Adding the player to the Abandoned Village map
-//        Player player = new Player();
-//        world.addPlayer(player, gameMap.at(29, 5));
-
-        // TESTING: Starting in Ancient Woods
+        // Adding the player to the Abandoned Village map
         Player player = new Player();
-        player.addBalance(50000);
-        world.addPlayer(player, bossMap.at(12, 12));
+        world.addPlayer(player, gameMap.at(29, 5));
 
         // Run the game world
         world.run();
