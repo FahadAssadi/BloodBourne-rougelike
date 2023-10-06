@@ -6,9 +6,21 @@ import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.positions.EnemyNest.spawners.Spawner;
 
+/**
+ * A class that represents a Ground and acts as a wrapper for an Enemy Spawner,
+ * and delegates the spawning of the spawners.
+ */
 public abstract class EnemyNest extends Ground {
+    /*
+    The Enemy Spawner that this enemy nest/ground represents
+     */
     protected final Spawner spawner;
 
+    /**
+     * Constrctor for the EnemyNest
+     * @param displayChar Display character of the ground
+     * @param spawner The Enemy Spawner that this enemy nest/ground represents
+     */
     public EnemyNest(char displayChar, Spawner spawner) {
         super(displayChar);
         this.spawner = spawner;
@@ -19,7 +31,7 @@ public abstract class EnemyNest extends Ground {
      * If the spawner is set to spawn, it attempts to spawn actors from the Spawner
      * and places them in available exits.
      *
-     * @param location The location where this Graveyard ground is situated.
+     * @param location The location where the EnemyNest Ground is situated.
      */
     @Override
     public void tick(Location location) {
@@ -33,7 +45,6 @@ public abstract class EnemyNest extends Ground {
                     destination.addActor(actor);
                     break;
                 }
-
             }
         }
     }

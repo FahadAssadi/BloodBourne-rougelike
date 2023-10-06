@@ -9,13 +9,13 @@ import edu.monash.fit2099.engine.actors.Actor;
  */
 public interface Spawner {
 
-
     /**
      * Spawn an actor.
      *
      * @return The spawned actor.
      */
     Actor spawnActor();
+
     /**
      * Check if the spawner is currently set to spawn actors.
      *
@@ -23,8 +23,9 @@ public interface Spawner {
      */
     boolean doesSpawn();
 
-    default void setSpawnChance(int spawnChance)
-    {
-
-    };
+    /**
+     * Setter for the spawner's spawn chance to allow possible modification.
+     * (eg. due to weather effects)
+     */
+    default void setSpawnChance(int spawnChance) {};
 }
