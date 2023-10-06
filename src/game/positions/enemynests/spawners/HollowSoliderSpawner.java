@@ -1,4 +1,4 @@
-package game.positions.EnemyNest.spawners;
+package game.positions.enemynests.spawners;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.HollowSolider;

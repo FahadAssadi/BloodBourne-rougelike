@@ -1,30 +1,30 @@
-package game.positions.EnemyNest.spawners;
+package game.positions.enemynests.spawners;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import game.actors.enemies.RedWolf;
+import game.actors.enemies.ForestKeeper;
 import game.misc.Utility;
 
 /**
- * A spawner for creating instances of the RedWolf enemy actor.
+ * A spawner for creating instances of the ForestKeeper enemy actor.
  * It implements the Spawner interface and defines a spawning chance.
  */
-public class RedWolfSpawner implements Spawner {
-    // The chance of spawning a RedWolf (out of 100)
-    private static final int DEFAULT_SPAWN_CHANCE = 30;
+public class ForestKeeperSpawner implements Spawner {
+    // The chance of spawning a ForestKeeper (out of 100)
+    private static final int DEFAULT_SPAWN_CHANCE = 15;
     private int spawnChance = DEFAULT_SPAWN_CHANCE;
 
     /**
-     * Spawn a new instance of the RedWolf enemy actor.
+     * Spawn a new instance of the ForestKeeper enemy actor.
      *
-     * @return A new instance of the RedWolf actor.
+     * @return A new instance of the HollowSolider actor.
      */
     @Override
     public Actor spawnActor() {
-        return new RedWolf();
+        return new ForestKeeper();
     }
 
     /**
-     * Check if the spawner should spawn a RedWolf.
+     * Check if the spawner should spawn a ForestKeeper.
      * This method uses a random event utility to determine the outcome based on SPAWN_CHANCE.
      *
      * @return `true` if a HollowSolider should be spawned, `false` otherwise.
@@ -38,8 +38,8 @@ public class RedWolfSpawner implements Spawner {
      * Setter for the spawner's spawn chance to allow possible modification.
      * (eg. due to weather effects)
      */
-    @Override
     public void setSpawnChance(int spawnChance) {
         this.spawnChance = spawnChance;
     }
 }
+
