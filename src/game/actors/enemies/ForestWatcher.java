@@ -34,7 +34,7 @@ public class ForestWatcher extends Enemy {
 
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 5000;
 
-    private  int tickCounter = 0;
+    private int tickCounter = -2;
 
     // Custom attributes
     private Ground postDeathFormation;
@@ -65,16 +65,18 @@ public class ForestWatcher extends Enemy {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (this.weatherEffects() != null) {
-            display.println(this.weatherEffects());
+        String message = this.weatherEffects();
+        if (message!=null) {
+            display.println(message);
         }
 
         return super.playTurn(actions, lastAction, map, display);
     }
 
     public String weatherEffects(){
-        if (++tickCounter % 3 == 0){
-            return Weather.getWeather().weatherTransition();
+        Weather.getWeather().getWeatherState().processWeatherState(); // Weather Stops changing after death.
+        if (tickCounter++ % 3 == 0){
+             Weather.getWeather().weatherTransition();
         }
         return null;
     }

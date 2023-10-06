@@ -10,7 +10,6 @@ import game.actions.SellAction;
 import game.actors.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.StabAndStepSkill;
 import game.artifacts.weapons.skills.WeaponSkill;

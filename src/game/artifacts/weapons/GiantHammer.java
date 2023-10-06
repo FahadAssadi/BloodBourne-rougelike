@@ -8,7 +8,6 @@ import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
 import game.actors.merchants.quirks.NoQuirk;
-import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.artifacts.weapons.skills.GreatSlamSkill;

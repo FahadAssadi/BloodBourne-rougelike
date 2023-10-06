@@ -1,11 +1,11 @@
 package game.weather.states;
 
-import game.weather.WeatherSusceptible;
+import game.weather.WeatherSusceptiblesManager;
 
 public class SunnyState implements WeatherState {
     @Override
-    public String processWeather(WeatherSusceptible weatherSusceptible) {
-        return weatherSusceptible.sunnyWeather();
+    public void processWeatherState() {
+        WeatherSusceptiblesManager.processAllSunnySusceptible();
     }
 
     @Override

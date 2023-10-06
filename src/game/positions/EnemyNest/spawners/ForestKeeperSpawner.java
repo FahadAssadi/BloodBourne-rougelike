@@ -4,8 +4,14 @@ import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.ForestKeeper;
 import game.misc.Utility;
 
-public class ForestKeeperSpawner implements Spawner{
-    private static final int SPAWN_CHANCE = 15;
+/**
+ * A spawner for creating instances of the ForestKeeper enemy actor.
+ * It implements the Spawner interface and defines a spawning chance.
+ */
+public class ForestKeeperSpawner implements Spawner {
+    // The chance of spawning a ForestKeeper (out of 100)
+    private static final int DEFAULT_SPAWN_CHANCE = 15;
+    private int spawnChance = DEFAULT_SPAWN_CHANCE;
 
     /**
      * Spawn a new instance of the ForestKeeper enemy actor.
@@ -25,6 +31,15 @@ public class ForestKeeperSpawner implements Spawner{
      */
     @Override
     public boolean doesSpawn() {
-        return Utility.getRandomEventOccurs(SPAWN_CHANCE);
+        return Utility.getRandomEventOccurs(spawnChance);
+    }
+
+    /**
+     * Setter for the spawner's spawn chance to allow possible modification.
+     * (eg. due to weather effects)
+     */
+    public void setSpawnChance(int spawnChance) {
+        this.spawnChance = spawnChance;
     }
 }
+

@@ -1,5 +1,6 @@
 package game.weather;
 
+import edu.monash.fit2099.engine.displays.Display;
 import game.weather.states.WeatherState;
 import game.weather.states.RainyState;
 import game.weather.states.SunnyState;
@@ -12,7 +13,8 @@ public class Weather {
     private static Weather weather;
     private WeatherState weatherState;
     private List<WeatherState> weatherStateList;
-    private int currentWeatherIndex = -1;
+
+    private int currentWeatherIndex = 0;
 
     private Weather(){
         this.createWeatherStates();
@@ -38,11 +40,11 @@ public class Weather {
         return weather.weatherState;
     }
 
-    public String weatherTransition(){
+    public void weatherTransition(){
         this.currentWeatherIndex = (this.currentWeatherIndex + 1) % this.weatherStateList.size();
 
         this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
 
-        return "The weather is now " + this.weatherState + "...";
+        new Display().println( "The weather is now " + this.weatherState.toString() + "...");
     }
 }
