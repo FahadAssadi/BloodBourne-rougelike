@@ -1,4 +1,4 @@
-package game.weather;
+package game.weather.weathermanager;
 
 public interface RainySusceptible{
     /**

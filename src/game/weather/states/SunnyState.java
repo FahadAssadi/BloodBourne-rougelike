@@ -1,6 +1,6 @@
 package game.weather.states;
 
-import game.weather.WeatherSusceptiblesManager;
+import game.weather.weathermanager.WeatherSusceptiblesManager;
 
 public class SunnyState implements WeatherState {
     @Override

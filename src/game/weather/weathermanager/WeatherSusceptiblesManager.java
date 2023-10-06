@@ -1,4 +1,4 @@
-package game.weather;
+package game.weather.weathermanager;
 
 import edu.monash.fit2099.engine.displays.Display;
 
