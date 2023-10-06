@@ -5,6 +5,10 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import game.actions.ConsumeAction;
 
+
+/**
+ * A specific consumable item representing Runes, the currency, in the game.
+ */
 public class Runes extends Item implements Consumable {
     private final static String DEFAULT_DISPLAY_NAME = "Runes";
     private final static char DEFAULT_DISPLAY_CHAR = '$';
@@ -12,6 +16,11 @@ public class Runes extends Item implements Consumable {
 
     private final int runesAmount;
 
+    /**
+     * Constructor for the Runes class
+     *
+     * @param runesAmount Amount of runes
+     */
     public Runes(int runesAmount) {
         super(DEFAULT_DISPLAY_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABLE_STATUS);
         this.runesAmount = runesAmount;
@@ -29,6 +38,11 @@ public class Runes extends Item implements Consumable {
         this.runesAmount = runesAmount;
     }
 
+    /**
+     * Define the behavior of consuming the Runes to add to the player's balance.
+     *
+     * @param actor The actor consuming the Runes.
+     */
     @Override
     public void consume(Actor actor) {
         actor.addBalance(this.runesAmount);
@@ -37,14 +51,14 @@ public class Runes extends Item implements Consumable {
     /**
      * Define allowable actions related to the runes for the owner actor.
      *
-     * @param owner The actor who owns the Healing Vial.
+     * @param owner The actor who owns the Runes.
      * @return An ActionList containing the allowable actions for the owner actor.
      */
     @Override
     public ActionList allowableActions(Actor owner) {
         ActionList actions = new ActionList();
 
-        // Allow the owner actor to consume the Rune
+        // Allow the owner actor to consume the Runes
         actions.add(new ConsumeAction(this));
 
         return actions;

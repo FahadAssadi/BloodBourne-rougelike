@@ -18,12 +18,14 @@ import game.capabilities.Status;
 
 /**
  * Class representing a Broadsword weapon.
- * This class extends the WeaponItem class and implements the WeaponSkill interface.
+ * This class extends the WeaponItem class and implements the TimedWeaponSkill and Sellable interface.
  * Created By:
  * @author Fahad Assadi
  */
 public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable {
-    // Instance Variables for BroadSword
+    /*
+     Keeps track of the number of turns the weapon's skill has been active for
+     */
     private int skillTimer;
 
     // Default attributes for the Broadsword
@@ -59,6 +61,9 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
         super(name, displayChar, damage, verb, hitRate);
     }
 
+    /**
+     * @return The default price that the player sells this item for
+     */
     @Override
     public int getSellingPrice() {
         return DEFAULT_BROADSWORD_PRICE;
@@ -85,11 +90,20 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
         this.resetWeapon();
     }
 
+    /**
+     * Returns the skill with the actor to apply the skill to
+     *
+     * @param actor The actor to apply the skill to
+     * @return The Skill
+     */
     @Override
     public Skill getSkill(Actor actor){
         return new FocusSkill(this, DEFAULT_DAMAGE_MULTIPLIER_INCREASE, DEFAULT_UPDATED_HITRATE);
     }
 
+    /**
+     * Reset the attributes of the weapon following the skill effects if needed
+     */
     @Override
     public void resetWeapon() {
         this.updateDamageMultiplier(DEFAULT_DAMAGE_MULTIPLIER);
@@ -99,6 +113,9 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
+    /**
+     * Keeps track of the number of turns the weapon's skill can last for
+     */
     @Override
     public void processSkillTimer() {
         if (this.hasCapability(Status.SKILL_ACTIVE)){
@@ -140,16 +157,23 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
             actions.add(new AttackAction(otherActor, location.toString(), this));
         }
 
-
+        /*
+        Allow actor to Sell this item if they meet another actor who trades
+         */
         if (otherActor.hasCapability(Ability.TRADES)) {
+            /*
+             Add a SellAction that takes in:
+             - the Transaction Item, which takes in
+                - this item
+                - the Player's predefined selling price
+             - a quirk (trick) that the trader may play on the player during the transaction
+             */
             actions.add(new SellAction(
                     new TransactionItem(this, this.getSellingPrice()),
-                    new NoQuirk()
+                    new NoQuirk() // No specific quirk for this transaction
             ));
         }
 
         return actions;
     }
-
-
 }

@@ -16,6 +16,10 @@ import game.artifacts.weapons.skills.WeaponSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
+/**
+ * Class representing a GiantHammer weapon.
+ * This class extends the WeaponItem class and implements the WeaponSkill and Sellable interface.
+ */
 public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
     private static final String DEFAULT_NAME = "Giant hammer";
     private static final char DEFAULT_DISPLAY_CHAR = 'P';
@@ -65,16 +69,28 @@ public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
         this.resetWeapon();
     }
 
+    /**
+     * Returns the skill with the actor to apply the skill to
+     *
+     * @param actor The actor to apply the skill to
+     * @return The Skill
+     */
     @Override
     public Skill getSkill(Actor actor) {
         return new GreatSlamSkill(this, actor);
     }
 
+    /**
+     * Reset the attributes of the weapon following the skill effects if needed
+     */
     @Override
     public void resetWeapon() {
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
+    /**
+     * @return The default price that the player sells this item for
+     */
     @Override
     public int getSellingPrice() {
         return DEFAULT_GIANT_HAMMER_PRICE;
@@ -91,16 +107,26 @@ public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
     public ActionList allowableActions(Actor otherActor, Location location){
         ActionList actions = new ActionList();
 
-        // ENEMIES.
+        // Attack enemies and allow activation of this weapon's skill (only usable when confronting enemy)
         if (otherActor.hasCapability(Status.HOSTILE)){
             actions.add(new AttackAction(otherActor, location.toString(), this));
             actions.add(new ActivateSkillAction(this.getSkill(otherActor)));
         }
 
+        /*
+        Allow actor to Sell this item if they meet another actor who trades
+         */
         if (otherActor.hasCapability(Ability.TRADES)) {
+            /*
+             Add a SellAction that takes in:
+             - the Transaction Item, which takes in
+                - this item
+                - the Player's predefined selling price
+             - a quirk (trick) that the trader may play on the player during the transaction
+             */
             actions.add(new SellAction(
                     new TransactionItem(this, this.getSellingPrice()),
-                    new NoQuirk()
+                    new NoQuirk() // No specific quirk for this transaction
             ));
         }
 
