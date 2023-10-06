@@ -30,10 +30,9 @@ public class ForestWatcher extends Enemy {
     private static final int DEFAULT_HITPOINTS = 2000;
     private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 80;
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 25;
-
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 5000;
+    private static final int DEFAULT_WEATHER_ALTERNATING_INTERVAL = 3;
 
     private int tickCounter = -2;
 
@@ -78,8 +77,8 @@ public class ForestWatcher extends Enemy {
         WeatherSusceptiblesManager weatherSusceptiblesManager = WeatherSusceptiblesManager.getWeatherSusceptiblesManager();
 
         Weather.getWeather().getWeatherState().processWeatherState(weatherSusceptiblesManager); // Weather Stops changing after death.
-        if (tickCounter++ % 3 == 0){
-             Weather.getWeather().weatherTransition();
+        if (tickCounter++ % DEFAULT_WEATHER_ALTERNATING_INTERVAL == 0){
+            Weather.getWeather().weatherTransition();
         }
         return null;
     }

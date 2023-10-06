@@ -6,6 +6,7 @@ import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
 public class ScamQuirk implements Quirk {
+    private final double DEFAULT_SCAM_PROBABILITY = 100;
     private final double probability;
 
     public ScamQuirk(double probability) {
@@ -13,7 +14,7 @@ public class ScamQuirk implements Quirk {
     }
 
     public ScamQuirk() {
-        this.probability = 100;
+        this.probability = DEFAULT_SCAM_PROBABILITY;
     }
 
     @Override
