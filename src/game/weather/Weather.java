@@ -7,8 +7,6 @@ import game.weather.states.SunnyState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 /**
  * The `Weather` class represents the current weather state in the game and manages transitions between
  * different weather states. It follows the Singleton pattern to ensure a single instance throughout the game.
@@ -32,8 +30,7 @@ public class Weather {
      *
      * @return An ArrayList of available weather states.
      */
-    private ArrayList<WeatherState> returnWeatherStates(){
-
+    private ArrayList<WeatherState> getWeatherStates(){
          return new ArrayList<>(Arrays.asList(
                  new SunnyState(),
                  new RainyState()
@@ -69,9 +66,9 @@ public class Weather {
      * This method cycles through available weather states (sunny and rainy).
      */
     public void weatherTransition(){
-        this.currentWeatherIndex = (this.currentWeatherIndex + 1) % returnWeatherStates().size();
+        this.currentWeatherIndex = (this.currentWeatherIndex + 1) % getWeatherStates().size();
 
-        this.weatherState = returnWeatherStates().get(this.currentWeatherIndex);
+        this.weatherState = getWeatherStates().get(this.currentWeatherIndex);
 
         new Display().println( "The weather is now " + this.weatherState.toString() + "...");
     }
