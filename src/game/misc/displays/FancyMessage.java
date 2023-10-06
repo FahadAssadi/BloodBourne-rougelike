@@ -29,15 +29,12 @@ public class FancyMessage {
                     "   .JMML.    `\"bmmd\"'    `bmmmmd\"'      .JMMmmmdP' .JMML..JMMmmmmMMM .JMMmmmdP'   \n";
 
     public static String BOSS_DIED =
-            "                                                                                                                                      \n" +
-                    "                                                                                                                                      \n" +
-                    "`7MM\"\"\"Yp,   .g8\"\"8q.    .M\"\"\"bgd  .M\"\"\"bgd     `7MMF'  `7MMF'      db       .M\"\"\"bgd     `7MM\"\"\"Yb. `7MMF'`7MM\"\"\"YMM  `7MM\"\"\"Yb.     \n" +
-                    "  MM    Yb .dP'    `YM. ,MI    \"Y ,MI    \"Y       MM      MM       ;MM:     ,MI    \"Y       MM    `Yb. MM    MM    `7    MM    `Yb.   \n" +
-                    "  MM    dP dM'      `MM `MMb.     `MMb.           MM      MM      ,V^MM.    `MMb.           MM     `Mb MM    MM   d      MM     `Mb   \n" +
-                    "  MM\"\"\"bg. MM        MM   `YMMNq.   `YMMNq.       MMmmmmmmMM     ,M  `MM      `YMMNq.       MM      MM MM    MMmmMM      MM      MM   \n" +
-                    "  MM    `Y MM.      ,MP .     `MM .     `MM       MM      MM     AbmmmqMA   .     `MM       MM     ,MP MM    MM   Y  ,   MM     ,MP   \n" +
-                    "  MM    ,9 `Mb.    ,dP' Mb     dM Mb     dM       MM      MM    A'     VML  Mb     dM       MM    ,dP' MM    MM     ,M   MM    ,dP',, \n" +
-                    ".JMMmmmd9    `\"bmmd\"'   P\"Ybmmd\"  P\"Ybmmd\"      .JMML.  .JMML..AMA.   .AMMA.P\"Ybmmd\"      .JMMmmmdP' .JMML..JMMmmmmMMM .JMMmmmdP'  db \n" +
-                    "                                                                                                                                      \n" +
-                    "                                                                                                                                      ";
+            "\n\n\n`7MM\"\"\"YMM  `7MN.   `7MF'`7MM\"\"\"YMM  `7MMM.     ,MMF'`YMM'   `MM'    `7MM\"\"\"YMM `7MM\"\"\"YMM  `7MMF'      `7MMF'      `7MM\"\"\"YMM  `7MM\"\"\"Yb.   \n" +
+                    "  MM    `7    MMN.    M    MM    `7    MMMb    dPMM    VMA   ,V        MM    `7   MM    `7    MM          MM          MM    `7    MM    `Yb. \n" +
+                    "  MM   d      M YMb   M    MM   d      M YM   ,M MM     VMA ,V         MM   d     MM   d      MM          MM          MM   d      MM     `Mb \n" +
+                    "  MMmmMM      M  `MN. M    MMmmMM      M  Mb  M' MM      VMMP          MM\"\"MM     MMmmMM      MM          MM          MMmmMM      MM      MM \n" +
+                    "  MM   Y  ,   M   `MM.M    MM   Y  ,   M  YM.P'  MM       MM           MM   Y     MM   Y  ,   MM      ,   MM      ,   MM   Y  ,   MM     ,MP \n" +
+                    "  MM     ,M   M     YMM    MM     ,M   M  `YM'   MM       MM           MM         MM     ,M   MM     ,M   MM     ,M   MM     ,M   MM    ,dP' \n" +
+                    ".JMMmmmmMMM .JML.    YM  .JMMmmmmMMM .JML. `'  .JMML.   .JMML.       .JMML.     .JMMmmmmMMM .JMMmmmmMMM .JMMmmmmMMM .JMMmmmmMMM .JMMmmmdP'   \n";
+
 }
