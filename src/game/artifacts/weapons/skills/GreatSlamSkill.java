@@ -14,8 +14,9 @@ import game.capabilities.Status;
  */
 public class GreatSlamSkill extends Skill {
     private static final double DEFAULT_STAMINA_CONSUMPTION_PERCENTAGE = 5;
-    private static  final float  SPLASH_DAMAGE_MULTIPLIER = 0.5F;
-    private static  final float  DEFAULT_SPLASH_DAMAGE_MULTIPLIER = 1.0F;
+    private static final double DEFAULT_SPLASH_DAMAGE_PERCENTAGE = 0.5;
+    private static final float SPLASH_DAMAGE_MULTIPLIER = 0.5F;
+    private static final float DEFAULT_SPLASH_DAMAGE_MULTIPLIER = 1.0F;
 
     /**
      * Constructor for the GreatSlam Skill
@@ -48,7 +49,7 @@ public class GreatSlamSkill extends Skill {
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
         // Calculating the splash damage
-        int splashDamage = (int) (0.5 * getWeaponItem().damage());
+        int splashDamage = (int) (DEFAULT_SPLASH_DAMAGE_PERCENTAGE * getWeaponItem().damage());
 
         String message;
 
