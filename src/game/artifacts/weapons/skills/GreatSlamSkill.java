@@ -44,7 +44,7 @@ public class GreatSlamSkill extends Skill {
             Location destination = exit.getDestination();
             if (destination.containsAnActor()) {
                 this.getWeaponItem().updateDamageMultiplier(SPLASH_DAMAGE_MULTIPLIER);
-                new AttackAction(destination.getActor(),destination.toString(),this.getWeaponItem());
+                new AttackAction(destination.getActor(),destination.toString(),this.getWeaponItem()).execute(actor, map);
 
                 this.getWeaponItem().updateDamageMultiplier(DEFAULT_SPLASH_DAMAGE_MULTIPLIER);
             }
