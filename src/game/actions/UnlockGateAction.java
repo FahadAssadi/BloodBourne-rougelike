@@ -52,4 +52,5 @@ public class UnlockGateAction extends Action {
     public String menuDescription(Actor actor) {
         return actor + " unlocks Gate";
     }
+
 }

@@ -53,4 +53,5 @@ public class ActivateSkillAction extends Action {
 
         return message;
     }
+
 }

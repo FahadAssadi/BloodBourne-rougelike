@@ -72,4 +72,5 @@ public class PurchaseAction extends Action {
     public String menuDescription(Actor actor) {
         return actor + " purchases " + transactionItem.getItem() + " for " + transactionItem.getPrice();
     }
+    
 }

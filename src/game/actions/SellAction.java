@@ -61,4 +61,5 @@ public class SellAction extends Action {
     public String menuDescription(Actor actor) {
         return actor + " sells " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();
     }
+
 }

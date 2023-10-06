@@ -92,4 +92,5 @@ public class AttackAction extends Action {
     public String menuDescription(Actor actor) {
         return actor + " attacks " + target + " at " + direction + " with " + (weapon != null ? weapon : "Intrinsic Weapon");
     }
+
 }

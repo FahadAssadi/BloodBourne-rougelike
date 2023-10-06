@@ -18,4 +18,5 @@ public enum Ability {
      * This ability suggests that an actor has the capability to trade items.
      */
     TRADES,
+
 }
