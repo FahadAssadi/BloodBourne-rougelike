@@ -53,11 +53,13 @@ public class GreatSlamSkill extends Skill {
 
         String message;
 
+        Location enemyLocation = map.locationOf(getTargetActor());
+
         // Attack the enemy
-        message = new AttackAction(this.getTargetActor(), map.locationOf(this.getTargetActor()).toString(), this.getWeaponItem()).execute(actor, map);
+        message = new AttackAction(this.getTargetActor(), enemyLocation.toString(), this.getWeaponItem()).execute(actor, map);
 
         // Step away to safety
-        for (Exit exit : map.locationOf(getTargetActor()).getExits()) {
+        for (Exit exit : enemyLocation.getExits()) {
             Location destination = exit.getDestination();
             if (destination.containsAnActor()) {
                 this.getWeaponItem().updateDamageMultiplier(SPLASH_DAMAGE_MULTIPLIER);

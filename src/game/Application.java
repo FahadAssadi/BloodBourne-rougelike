@@ -10,6 +10,7 @@ import game.actors.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.weapons.GiantHammer;
+import game.artifacts.weapons.GreatKnife;
 import game.misc.displays.FancyMessage;
 import game.positions.*;
 import game.positions.enemynests.Bush;
@@ -211,7 +212,7 @@ public class Application {
         ancientWoods.at(38,5).addItem(new Bloodberry());
         ancientWoods.at(32,10).addItem(new Bloodberry());
         ancientWoods.at(28,11).addItem(new Bloodberry());
-        bossMap.at(9,15).addItem(new GiantHammer());
+        bossMap.at(12,14).addItem(new GiantHammer());
 
         // Add the Isolated Traveller actor to the Ancient Woods
         ancientWoods.at(20,3).addActor(new IsolatedTraveller());
@@ -233,15 +234,14 @@ public class Application {
             }
         }
 
-        // Adding the player to the Abandoned Village map
-        Player player = new Player();
-        world.addPlayer(player, gameMap.at(29, 5));
-
-//        // TESTING: Starting in Ancient Woods
+//        // Adding the player to the Abandoned Village map
 //        Player player = new Player();
-//        player.addBalance(50000);
-//        world.addPlayer(player, ancientWoods.at(20, 5));
-//        ancientWoods.at(20,6).addItem(new GreatKnife());
+//        world.addPlayer(player, gameMap.at(29, 5));
+
+        // TESTING: Starting in Ancient Woods
+        Player player = new Player();
+        player.addBalance(50000);
+        world.addPlayer(player, bossMap.at(12, 12));
 
         // Run the game world
         world.run();
