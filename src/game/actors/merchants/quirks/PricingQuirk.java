@@ -12,20 +12,8 @@ import game.misc.Utility;
  * in the game. This quirk introduces a pricing adjustment based on a given probability and price percentage.
  * The item price can increase or decrease during transactions with this quirk based on the specified probability.
  *
- * Quirk Methods:
- * - PricingQuirk(double probability, double pricePercentage): Constructor to create an instance of the PricingQuirk.
- * - performMerchantSelling(Actor actor, TransactionItem transactionItem): Adjusts the price of an item for selling to a merchant.
- * - performMerchantPurchasing(Actor actor, TransactionItem transactionItem): Adjusts the price of an item for purchasing from a merchant.
- * - doesOccur(): Determines whether this quirk occurs based on a specified probability.
- *
- * Constructor:
- * - PricingQuirk(double probability, double pricePercentage): Creates a PricingQuirk with the given probability and price percentage.
- *
- * Example Usage:
- * - PricingQuirk pricingQuirk = new PricingQuirk(0.3, -10); // 30% chance to decrease item price by 10%
- * - pricingQuirk.performMerchantSelling(merchantActor, transactionItem); // Adjust item price when selling to the merchant.
- *
- * Created by: [Author Name]
+ * Created by:
+ * @author Fahad Assadi
  */
 public class PricingQuirk implements Quirk {
     private final double probability;

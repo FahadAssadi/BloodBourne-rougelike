@@ -9,14 +9,8 @@ import game.artifacts.TransactionItem;
  * The `NoQuirk` class implements the `Quirk` interface, which is used to define special behaviors for merchants
  * in the game. In this class, there is no special behavior implemented, and all methods return default or null values.
  *
- * Quirk Methods:
- * - performMerchantSelling(Actor actor, TransactionItem transactionItem): Returns null, indicating no special behavior
- *   when a merchant sells an item.
- * - performMerchantPurchasing(Actor actor, TransactionItem transactionItem): Returns null, indicating no special behavior
- *   when a merchant purchases an item.
- * - doesOccur(): Returns false, indicating that this quirk does not occur.
- *
- * Created by: [Author Name]
+ * Created by:
+ * @author Fahad Assadi
  */
 public class NoQuirk implements Quirk{
 

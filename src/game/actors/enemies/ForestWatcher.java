@@ -38,7 +38,7 @@ import game.weather.susceptibles.WeatherSusceptiblesManager;
  * - WanderBehaviour: The Forest Watcher can wander randomly.
  *
  * Capabilities:
- * - It has the "VOID_PROOF" capability, which might indicate immunity or resistance to void-related effects.
+ * - It has the "VOID_PROOF" capability, indicates immunity or resistance to void-related effects.
  *
  * Custom Attributes:
  * - postDeathFormation: A reference to the ground that will appear at the location where the boss stood after its defeat.
