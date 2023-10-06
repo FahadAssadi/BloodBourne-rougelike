@@ -19,20 +19,6 @@ import game.capabilities.Status;
  * The HollowSolider class extends the Enemy class and represents a type of enemy in the game.
  * It defines its behaviors, droppable items, and default attributes.
  *
- * Default attributes:
- * - Name: "Hollow Solider"
- * - Display Character: '&'
- * - Hit Points: 200
- * - Intrinsic Weapon Damage: 50
- * - Intrinsic Weapon Verb: "whacks"
- * - Healing Vial Drop Rate: 20%
- * - Refreshing Flask Drop Rate: 30%
- * - Rune Drop Amount: 100
- *
- * Behaviors:
- * - AttackBehaviour: The Hollow Solider can attack hostile actors.
- * - WanderBehaviour: The Hollow Solider can wander randomly.
- *
  * Created By:
  * Modified by: Fahad Assadi
  */

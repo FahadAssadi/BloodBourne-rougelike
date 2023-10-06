@@ -19,20 +19,6 @@ import game.capabilities.Status;
  * The WanderingUndead class extends the Enemy class and represents a specific enemy type in the game.
  * It defines its behaviors, droppable items, and default attributes.
  *
- * Default attributes:
- * - Name: "Wandering Undead"
- * - Display Character: 't'
- * - Hit Points: 100
- * - Intrinsic Weapon Damage: 30
- * - Intrinsic Weapon Verb: "whacks"
- * - Old Key Drop Rate: 25%
- * - Healing Vial Drop Rate: 20%
- * - Rune Drop Amount: 50
- *
- * Behaviors:
- * - AttackBehaviour: The Wandering Undead can attack hostile actors.
- * - WanderBehaviour: The Wandering Undead can wander randomly.
- *
  * Created By:
  * @author Fahad Assadi
  * Modified by:

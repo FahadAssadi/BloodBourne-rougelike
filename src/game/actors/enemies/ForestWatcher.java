@@ -24,25 +24,6 @@ import game.weather.susceptibles.WeatherSusceptiblesManager;
  * The ForestWatcher class extends the Enemy class and represents a unique boss enemy in the game.
  * It defines its behaviors, droppable items, and special characteristics related to weather and post-death effects.
  *
- * Default attributes:
- * - Name: "Abxervyer, the Forest Watcher"
- * - Display Character: 'Y'
- * - Hit Points: 2000
- * - Intrinsic Weapon Damage: 80
- * - Intrinsic Weapon Hit Rate: 25%
- * - Intrinsic Weapon Verb: "knocks"
- * - Rune Drop Amount: 5000
- *
- * Behaviors:
- * - AttackBehaviour: The Forest Watcher can attack hostile actors.
- * - WanderBehaviour: The Forest Watcher can wander randomly.
- *
- * Capabilities:
- * - It has the "VOID_PROOF" capability, indicates immunity or resistance to void-related effects.
- *
- * Custom Attributes:
- * - postDeathFormation: A reference to the ground that will appear at the location where the boss stood after its defeat.
- *
  * Created by:
  * @author Debashish Sahoo
  * Modified by:

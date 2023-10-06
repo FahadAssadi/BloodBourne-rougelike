@@ -20,27 +20,6 @@ import game.weather.susceptibles.RainySusceptible;
  * The ForestKeeper class extends the Enemy class and represents a unique enemy in the game.
  * It defines its behaviors, droppable items, and special characteristics when it's raining.
  *
- * Default attributes:
- * - Name: "Forest Keeper"
- * - Display Character: '8'
- * - Hit Points: 125
- * - Intrinsic Weapon Damage: 25
- * - Intrinsic Weapon Hit Rate: 75%
- * - Intrinsic Weapon Verb: "knocks"
- * - Healing Vial Drop Rate: 20%
- * - Rune Drop Amount: 50
- * - Healing Points When Rainy: 10
- *
- * Behaviors:
- * - AttackBehaviour: The Forest Keeper can attack hostile actors.
- * - WanderBehaviour: The Forest Keeper can wander randomly.
- *
- * Capabilities:
- * - It has the "HOSTILE" capability.
- *
- * Special Interfaces:
- * - It implements the "RainySusceptible" interface, which allows it to heal when it's raining.
- *
  * Created by:
  * Modified by: Fahad Assadi
  */

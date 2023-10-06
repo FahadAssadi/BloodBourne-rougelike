@@ -23,23 +23,6 @@ import game.weather.susceptibles.SunnySusceptible;
  * The RedWolf class also implements the SunnySusceptible and RainySusceptible interfaces
  * to respond to weather changes.
  *
- * Default attributes:
- * - Name: "Red Wolf"
- * - Display Character: 'r'
- * - Hit Points: 25
- * - Intrinsic Weapon Damage: 15
- * - Intrinsic Weapon Hit Rate: 80%
- * - Intrinsic Weapon Verb: "bites"
- * - Healing Vial Drop Rate: 10%
- * - Rune Drop Amount: 25
- *
- * Behaviors:
- * - AttackBehaviour: The Red Wolf can attack hostile actors.
- * - WanderBehaviour: The Red Wolf can wander randomly.
- *
- * Capabilities:
- * - It has the "RainySusceptible" and "SunnySusceptible" capabilities to respond to weather changes.
- *
  * Created By:
  * @author Kevin Chan
  * Modified by:
