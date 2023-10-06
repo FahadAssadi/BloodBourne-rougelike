@@ -13,7 +13,6 @@ public class Weather {
     private static Weather weather;
     private WeatherState weatherState;
     private List<WeatherState> weatherStateList;
-
     private int currentWeatherIndex = 0;
 
     private Weather(){

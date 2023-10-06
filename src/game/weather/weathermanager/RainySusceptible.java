@@ -1,4 +1,4 @@
-package game.weather;
+package game.weather.weathermanager;
 
 public interface RainySusceptible{
     /**
@@ -9,6 +9,6 @@ public interface RainySusceptible{
     String rainyWeather();
 
     default void registerAsRainySusceptible() {
-        WeatherSusceptiblesManager.addRainySusceptible(this);
+        WeatherSusceptiblesManager.getWeatherSusceptiblesManager().addRainySusceptible(this);
     }
 }
