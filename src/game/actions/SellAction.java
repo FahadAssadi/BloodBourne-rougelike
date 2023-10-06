@@ -7,10 +7,26 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.TransactionItem;
 import game.actors.merchants.quirks.Quirk;
 
+/**
+ * An action that allows an actor to sell an item to the IsolatedTraveller.
+ */
 public class SellAction extends Action {
+    /**
+     * The item to be sold in the transaction.
+     */
     private final TransactionItem transactionItem;
+
+    /**
+     * The quirk to be used in the transaction.
+     */
     private final Quirk quirk;
 
+    /**
+     * Constructor.
+     *
+     * @param transactionItem The item to be purchased in the transaction.
+     * @param quirk The quirk to be used in the transaction.
+     */
     public SellAction(TransactionItem transactionItem, Quirk quirk){
         this.transactionItem = transactionItem;
         this.quirk = quirk;
@@ -35,6 +51,12 @@ public class SellAction extends Action {
         return message;
     }
 
+    /**
+     * Get a menu description for the action.
+     *
+     * @param actor The actor performing the action.
+     * @return A string describing the action for display in menus.
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " sells " + this.transactionItem.getItem() + " for " + this.transactionItem.getPrice();

@@ -14,5 +14,8 @@ public enum Ability {
      * without encountering negative effects or hazards.
      */
     WALKS_SAFE_TILES,
+    /**
+     * This ability suggests that an actor has the capability to trade items.
+     */
     TRADES,
 }

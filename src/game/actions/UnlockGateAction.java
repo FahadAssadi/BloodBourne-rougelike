@@ -10,6 +10,9 @@ import game.positions.LockedGate;
  * An action that allows an actor to unlock a locked gate.
  */
 public class UnlockGateAction extends Action {
+    /**
+     * The locked gate to be unlocked.
+     */
     private final LockedGate lockedGate;
 
     /**

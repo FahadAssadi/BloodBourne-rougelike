@@ -11,7 +11,13 @@ public enum Status {
      * This status indicates that an actor is hostile towards enemies or other actors.
      */
     HOSTILE_TO_ENEMY,
+    /**
+     * This status indicates that an actor is friendly towards the player.
+     */
     FRIENDLY,
+    /**
+     * This status indicates that an actor is hostile towards the player.
+     */
     HOSTILE,
     /**
      * This status represents the activation of a special skill or ability for an actor.
