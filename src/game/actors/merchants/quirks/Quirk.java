@@ -3,19 +3,33 @@ package game.actors.merchants.quirks;
 import edu.monash.fit2099.engine.actors.Actor;
 import game.artifacts.TransactionItem;
 
+/**
+ * The Quirk interface represents special behaviors or quirks that merchants can have during transactions in a game.
+ */
 public interface Quirk {
 
-    // Takes actor because a vendor might have a quirk that does something to the actor
-    // (ie: actor refers to the person trading with the merchant.
-    // (eg: he kicks the actor after taking his money)
-
-    // From the point of view of the merchant
-    // (ie: the merchant is selling)
+    /**
+     * Represents the behavior of a merchant when selling an item to an actor (usually the player).
+     *
+     * @param actor            The actor representing the player or actor trading with the merchant.
+     * @param transactionItem  The TransactionItem representing the item being sold along with its price.
+     * @return A message describing the transaction outcome.
+     */
     String performMerchantSelling(Actor actor, TransactionItem transactionItem);
 
-    // From the point of view of the merchant
-    // (ie: the merchant is purchasing)
+    /**
+     * Represents the behavior of a merchant when purchasing an item from an actor (usually the player).
+     *
+     * @param actor            The actor representing the player or actor trading with the merchant.
+     * @param transactionItem  The TransactionItem representing the item being purchased along with its price.
+     * @return A message describing the transaction outcome.
+     */
     String performMerchantPurchasing(Actor actor, TransactionItem transactionItem);
 
+    /**
+     * Determines whether the quirk occurs during a transaction.
+     *
+     * @return {@code true} if the quirk occurs, {@code false} otherwise.
+     */
     boolean doesOccur();
 }

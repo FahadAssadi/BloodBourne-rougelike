@@ -18,9 +18,35 @@ import game.misc.displays.FancyMessage;
 import game.weather.Weather;
 import game.weather.weathermanager.WeatherSusceptiblesManager;
 
-
 /**
- * A class that represents a special type of enemy called "Forest Watcher"
+ * A class that represents a special type of enemy called "Forest Watcher."
+ *
+ * The ForestWatcher class extends the Enemy class and represents a unique boss enemy in the game.
+ * It defines its behaviors, droppable items, and special characteristics related to weather and post-death effects.
+ *
+ * Default attributes:
+ * - Name: "Abxervyer, the Forest Watcher"
+ * - Display Character: 'Y'
+ * - Hit Points: 2000
+ * - Intrinsic Weapon Damage: 80
+ * - Intrinsic Weapon Hit Rate: 25%
+ * - Intrinsic Weapon Verb: "knocks"
+ * - Rune Drop Amount: 5000
+ *
+ * Behaviors:
+ * - AttackBehaviour: The Forest Watcher can attack hostile actors.
+ * - WanderBehaviour: The Forest Watcher can wander randomly.
+ *
+ * Capabilities:
+ * - It has the "VOID_PROOF" capability, which might indicate immunity or resistance to void-related effects.
+ *
+ * Custom Attributes:
+ * - postDeathFormation: A reference to the ground that will appear at the location where the boss stood after its defeat.
+ *
+ * Created by:
+ * @author Debashish Sahoo
+ * Modified by:
+ * @author Fahad Assadi
  */
 public class ForestWatcher extends Enemy {
 
@@ -32,15 +58,18 @@ public class ForestWatcher extends Enemy {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 25;
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 5000;
-    private static final int DEFAULT_WEATHER_ALTERNATING_INTERVAL = 3;
-
-    private int tickCounter = -2;
+    private int tickCounter = 1;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+    private static final int DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY = 2;
+    private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
+    private static final int DEFAULT_TICKS_BEFORE_WEATHER_TRANSITION = 3;
+    private static final int ZERO = 0;
 
     // Custom attributes
     private Ground postDeathFormation;
 
-    /** Default constructor for the Forest Watcher Class.
-     *
+    /**
+     * Default constructor for the Forest Watcher Class.
      */
     public ForestWatcher() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -49,7 +78,7 @@ public class ForestWatcher extends Enemy {
 
     /**
      * Custom constructor for the Forest Watcher Class.
-     *
+     * @param postDeathFormation The gate that appears when the boss is killed and takes the player to the Ancient Woods
      */
     public ForestWatcher(Ground postDeathFormation) {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
@@ -57,12 +86,24 @@ public class ForestWatcher extends Enemy {
         this.addCapability(Status.VOID_PROOF);
     }
 
+    /**
+     * Adds the AttackBehaviour and WanderBehaviour to the behaviors map.
+     */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(999, new WanderBehaviour());
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_WANDER_BEHAVIOUR_PRIORITY, new WanderBehaviour());
     }
 
+    /**
+     * Overrides the playTurn method to include weather effects and delegate to the parent class.
+     *
+     * @param actions    A collection of possible Actions for this Actor.
+     * @param lastAction The Action this Actor took last turn. Can be used in conjunction with Action.getNextAction().
+     * @param map        The map containing the Actor.
+     * @param display    The I/O object to which messages may be written.
+     * @return The action that the Forest Watcher should perform in that turn.
+     */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         String message = this.weatherEffects();
@@ -73,26 +114,47 @@ public class ForestWatcher extends Enemy {
         return super.playTurn(actions, lastAction, map, display);
     }
 
+    /**
+     * Handles the Forest Watcher's control over the weather.
+     * It processes weather state transitions based on the current weather state.
+     *
+     * @return A message describing any weather-related effects or null if no effect occurred.
+     */
     public String weatherEffects(){
         WeatherSusceptiblesManager weatherSusceptiblesManager = WeatherSusceptiblesManager.getWeatherSusceptiblesManager();
 
         Weather.getWeather().getWeatherState().processWeatherState(weatherSusceptiblesManager); // Weather Stops changing after death.
-        if (tickCounter++ % DEFAULT_WEATHER_ALTERNATING_INTERVAL == 0){
-            Weather.getWeather().weatherTransition();
+        if (this.tickCounter++ % DEFAULT_TICKS_BEFORE_WEATHER_TRANSITION == ZERO){
+             Weather.getWeather().weatherTransition();
         }
         return null;
     }
 
+    /**
+     * Adds droppable items (Runes) to the droppableItems map with their drop rates.
+     */
     @Override
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
     }
 
+    /**
+     * Returns the intrinsic weapon for the Forest Watcher.
+     *
+     * @return An IntrinsicWeapon representing the Forest Watcher's attack.
+     */
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
     }
 
+    /**
+     * Overrides the unconscious method to handle post-death effects, including changing the ground at the boss's location.
+     *
+     * @param actor The actor that defeated this boss.
+     * @param map   The game map in which the boss was defeated.
+     * @return A message indicating the result of the unconscious action.
+     */
     @Override
     public String unconscious(Actor actor, GameMap map) {
         // Once the boss is defeated, the location where the boss last stood turns into a Gate to the Ancient Wood
@@ -117,7 +179,7 @@ public class ForestWatcher extends Enemy {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
-            this.behaviours.put(2, new FollowBehaviour(otherActor));
+            this.behaviours.put(DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY, new FollowBehaviour(otherActor));
         }
         return actions;
     }

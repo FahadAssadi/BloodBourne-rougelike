@@ -15,8 +15,26 @@ import game.capabilities.Status;
 
 /**
  * A specific enemy type representing a Hollow Solider in the game.
+ *
+ * The HollowSolider class extends the Enemy class and represents a type of enemy in the game.
+ * It defines its behaviors, droppable items, and default attributes.
+ *
+ * Default attributes:
+ * - Name: "Hollow Solider"
+ * - Display Character: '&'
+ * - Hit Points: 200
+ * - Intrinsic Weapon Damage: 50
+ * - Intrinsic Weapon Verb: "whacks"
+ * - Healing Vial Drop Rate: 20%
+ * - Refreshing Flask Drop Rate: 30%
+ * - Rune Drop Amount: 100
+ *
+ * Behaviors:
+ * - AttackBehaviour: The Hollow Solider can attack hostile actors.
+ * - WanderBehaviour: The Hollow Solider can wander randomly.
+ *
  * Created By:
- * @author Fahad Assadi
+ * Modified by: Fahad Assadi
  */
 public class HollowSolider extends Enemy {
     // Default display character for the Void ground
@@ -27,7 +45,6 @@ public class HollowSolider extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "whacks";
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
     private static final int DEFAULT_REFRESHING_VIAL_DROP_RATE = 30;
-
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 100;
 
     /**
@@ -37,16 +54,29 @@ public class HollowSolider extends Enemy {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
     }
 
+    /**
+     * Custom constructor for the HollowSolider class.
+     *
+     * @param name        The name of the enemy.
+     * @param displayChar The character representing the enemy in the display.
+     * @param hitPoints   The enemy's starting hit points.
+     */
     public HollowSolider(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
     }
 
+    /**
+     * Adds the AttackBehaviour and WanderBehaviour to the behaviors map.
+     */
     @Override
     protected void addBehaviours() {
         this.behaviours.put(1, new AttackBehaviour());
         this.behaviours.put(999, new WanderBehaviour());;
     }
 
+    /**
+     * Adds droppable items (Healing Vial, Refreshing Flask, and Runes) to the droppableItems map with their drop rates.
+     */
     @Override
     protected void addDroppableItems() {
         this.droppableItems.put(new DropAction(new HealingVial()), DEFAULT_HEAL_VIAL_DROP_RATE);
