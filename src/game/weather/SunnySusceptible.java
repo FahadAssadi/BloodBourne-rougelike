@@ -9,6 +9,6 @@ public interface SunnySusceptible{
     String sunnyWeather();
 
     default void registerAsSunnySusceptible() {
-        WeatherSusceptiblesManager.addSunnySusceptible(this);
+        WeatherSusceptiblesManager.getWeatherSusceptiblesManager().addSunnySusceptible(this);
     }
 }

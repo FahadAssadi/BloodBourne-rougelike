@@ -5,7 +5,7 @@ import game.weather.WeatherSusceptiblesManager;
 public class RainyState implements WeatherState {
     @Override
     public void processWeatherState() {
-        WeatherSusceptiblesManager.processAllRainySusceptible();
+        WeatherSusceptiblesManager.getWeatherSusceptiblesManager().processAllRainySusceptible();
     }
 
     @Override

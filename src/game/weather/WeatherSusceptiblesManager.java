@@ -10,27 +10,41 @@ public class WeatherSusceptiblesManager {
     // and a function to loop through the list and process all the objects in that list.
 
     // Lists for all different seasons and weathers
-    private static final List<SunnySusceptible> sunnySusceptibles = new ArrayList<>();
-    private static final List<RainySusceptible> rainySusceptibles = new ArrayList<>();
+    private static WeatherSusceptiblesManager weatherSusceptiblesManager;
+    private final List<SunnySusceptible> sunnySusceptibles;
+    private final List<RainySusceptible> rainySusceptibles;
 
-    // Adding to the lists
-    public static void addSunnySusceptible(SunnySusceptible sunnySusceptible){
-        sunnySusceptibles.add(sunnySusceptible);
+    public WeatherSusceptiblesManager(){
+        this.sunnySusceptibles = new ArrayList<>();
+        this.rainySusceptibles = new ArrayList<>();
     }
 
-    public static void addRainySusceptible(RainySusceptible rainySusceptible){
-        rainySusceptibles.add(rainySusceptible);
+    public static WeatherSusceptiblesManager getWeatherSusceptiblesManager() {
+        if (weatherSusceptiblesManager == null){
+            weatherSusceptiblesManager = new WeatherSusceptiblesManager();
+        }
+
+        return weatherSusceptiblesManager;
+    }
+
+    // Adding to the lists
+    public void addSunnySusceptible(SunnySusceptible sunnySusceptible){
+        weatherSusceptiblesManager.sunnySusceptibles.add(sunnySusceptible);
+    }
+
+    public void addRainySusceptible(RainySusceptible rainySusceptible){
+        weatherSusceptiblesManager.rainySusceptibles.add(rainySusceptible);
     }
 
     // Processing the lists
-    public static void processAllSunnySusceptible(){
-        for (SunnySusceptible sunnySusceptible: sunnySusceptibles) {
+    public void processAllSunnySusceptible(){
+        for (SunnySusceptible sunnySusceptible: weatherSusceptiblesManager.sunnySusceptibles) {
             new Display().println(sunnySusceptible.sunnyWeather());
         }
     }
 
-    public static void processAllRainySusceptible(){
-        for (RainySusceptible rainySusceptible: rainySusceptibles) {
+    public void processAllRainySusceptible(){
+        for (RainySusceptible rainySusceptible: weatherSusceptiblesManager.rainySusceptibles) {
             new Display().println(rainySusceptible.rainyWeather());
         }
     }
