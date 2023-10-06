@@ -81,7 +81,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     /**
      * Returns the skill with the actor to apply the skill to
      *
-     * @param actor The actor to apply the skill to
+     * @param otherActor The actor to apply the skill to
      * @return The Skill
      */
     @Override

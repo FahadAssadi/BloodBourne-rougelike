@@ -24,12 +24,19 @@ import java.util.TreeMap;
  * @author Fahad Assadi
  */
 public abstract class Enemy extends Actor {
-    // A map to store behaviors, where the key is an integer priority
+    /**
+     * A map to store behaviors, where the key is an integer priority
+     */
     protected Map <Integer, Behaviour> behaviours = new TreeMap<>();
 
-    // A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
+    /**
+     * A map to store droppable items (as a Drop Action) with their chance of dropping as a percentage
+     */
     protected Map<DropAction, Integer> droppableItems = new HashMap<>();
 
+    /**
+     * Default drop rate for runes (100%)
+     */
     protected static final int DEFAULT_RUNES_DROP_RATE = 100;
 
     /**

@@ -16,13 +16,13 @@ import game.capabilities.Status;
 /**
  * A specific enemy type representing a Hollow Solider in the game.
  *
- * The HollowSolider class extends the Enemy class and represents a type of enemy in the game.
+ * The HollowSoldier class extends the Enemy class and represents a type of enemy in the game.
  * It defines its behaviors, droppable items, and default attributes.
  *
  * Created By:
  * Modified by: Fahad Assadi
  */
-public class HollowSolider extends Enemy {
+public class HollowSoldier extends Enemy {
     // Default display character for the Void ground
     private static final String DEFAULT_NAME = "Hollow Solider";
     private static final char DEFAULT_DISPLAY_CHAR = '&';
@@ -34,20 +34,20 @@ public class HollowSolider extends Enemy {
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 100;
 
     /**
-     * Constructor for the HollowSolider class.
+     * Constructor for the HollowSoldier class.
      */
-    public HollowSolider(){
+    public HollowSoldier(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
     }
 
     /**
-     * Custom constructor for the HollowSolider class.
+     * Custom constructor for the HollowSoldier class.
      *
      * @param name        The name of the enemy.
      * @param displayChar The character representing the enemy in the display.
      * @param hitPoints   The enemy's starting hit points.
      */
-    public HollowSolider(String name, char displayChar, int hitPoints) {
+    public HollowSoldier(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
     }
 

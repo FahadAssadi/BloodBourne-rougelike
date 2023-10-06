@@ -11,8 +11,19 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
  * Abstract class that represents a Skill for a weapon
  */
 public abstract class Skill {
+    /**
+     * The weapon item to apply the skill to
+     */
     protected final WeaponItem weaponItem;
+
+    /**
+     * Decrease in stamina when using the skill
+     */
     protected final double staminaDecreasePercentage;
+
+    /**
+     * The target actor while using the skill
+     */
     protected final Actor targetActor;
 
     /**

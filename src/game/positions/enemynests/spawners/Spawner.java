@@ -26,6 +26,8 @@ public interface Spawner {
     /**
      * Setter for the spawner's spawn chance to allow possible modification.
      * (eg. due to weather effects)
+     *
+     * @param spawnChance Spawn chance
      */
-    default void setSpawnChance(int spawnChance) {};
+    void setSpawnChance(int spawnChance);
 }

@@ -2,6 +2,10 @@ package game.misc;
 
 import java.util.Random;
 
+
+/**
+ * Utility class
+ */
 public class Utility {
     /**
      * Generate a random event based on the given probability.

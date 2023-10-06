@@ -11,8 +11,8 @@ import game.positions.enemynests.spawners.Spawner;
  * and delegates the spawning of the spawners.
  */
 public abstract class EnemyNest extends Ground {
-    /*
-    The Enemy Spawner that this enemy nest/ground represents
+    /**
+     * The Enemy Spawner that this enemy nest/ground represents
      */
     protected final Spawner spawner;
 

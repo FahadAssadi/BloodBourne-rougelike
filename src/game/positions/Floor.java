@@ -12,6 +12,9 @@ import game.capabilities.Ability;
  *
  */
 public class Floor extends Ground {
+    /**
+     * Constructor for Floor
+     */
     public Floor() {
         super('_');
     }

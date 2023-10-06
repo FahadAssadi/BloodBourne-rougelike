@@ -10,16 +10,15 @@ import game.actors.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.weapons.GiantHammer;
-import game.artifacts.weapons.GreatKnife;
 import game.misc.displays.FancyMessage;
 import game.positions.*;
 import game.positions.enemynests.Bush;
 import game.positions.enemynests.Graveyard;
 import game.positions.enemynests.Hut;
 import game.positions.enemynests.spawners.ForestKeeperSpawner;
+import game.positions.enemynests.spawners.HollowSoldierSpawner;
 import game.positions.enemynests.spawners.RedWolfSpawner;
 import game.positions.Void;
-import game.positions.enemynests.spawners.HollowSoliderSpawner;
 import game.positions.enemynests.spawners.WanderingUndeadSpawner;
 import game.artifacts.weapons.Broadsword;
 
@@ -34,7 +33,11 @@ import java.util.List;
  * @author Fahad Assadi
  */
 public class Application {
-
+    /**
+     * Main method
+     *
+     * @param args Main args
+     */
     public static void main(String[] args) {
 
         World world = new World(new Display());
@@ -155,9 +158,9 @@ public class Application {
         /*
         Create and set the Graveyard Spawners for the Hollow Soldier in the Burial Ground
          */
-        Graveyard hollowSoliderGraveyard1 = new Graveyard(new HollowSoliderSpawner());
-        Graveyard hollowSoliderGraveyard2 = new Graveyard(new HollowSoliderSpawner());
-        Graveyard hollowSoliderGraveyard3 = new Graveyard(new HollowSoliderSpawner());
+        Graveyard hollowSoliderGraveyard1 = new Graveyard(new HollowSoldierSpawner());
+        Graveyard hollowSoliderGraveyard2 = new Graveyard(new HollowSoldierSpawner());
+        Graveyard hollowSoliderGraveyard3 = new Graveyard(new HollowSoldierSpawner());
 
         burialGrounds.at(23,2).setGround(hollowSoliderGraveyard1);
         burialGrounds.at(38,11).setGround(hollowSoliderGraveyard2);

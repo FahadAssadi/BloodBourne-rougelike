@@ -16,7 +16,7 @@ public class ForestKeeperSpawner implements Spawner {
     /**
      * Spawn a new instance of the ForestKeeper enemy actor.
      *
-     * @return A new instance of the HollowSolider actor.
+     * @return A new instance of the HollowSoldier actor.
      */
     @Override
     public Actor spawnActor() {
@@ -27,7 +27,7 @@ public class ForestKeeperSpawner implements Spawner {
      * Check if the spawner should spawn a ForestKeeper.
      * This method uses a random event utility to determine the outcome based on SPAWN_CHANCE.
      *
-     * @return `true` if a HollowSolider should be spawned, `false` otherwise.
+     * @return `true` if a HollowSoldier should be spawned, `false` otherwise.
      */
     @Override
     public boolean doesSpawn() {
@@ -37,6 +37,8 @@ public class ForestKeeperSpawner implements Spawner {
     /**
      * Setter for the spawner's spawn chance to allow possible modification.
      * (eg. due to weather effects)
+     *
+     * @param spawnChance Spawn chance
      */
     public void setSpawnChance(int spawnChance) {
         this.spawnChance = spawnChance;

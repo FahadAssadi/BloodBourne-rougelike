@@ -51,6 +51,7 @@ public class Player extends Actor {
      * @param name        Name to call the player in the UI
      * @param displayChar Character to represent the player in the UI
      * @param hitPoints   Player's starting number of hitpoints
+     * @param stamina   Player's starting number of stamina
      */
     public Player(String name, char displayChar, int hitPoints, int stamina) {
         super(name, displayChar, hitPoints);
