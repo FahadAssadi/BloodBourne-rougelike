@@ -1,6 +1,6 @@
-package game.positions.EnemyNest;
+package game.positions.enemynests;
 
-import game.positions.EnemyNest.spawners.Spawner;
+import game.positions.enemynests.spawners.Spawner;
 import game.weather.weathermanager.RainySusceptible;
 import game.weather.weathermanager.SunnySusceptible;
 
