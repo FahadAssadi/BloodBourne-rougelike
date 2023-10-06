@@ -16,6 +16,7 @@ import edu.monash.fit2099.engine.items.DropAction;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
 import game.weather.Weather;
+import game.weather.WeatherSusceptiblesManager;
 
 
 /**
@@ -74,7 +75,9 @@ public class ForestWatcher extends Enemy {
     }
 
     public String weatherEffects(){
-        Weather.getWeather().getWeatherState().processWeatherState(); // Weather Stops changing after death.
+        WeatherSusceptiblesManager weatherSusceptiblesManager = WeatherSusceptiblesManager.getWeatherSusceptiblesManager();
+
+        Weather.getWeather().getWeatherState().processWeatherState(weatherSusceptiblesManager); // Weather Stops changing after death.
         if (tickCounter++ % 3 == 0){
              Weather.getWeather().weatherTransition();
         }
