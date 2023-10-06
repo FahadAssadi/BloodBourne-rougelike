@@ -29,6 +29,10 @@ public class HealingVial extends Item implements Consumable, Sellable {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
     }
 
+
+    /**
+     * @return The default price that the player sells this item for
+     */
     @Override
     public int getSellingPrice() {
         return DEFAULT_HEALING_VIAL_PRICE;
@@ -66,14 +70,31 @@ public class HealingVial extends Item implements Consumable, Sellable {
         return actions;
     }
 
+    /**
+     *
+     * Define allowable actions that Healing Vial allows its owner do to other actor.
+     * @param otherActor the other actor
+     * @param location   the location of the other actor
+     * @return An ActionList containing the allowable actions for the owner actor.
+     */
     @Override
     public ActionList allowableActions(Actor otherActor, Location location) {
         ActionList actions = new ActionList();
 
+        /*
+        Allow actor to Sell this item if they meet another actor who trades
+         */
         if (otherActor.hasCapability(Ability.TRADES)) {
+            /*
+             Add a SellAction that takes in:
+             - the Transaction Item, which takes in
+                - this item
+                - the Player's predefined selling price
+             - a quirk (trick) that the trader may play on the player during the transaction
+             */
             actions.add(new SellAction(
                     new TransactionItem(this, this.getSellingPrice()),
-                    new PricingQuirk(10, 100)
+                    new PricingQuirk(10, 100) // Modifying the price during the transaction
             ));
         }
 

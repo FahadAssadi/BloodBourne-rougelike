@@ -44,4 +44,5 @@ public class ConsumeAction extends Action {
     public String menuDescription(Actor actor) {
         return actor + " consumes " + this.consumable;
     }
+
 }

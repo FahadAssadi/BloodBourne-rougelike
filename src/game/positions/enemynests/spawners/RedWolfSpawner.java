@@ -4,7 +4,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.RedWolf;
 import game.misc.Utility;
 
+/**
+ * A spawner for creating instances of the RedWolf enemy actor.
+ * It implements the Spawner interface and defines a spawning chance.
+ */
 public class RedWolfSpawner implements Spawner {
+    // The chance of spawning a RedWolf (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 30;
     private int spawnChance = DEFAULT_SPAWN_CHANCE;
 
@@ -29,6 +34,10 @@ public class RedWolfSpawner implements Spawner {
         return Utility.getRandomEventOccurs(spawnChance);
     }
 
+    /**
+     * Setter for the spawner's spawn chance to allow possible modification.
+     * (eg. due to weather effects)
+     */
     @Override
     public void setSpawnChance(int spawnChance) {
         this.spawnChance = spawnChance;

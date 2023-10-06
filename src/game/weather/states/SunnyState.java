@@ -4,8 +4,8 @@ import game.weather.WeatherSusceptiblesManager;
 
 public class SunnyState implements WeatherState {
     @Override
-    public void processWeatherState() {
-        WeatherSusceptiblesManager.processAllSunnySusceptible();
+    public void processWeatherState(WeatherSusceptiblesManager weatherSusceptiblesManager) {
+        weatherSusceptiblesManager.processAllSunnySusceptible();
     }
 
     @Override

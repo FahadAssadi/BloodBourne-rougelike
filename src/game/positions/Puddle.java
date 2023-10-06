@@ -10,12 +10,22 @@ import game.actions.ConsumeAction;
 import game.artifacts.consumables.Consumable;
 import game.capabilities.Status;
 
+/**
+ * A special type of ground representing a Puddle
+ * Players can drink from this.
+ */
 public class Puddle extends Ground implements Consumable {
+    private static final char DEFAULT_DISPLAY_CHAR = '~';
+
     private static final int DEFAULT_HEATH_RESTORATION = 1;
     private static final double DEFAULT_STAMINA_RESTORATION = 0.1;
 
+    /**
+     * Constructor for the Puddle Class
+     * Initializes the ground with the default display character.
+     */
     public Puddle() {
-        super('~');
+        super(DEFAULT_DISPLAY_CHAR);
     }
 
     /**

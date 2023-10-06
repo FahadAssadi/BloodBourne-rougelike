@@ -10,13 +10,16 @@ import game.actions.SellAction;
 import game.actors.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.StabAndStepSkill;
 import game.artifacts.weapons.skills.WeaponSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
+/**
+ * Class representing a GreatKnife weapon.
+ * This class extends the WeaponItem class and implements the WeaponSkill and Sellable interface.
+ */
 public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     // Default attributes for the Great Knife
     private static final String DEFAULT_NAME = "Great Knife";
@@ -47,6 +50,9 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
         super(name, displayChar, damage, verb, hitRate);
     }
 
+    /**
+     * @return The default price that the player sells this item for
+     */
     @Override
     public int getSellingPrice() {
         return DEFAULT_GREAT_KNIFE_PRICE;
@@ -72,16 +78,24 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
         this.resetWeapon();
     }
 
+    /**
+     * Returns the skill with the actor to apply the skill to
+     *
+     * @param actor The actor to apply the skill to
+     * @return The Skill
+     */
     @Override
     public Skill getSkill(Actor otherActor){
         return new StabAndStepSkill(this, otherActor);
     }
 
+    /**
+     * Reset the attributes of the weapon following the skill effects if needed
+     */
     @Override
     public void resetWeapon() {
         this.removeCapability(Status.SKILL_ACTIVE);
     }
-
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
@@ -94,21 +108,29 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     public ActionList allowableActions(Actor otherActor, Location location){
         ActionList actions = new ActionList();
 
-        // ENEMIES.
+        // Attack enemies and allow activation of this weapon's skill (only usable when confronting enemy)
         if (otherActor.hasCapability(Status.HOSTILE)){
             actions.add(new AttackAction(otherActor, location.toString(), this));
             actions.add(new ActivateSkillAction(this.getSkill(otherActor)));
         }
 
+        /*
+        Allow actor to Sell this item if they meet another actor who trades
+         */
         if (otherActor.hasCapability(Ability.TRADES)) {
+            /*
+             Add a SellAction that takes in:
+             - the Transaction Item, which takes in
+                - this item
+                - the Player's predefined selling price
+             - a quirk (trick) that the trader may play on the player during the transaction
+             */
             actions.add(new SellAction(
                     new TransactionItem(this, this.getSellingPrice()),
-                    new RobQuirk(10)
+                    new RobQuirk(10) // The trader takes the item and also robs Runes from the player
             ));
         }
 
         return actions;
     }
-
-
 }
