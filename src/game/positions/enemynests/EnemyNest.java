@@ -1,10 +1,10 @@
-package game.positions.EnemyNest;
+package game.positions.enemynests;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.positions.EnemyNest.spawners.Spawner;
+import game.positions.enemynests.spawners.Spawner;
 
 public abstract class EnemyNest extends Ground {
     protected final Spawner spawner;

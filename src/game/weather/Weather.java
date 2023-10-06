@@ -10,23 +10,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Weather {
+
     private static Weather weather;
     private WeatherState weatherState;
-    private List<WeatherState> weatherStateList;
 
     private int currentWeatherIndex = 0;
 
+
     private Weather(){
-        this.createWeatherStates();
+
         this.weatherTransition();
     }
 
-    private void createWeatherStates(){
-        this.weatherStateList = new ArrayList<>(Arrays.asList(
-            new SunnyState(),
-            new RainyState()
-        ));
-    }
+
 
     public static Weather getWeather() {
         if (weather == null){
@@ -41,9 +37,13 @@ public class Weather {
     }
 
     public void weatherTransition(){
-        this.currentWeatherIndex = (this.currentWeatherIndex + 1) % this.weatherStateList.size();
+        ArrayList<WeatherState> weatherStateList = new ArrayList<>(Arrays.asList(
+                new SunnyState(),
+                new RainyState()
+        ));
+        this.currentWeatherIndex = (this.currentWeatherIndex + 1) % weatherStateList.size();
 
-        this.weatherState = this.weatherStateList.get(this.currentWeatherIndex);
+        this.weatherState = weatherStateList.get(this.currentWeatherIndex);
 
         new Display().println( "The weather is now " + this.weatherState.toString() + "...");
     }

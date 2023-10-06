@@ -5,8 +5,8 @@ import java.util.List;
 
 public class WeatherSusceptiblesManager {
 
-    private static final List<SunnySusceptible> sunnySusceptibles = new ArrayList<>();
-    private static final List<RainySusceptible> rainySusceptibles = new ArrayList<>();
+        private static final List<SunnySusceptible> sunnySusceptibles = new ArrayList<>();
+        private static final List<RainySusceptible> rainySusceptibles = new ArrayList<>();
 
 
 

@@ -1,8 +1,6 @@
-package game.positions.EnemyNest;
+package game.positions.enemynests;
 
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Location;
-import game.positions.EnemyNest.spawners.Spawner;
+import game.positions.enemynests.spawners.Spawner;
 import game.weather.RainySusceptible;
 import game.weather.SunnySusceptible;
 
