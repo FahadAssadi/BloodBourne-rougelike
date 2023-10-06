@@ -12,7 +12,7 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.artifacts.consumables.HealingVial;
 import game.capabilities.Status;
-import game.weather.weathermanager.RainySusceptible;
+import game.weather.susceptibles.RainySusceptible;
 
 /**
  * A class that represents a special type of enemy called "Forest Keeper"

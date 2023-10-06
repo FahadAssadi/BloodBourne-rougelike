@@ -1,8 +1,8 @@
 package game.positions.enemynests;
 
 import game.positions.enemynests.spawners.Spawner;
-import game.weather.weathermanager.RainySusceptible;
-import game.weather.weathermanager.SunnySusceptible;
+import game.weather.susceptibles.RainySusceptible;
+import game.weather.susceptibles.SunnySusceptible;
 
 /**
  * A special type of EnemyNest ground representing a Bush.

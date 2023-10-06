@@ -12,8 +12,8 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.capabilities.Status;
-import game.weather.weathermanager.RainySusceptible;
-import game.weather.weathermanager.SunnySusceptible;
+import game.weather.susceptibles.RainySusceptible;
+import game.weather.susceptibles.SunnySusceptible;
 
 public class RedWolf extends Enemy implements SunnySusceptible, RainySusceptible {
     // Default attributes for the Red Wolf

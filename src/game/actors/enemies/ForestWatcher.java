@@ -16,7 +16,7 @@ import edu.monash.fit2099.engine.items.DropAction;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
 import game.weather.Weather;
-import game.weather.weathermanager.WeatherSusceptiblesManager;
+import game.weather.susceptibles.WeatherSusceptiblesManager;
 
 
 /**
