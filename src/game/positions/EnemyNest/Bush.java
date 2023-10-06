@@ -1,7 +1,5 @@
 package game.positions.EnemyNest;
 
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Location;
 import game.positions.EnemyNest.spawners.Spawner;
 import game.weather.RainySusceptible;
 import game.weather.SunnySusceptible;
@@ -17,10 +15,6 @@ public class Bush extends EnemyNest implements SunnySusceptible, RainySusceptibl
         registerAsRainySusceptible();
         registerAsSunnySusceptible();
     }
-
-
-
-
 
     @Override
     public String sunnyWeather() {

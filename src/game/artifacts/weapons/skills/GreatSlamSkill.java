@@ -41,16 +41,18 @@ public class GreatSlamSkill extends Skill {
 
         // Step away to safety
         for (Exit exit : map.locationOf(getTargetActor()).getExits()) {
-        Location destination = exit.getDestination();
-        if (destination.containsAnActor()) {
-        this.getWeaponItem().updateDamageMultiplier(SPLASH_DAMAGE_MULTIPLIER);
-        new AttackAction(destination.getActor(),destination.toString(),this.getWeaponItem());
-        this.getWeaponItem().updateDamageMultiplier(DEFAULT_SPLASH_DAMAGE_MULTIPLIER);
+            Location destination = exit.getDestination();
+            if (destination.containsAnActor()) {
+                this.getWeaponItem().updateDamageMultiplier(SPLASH_DAMAGE_MULTIPLIER);
+                new AttackAction(destination.getActor(),destination.toString(),this.getWeaponItem());
+
+                this.getWeaponItem().updateDamageMultiplier(DEFAULT_SPLASH_DAMAGE_MULTIPLIER);
+            }
         }
-        }
+
         message += "\n" + "SLAMMED everyone for " + splashDamage + " damage";
 
         return message;
-        }
-        }
+    }
+}
 
