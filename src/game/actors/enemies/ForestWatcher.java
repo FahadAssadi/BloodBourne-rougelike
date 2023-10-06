@@ -70,8 +70,6 @@ public class ForestWatcher extends Enemy {
             display.println(message);
         }
 
-
-
         return super.playTurn(actions, lastAction, map, display);
     }
 
@@ -79,7 +77,6 @@ public class ForestWatcher extends Enemy {
         Weather.getWeather().getWeatherState().processWeatherState(); // Weather Stops changing after death.
         if (tickCounter++ % 3 == 0){
              Weather.getWeather().weatherTransition();
-
         }
         return null;
     }
