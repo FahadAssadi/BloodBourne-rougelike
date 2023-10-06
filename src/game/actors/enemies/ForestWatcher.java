@@ -121,8 +121,10 @@ public class ForestWatcher extends Enemy {
      * @return A message describing any weather-related effects or null if no effect occurred.
      */
     public String weatherEffects(){
+        // Getting the Weather Manager.
         WeatherSusceptiblesManager weatherSusceptiblesManager = WeatherSusceptiblesManager.getWeatherSusceptiblesManager();
 
+        // Processing all the weather effects on all Weather Susceptible Objects.
         Weather.getWeather().getWeatherState().processWeatherState(weatherSusceptiblesManager); // Weather Stops changing after death.
         if (this.tickCounter++ % DEFAULT_TICKS_BEFORE_WEATHER_TRANSITION == ZERO){
              Weather.getWeather().weatherTransition();
