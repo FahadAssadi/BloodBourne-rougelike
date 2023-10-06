@@ -18,6 +18,13 @@ public class FocusSkill extends Skill{
 
     @Override
     public String processWeaponSkill(Actor actor, GameMap map) {
+        // Consume stamina from the actor
+        boolean sufficientStamina = this.consumeStamina(actor);
+
+        if (!sufficientStamina){
+            return actor + " has insufficient stamina.";
+        }
+
         // Adding the Skill Active Status.
         this.weaponItem.addCapability(Status.SKILL_ACTIVE);
 
