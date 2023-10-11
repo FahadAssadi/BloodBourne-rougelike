@@ -123,21 +123,44 @@ public class Application {
                 ".........~~~~++++..................~~..~"
         );
 
+        // The Overgrown Sanctuary
+        List<String> map5 = Arrays.asList(
+                "++++.....++++........++++~~~~~.......~~~..........",
+                "++++......++.........++++~~~~.........~...........",
+                "+++..................+++++~~.......+++............",
+                "....................++++++......++++++............",
+                "...................++++........++++++~~...........",
+                "...................+++.........+++..~~~...........",
+                "..................+++..........++...~~~...........",
+                "~~~...........................~~~..~~~~...........",
+                "~~~~............+++..........~~~~~~~~~~...........",
+                "~~~~............+++.........~~~~~~~~~~~~..........",
+                "++~..............+++.......+~~........~~..........",
+                "+++..............+++......+++..........~~.........",
+                "+++..............+++......+++..........~~.........",
+                "~~~..............+++......+++..........~~~........",
+                "~~~~.............+++......+++..........~~~........"
+        );
+
         // Created game maps for Abandoned Village, Burial Ground, Ancient Woods, and the Boss Map (Abxervyer)
         GameMap gameMap = new GameMap(groundFactory, map);
         GameMap burialGrounds = new GameMap(groundFactory, map2);
         GameMap ancientWoods = new GameMap(groundFactory, map3);
         GameMap bossMap = new GameMap(groundFactory, map4);
+        GameMap overgrownSanctuary = new GameMap(groundFactory, map5);
         world.addGameMap(gameMap);
         world.addGameMap(burialGrounds);
         world.addGameMap(ancientWoods);
         world.addGameMap(bossMap);
+        world.addGameMap(overgrownSanctuary);
 
         // Created Locked Gates to allow possible travel between all maps in the game
         LockedGate gateToBurialGrounds = new LockedGate(new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds"));
         LockedGate gateToAbandonedVillage = new LockedGate(new MoveActorAction(gameMap.at(30,1), "to The Abandoned Village"));
         LockedGate gateToAncientWoods = new LockedGate(new MoveActorAction(ancientWoods.at(38,11), "to The Ancient Woods"));
         LockedGate gateToBossMap = new LockedGate(new MoveActorAction(bossMap.at(6,1), "to The Boss Map"));
+        LockedGate gateToOvergrownMap = new LockedGate(new MoveActorAction(overgrownSanctuary.at(6,1), "to The Overgrown Sanctuary!"));
+
 
         // Set the travel Locked Gates in an arbitrary location in the respective maps
         gameMap.at(30, 0).setGround(gateToBurialGrounds);
