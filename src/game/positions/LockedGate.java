@@ -8,25 +8,28 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actions.UnlockGateAction;
 import game.capabilities.Ability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class representing a locked gate in the game world.
  * This gate can be locked or unlocked by actions.
  */
 public class LockedGate extends Ground {
     private boolean isLocked;
-    private Action teleportAction;
+    private List<Action> teleportActions = new ArrayList<>();
     private static final char DEFAULT_DISPLAY_CHAR = '=';
     private static final boolean DEFAULT_LOCKED_STATUS = true;
 
     /**
      * Constructor for the LockedGate class.
      *
-     * @param action The action associated with teleportation.
+     * @param actions The action associated with teleportation.
      */
-    public LockedGate(Action action){
+    public LockedGate(List<Action> actions){
         super(DEFAULT_DISPLAY_CHAR);
         this.isLocked = DEFAULT_LOCKED_STATUS;
-        this.teleportAction = action;
+        this.teleportActions = actions;
     }
 
     /**
@@ -66,7 +69,9 @@ public class LockedGate extends Ground {
             actions.add(new UnlockGateAction(this));
         } else {
             if (actor.hasCapability(Ability.TELEPORTS)){
-                actions.add(this.teleportAction);
+                this.teleportActions.forEach((teleportAction) -> {
+                    actions.add(teleportAction);
+                });
             }
         }
 

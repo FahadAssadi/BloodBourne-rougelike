@@ -1,5 +1,6 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
@@ -22,6 +23,7 @@ import game.positions.Void;
 import game.positions.enemynests.spawners.WanderingUndeadSpawner;
 import game.artifacts.weapons.Broadsword;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -154,13 +156,33 @@ public class Application {
         world.addGameMap(bossMap);
         world.addGameMap(overgrownSanctuary);
 
-        // Created Locked Gates to allow possible travel between all maps in the game
-        LockedGate gateToBurialGrounds = new LockedGate(new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds"));
-        LockedGate gateToAbandonedVillage = new LockedGate(new MoveActorAction(gameMap.at(30,1), "to The Abandoned Village"));
-        LockedGate gateToAncientWoods = new LockedGate(new MoveActorAction(ancientWoods.at(38,11), "to The Ancient Woods"));
-        LockedGate gateToBossMap = new LockedGate(new MoveActorAction(bossMap.at(6,1), "to The Boss Map"));
-        LockedGate gateToOvergrownMap = new LockedGate(new MoveActorAction(overgrownSanctuary.at(6,1), "to The Overgrown Sanctuary!"));
+        // Created travel actions and Locked Gates to allow possible travel between all maps in the game
+        MoveActorAction travelToBurialGrounds = new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds");
+        MoveActorAction travelToAbandonedVillage = new MoveActorAction(gameMap.at(30,1), "to The Abandoned Village");
+        MoveActorAction travelToAncientWoods = new MoveActorAction(ancientWoods.at(38,11), "to The Ancient Woods");
+        MoveActorAction travelToBossMap = new MoveActorAction(bossMap.at(6,1), "to The Boss Map");
+        MoveActorAction travelToOvergrownSanctuary = new MoveActorAction(overgrownSanctuary.at(6,1), "to The Overgrown Sanctuary");
 
+        LockedGate gateToBurialGrounds = new LockedGate(new ArrayList<>(Arrays.asList(
+                travelToBurialGrounds
+        )));
+
+        LockedGate gateToAbandonedVillage = new LockedGate(new ArrayList<>(Arrays.asList(
+                travelToAbandonedVillage
+        )));
+
+        LockedGate gateToAncientWoods = new LockedGate(new ArrayList<>(Arrays.asList(
+                travelToAncientWoods
+        )));
+
+        LockedGate gateToBossMap = new LockedGate(new ArrayList<>(Arrays.asList(
+                travelToBossMap
+        )));
+
+        LockedGate gateToAncientWoodsAndOvergrownSanctuary = new LockedGate(new ArrayList<>(Arrays.asList(
+                travelToAncientWoods,
+                travelToOvergrownSanctuary
+        )));
 
         // Set the travel Locked Gates in an arbitrary location in the respective maps
         gameMap.at(30, 0).setGround(gateToBurialGrounds);
@@ -168,6 +190,7 @@ public class Application {
         burialGrounds.at(29,4).setGround(gateToAncientWoods);
         ancientWoods.at(20,11).setGround(gateToBurialGrounds);
         ancientWoods.at(6, 1).setGround(gateToBossMap);
+        overgrownSanctuary.at(6, 6).setGround(gateToBossMap);
 
         /*
         Create and set the Graveyard Spawners for the Wandering Undead in the Abandoned Village
@@ -245,10 +268,10 @@ public class Application {
 
         /*
         Add the Boss (Abxervyer - The Forest Watcher) to the Boss Map (Abxervyer)
-        Pass in a Locked Gate object back to the Ancient Woods to its constructor
-        as that's its post-death formation that appears once it is defeated
+        Pass in a Locked Gate object that can go to the Ancient Woods or Overgrown Sanctuary
+        to its constructor as that's its post-death formation that appears once it is defeated
          */
-        bossMap.at(20, 10).addActor(new ForestWatcher(gateToAncientWoods));
+        bossMap.at(20, 10).addActor(new ForestWatcher(gateToAncientWoodsAndOvergrownSanctuary));
 
         // Printing the DESIGN BORNE logo
         for (String line : FancyMessage.TITLE.split("\n")) {
