@@ -1,6 +1,5 @@
 package game;
 
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
@@ -16,11 +15,8 @@ import game.positions.*;
 import game.positions.enemynests.Bush;
 import game.positions.enemynests.Graveyard;
 import game.positions.enemynests.Hut;
-import game.positions.enemynests.spawners.ForestKeeperSpawner;
-import game.positions.enemynests.spawners.HollowSoldierSpawner;
-import game.positions.enemynests.spawners.RedWolfSpawner;
+import game.positions.enemynests.spawners.*;
 import game.positions.Void;
-import game.positions.enemynests.spawners.WanderingUndeadSpawner;
 import game.artifacts.weapons.Broadsword;
 
 import java.util.ArrayList;
@@ -213,6 +209,17 @@ public class Application {
         burialGrounds.at(2,14).setGround(hollowSoliderGraveyard3);
 
         /*
+        Create and set the Graveyard Spawners for the Hollow Soldier in the Burial Ground
+         */
+        Graveyard sanctuarySoldierGraveyard1 = new Graveyard(new HollowSoldierSpawner());
+        Graveyard sanctuarySoldierGraveyard2 = new Graveyard(new HollowSoldierSpawner());
+        Graveyard sanctuarySoldierGraveyard3 = new Graveyard(new HollowSoldierSpawner());
+
+        overgrownSanctuary.at(5, 1).setGround(sanctuarySoldierGraveyard1);
+        overgrownSanctuary.at(9, 3).setGround(sanctuarySoldierGraveyard2);
+        overgrownSanctuary.at(17, 2).setGround(sanctuarySoldierGraveyard3);
+
+        /*
         Create and set the Hut Spawners for the Forest Keeper in the Ancient Woods
          */
         Hut hut1 = new Hut(new ForestKeeperSpawner());
@@ -235,6 +242,17 @@ public class Application {
         bossMap.at(8, 10).setGround(bossHut3);
 
         /*
+        Create and set the Hut Spawners for the Eldentree Guardian in the Overgrown Sanctuary
+         */
+        Hut sanctuaryHut1 = new Hut(new EldentreeGuardianSpawner());
+        Hut sanctuaryHut2 = new Hut(new EldentreeGuardianSpawner());
+        Hut sanctuaryHut3 = new Hut(new EldentreeGuardianSpawner());
+
+        overgrownSanctuary.at(5, 6).setGround(sanctuaryHut1);
+        overgrownSanctuary.at(9, 8).setGround(sanctuaryHut2);
+        overgrownSanctuary.at(17, 7).setGround(sanctuaryHut3);
+
+        /*
         Create and set the Bush Spawners for the Red Wolf in the Ancient Woods
          */
         Bush bush1 = new Bush(new RedWolfSpawner());
@@ -255,6 +273,17 @@ public class Application {
         bossMap.at(18, 3).setGround(bossBush1);
         bossMap.at(20, 5).setGround(bossBush2);
         bossMap.at(19, 10).setGround(bossBush3);
+
+        /*
+        Create and set the Bush Spawners for the Red Wolf in the Overgrown Sanctuary
+         */
+        Bush sanctuaryBush1 = new Bush(new LivingBranchSpawner());
+        Bush sanctuaryBush2 = new Bush(new LivingBranchSpawner());
+        Bush sanctuaryBush3 = new Bush(new LivingBranchSpawner());
+
+        overgrownSanctuary.at(23, 3).setGround(sanctuaryBush1);
+        overgrownSanctuary.at(23, 7).setGround(sanctuaryBush2);
+        overgrownSanctuary.at(31, 11).setGround(sanctuaryBush3);
 
         // Add relevant items and weapons to be found in various maps in arbitrary locations
         gameMap.at(27, 6).addItem(new Broadsword());

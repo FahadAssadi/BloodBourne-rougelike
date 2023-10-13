@@ -28,7 +28,7 @@ public class EldentreeGuardian extends Enemy {
     private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 50;
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
-    private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 20;
+    private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 25;
     private static final int DEFAULT_REFRESHING_VIAL_DROP_RATE = 15;
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 250;
 

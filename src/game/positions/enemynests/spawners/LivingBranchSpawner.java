@@ -8,7 +8,7 @@ import game.actors.enemies.LivingBranch;
  * It implements the Spawner interface and defines a spawning chance.
  */
 public class LivingBranchSpawner extends Spawner{
-    private static final int DEFAULT_SPAWN_CHANCE = 20;
+    private static final int DEFAULT_SPAWN_CHANCE = 90;
 
     public LivingBranchSpawner() {
         super(DEFAULT_SPAWN_CHANCE);
