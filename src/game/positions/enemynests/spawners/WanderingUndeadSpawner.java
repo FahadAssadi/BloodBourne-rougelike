@@ -10,10 +10,13 @@ import game.misc.Utility;
  * Created By:
  * @author Fahad Assadi
  */
-public class WanderingUndeadSpawner implements Spawner{
+public class WanderingUndeadSpawner extends Spawner{
     // The chance of spawning a WanderingUndead (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 25;
-    private int spawnChance = DEFAULT_SPAWN_CHANCE;
+
+    public WanderingUndeadSpawner() {
+        super(DEFAULT_SPAWN_CHANCE);
+    }
 
     /**
      * Spawn a new instance of the WanderingUndead enemy actor.
@@ -23,28 +26,5 @@ public class WanderingUndeadSpawner implements Spawner{
     @Override
     public Actor spawnActor() {
         return new WanderingUndead();
-    }
-
-    /**
-     * Check if the spawner should spawn a WanderingUndead.
-     * This method uses a random event utility to determine the outcome based on SPAWN_CHANCE.
-     *
-     * @return `true` if a WanderingUndead should be spawned, `false` otherwise.
-     */
-    @Override
-    public boolean doesSpawn() {
-        // Using Utility to determine if spawning occurs
-        return Utility.getRandomEventOccurs(spawnChance);
-    }
-
-    /**
-     * Setter for the spawner's spawn chance to allow possible modification.
-     * (eg. due to weather effects)
-     *
-     * @param spawnChance Spawn chance
-     */
-    @Override
-    public void setSpawnChance(int spawnChance) {
-        this.spawnChance = spawnChance;
     }
 }

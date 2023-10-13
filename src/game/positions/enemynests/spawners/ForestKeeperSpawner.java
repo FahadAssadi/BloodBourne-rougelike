@@ -8,10 +8,13 @@ import game.misc.Utility;
  * A spawner for creating instances of the ForestKeeper enemy actor.
  * It implements the Spawner interface and defines a spawning chance.
  */
-public class ForestKeeperSpawner implements Spawner {
+public class ForestKeeperSpawner extends Spawner {
     // The chance of spawning a ForestKeeper (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 15;
-    private int spawnChance = DEFAULT_SPAWN_CHANCE;
+
+    public ForestKeeperSpawner() {
+        super(DEFAULT_SPAWN_CHANCE);
+    }
 
     /**
      * Spawn a new instance of the ForestKeeper enemy actor.
@@ -21,27 +24,6 @@ public class ForestKeeperSpawner implements Spawner {
     @Override
     public Actor spawnActor() {
         return new ForestKeeper();
-    }
-
-    /**
-     * Check if the spawner should spawn a ForestKeeper.
-     * This method uses a random event utility to determine the outcome based on SPAWN_CHANCE.
-     *
-     * @return `true` if a HollowSoldier should be spawned, `false` otherwise.
-     */
-    @Override
-    public boolean doesSpawn() {
-        return Utility.getRandomEventOccurs(spawnChance);
-    }
-
-    /**
-     * Setter for the spawner's spawn chance to allow possible modification.
-     * (eg. due to weather effects)
-     *
-     * @param spawnChance Spawn chance
-     */
-    public void setSpawnChance(int spawnChance) {
-        this.spawnChance = spawnChance;
     }
 }
 
