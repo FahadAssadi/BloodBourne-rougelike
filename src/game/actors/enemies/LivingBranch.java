@@ -1,6 +1,8 @@
 package game.actors.enemies;
 
 
+import game.capabilities.Status;
+
 /**
  * A specific enemy type representing a LivingBranch in the game.
  *
@@ -26,6 +28,15 @@ public class LivingBranch extends Enemy{
     private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
     private static final int DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY = 2;
     private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
+
+    /**
+     * Default constructor for the LivingBranch Class.
+     */
+    public LivingBranch() {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.addCapability(Status.VOID_PROOF);
+    }
+
     /**
      * Constructor for the Enemy class.
      *
@@ -33,11 +44,9 @@ public class LivingBranch extends Enemy{
      * @param displayChar The character representing the enemy in the display.
      * @param hitPoints   The enemy's starting hit points.
      */
-
-
-
     public LivingBranch(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+        this.addCapability(Status.VOID_PROOF);
     }
 
     @Override
