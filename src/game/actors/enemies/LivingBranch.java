@@ -1,6 +1,14 @@
 package game.actors.enemies;
 
-
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.DropAction;
+import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.actions.AttackAction;
+import game.actors.behaviours.AttackBehaviour;
+import game.artifacts.consumables.Bloodberry;
+import game.artifacts.consumables.Runes;
 import game.capabilities.Status;
 
 /**
@@ -10,24 +18,20 @@ import game.capabilities.Status;
  * It defines its behaviors, droppable items, and default attributes.
  *
  * Created By: Ishan Ingolikar
+ * Modified By: Kevin Chen
  *
  */
 public class LivingBranch extends Enemy{
 
-    // Default attributes for the Red Wolf
+    // Default attributes for the Living Branch
     private static final String DEFAULT_NAME = "Living Branch";
     private static final char DEFAULT_DISPLAY_CHAR = '?';
     private static final int DEFAULT_HITPOINTS = 75;
     private static final int DEFAULT_INTRINSIC_WEAPON_DAMAGE = 250;
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 90;
-    private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "bites";
-    private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 10;
-    private static final int DEFAULT_RUNE_DROP_AMOUNT = 25;
-    private static final int DEFAULT_SUMMER_DAMAGE_MULTIPLIER = 3;
-    private static final int DEFAULT_RAINY_DAMAGE_MULTIPLIER = 1;
-    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
-    private static final int DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY = 2;
-    private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
+    private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
+    private static final int DEFAULT_BLOOD_BERRY_DROP_RATE = 50;
+    private static final int DEFAULT_RUNE_DROP_AMOUNT = 500;
 
     /**
      * Default constructor for the LivingBranch Class.
@@ -49,13 +53,47 @@ public class LivingBranch extends Enemy{
         this.addCapability(Status.VOID_PROOF);
     }
 
+    /**
+     * Adds the AttackBehaviour to the behaviors map.
+     */
     @Override
     protected void addBehaviours() {
-
+        this.behaviours.put(1, new AttackBehaviour());
     }
 
+    /**
+     * Adds droppable items (Bloodberry and Runes) to the droppableItems map with their drop rates.
+     */
     @Override
     protected void addDroppableItems() {
+        this.droppableItems.put(new DropAction(new Bloodberry()), DEFAULT_BLOOD_BERRY_DROP_RATE);
+        this.droppableItems.put(new DropAction(new Runes(DEFAULT_RUNE_DROP_AMOUNT)), DEFAULT_RUNES_DROP_RATE);
+    }
 
+    /**
+     * Returns the intrinsic weapon for the Living Branch.
+     *
+     * @return An IntrinsicWeapon representing the Living Branch's attack.
+     */
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        return new IntrinsicWeapon(DEFAULT_INTRINSIC_WEAPON_DAMAGE, DEFAULT_INTRINSIC_WEAPON_VERB, DEFAULT_INTRINSIC_WEAPON_HITRATE);
+    }
+
+    /**
+     * Define allowable actions for the Living Branch based on the presence of hostile actors.
+     *
+     * @param otherActor The other actor (usually the player) to check for hostility.
+     * @param direction  The direction in which the action is allowed.
+     * @param map        The GameMap where the action occurs.
+     * @return A list of allowable actions for the Hollow Solider.
+     */
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        ActionList actions = new ActionList();
+        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+            actions.add(new AttackAction(this, direction));
+        }
+        return actions;
     }
 }
