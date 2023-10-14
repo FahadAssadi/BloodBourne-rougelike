@@ -2,7 +2,6 @@ package game.positions.enemynests.spawners;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import game.actors.enemies.ForestKeeper;
-import game.misc.Utility;
 
 /**
  * A spawner for creating instances of the ForestKeeper enemy actor.

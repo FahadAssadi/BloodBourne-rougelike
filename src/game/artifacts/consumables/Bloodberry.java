@@ -10,7 +10,7 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.NoQuirk;
+import game.actors.friendly.merchants.quirks.NoQuirk;
 import game.capabilities.Ability;
 
 /**

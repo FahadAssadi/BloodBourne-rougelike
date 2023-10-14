@@ -9,13 +9,14 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.PricingQuirk;
+import game.actors.friendly.merchants.quirks.PricingQuirk;
+import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.
  */
-public class HealingVial extends Item implements Consumable, Sellable {
+public class HealingVial extends Item implements Consumable, Sellable, Upgradable {
     private static final String DEFAULT_NAME = "Healing Vial";
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
@@ -52,6 +53,16 @@ public class HealingVial extends Item implements Consumable, Sellable {
 
         // Remove the consumed Healing Vial from the actor's inventory
         actor.removeItemFromInventory(this);
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public int upgradeLimit() {
+        return 0;
     }
 
     /**
@@ -100,5 +111,4 @@ public class HealingVial extends Item implements Consumable, Sellable {
 
         return actions;
     }
-
 }
