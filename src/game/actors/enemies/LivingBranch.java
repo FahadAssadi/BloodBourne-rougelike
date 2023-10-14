@@ -21,7 +21,7 @@ import game.capabilities.Status;
  * Modified By: Kevin Chen
  *
  */
-public class LivingBranch extends Enemy{
+public class LivingBranch extends Enemy {
 
     // Default attributes for the Living Branch
     private static final String DEFAULT_NAME = "Living Branch";
