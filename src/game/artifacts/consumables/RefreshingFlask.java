@@ -10,13 +10,14 @@ import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.ScamQuirk;
+import game.actors.friendly.merchants.quirks.ScamQuirk;
+import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Refreshing Vial in the game.
  */
-public class RefreshingFlask extends Item implements Consumable, Sellable {
+public class RefreshingFlask extends Item implements Consumable, Sellable, Upgradable {
     private static final String DEFAULT_NAME = "Refreshing Flask";
     private static final char DEFAULT_DISPLAY_CHAR = 'u';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
@@ -51,6 +52,16 @@ public class RefreshingFlask extends Item implements Consumable, Sellable {
         actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, restoreStaminaBy);
         // Remove the consumed Refreshing Vial from the actor's inventory
         actor.removeItemFromInventory(this);
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public int upgradeLimit() {
+        return 0;
     }
 
     /**

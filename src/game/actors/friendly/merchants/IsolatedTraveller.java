@@ -1,4 +1,4 @@
-package game.actors.merchants;
+package game.actors.friendly.merchants;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -7,16 +7,16 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.PurchaseAction;
+import game.actors.friendly.Friendly;
 import game.artifacts.TransactionItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
-import game.actors.merchants.quirks.PricingQuirk;
-import game.actors.merchants.quirks.Quirk;
-import game.actors.merchants.quirks.ScamQuirk;
+import game.actors.friendly.merchants.quirks.PricingQuirk;
+import game.actors.friendly.merchants.quirks.Quirk;
+import game.actors.friendly.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
-import game.capabilities.Status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * A class representing an isolated traveler who serves as a merchant in the game.
  */
-public class IsolatedTraveller extends Actor {
+public class IsolatedTraveller extends Friendly {
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
@@ -40,7 +40,6 @@ public class IsolatedTraveller extends Actor {
     public IsolatedTraveller() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.TRADES);
-        this.addCapability(Status.FRIENDLY);
     }
 
     /**
@@ -53,20 +52,6 @@ public class IsolatedTraveller extends Actor {
     public IsolatedTraveller(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(Ability.TRADES);
-    }
-
-    /**
-     * Defines the actions that the Isolated Traveller can perform during its turn.
-     *
-     * @param actions    The list of allowable actions for the Isolated Traveller.
-     * @param lastAction The last action performed by the Isolated Traveller.
-     * @param map        The GameMap where the Isolated Traveller is located.
-     * @param display    The display used to show messages.
-     * @return A DoNothingAction since the Isolated Traveller does not perform actions in this method.
-     */
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return new DoNothingAction();
     }
 
     /**

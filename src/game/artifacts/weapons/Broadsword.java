@@ -9,7 +9,8 @@ import game.actions.AttackAction;
 import game.actions.SellAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.merchants.quirks.NoQuirk;
+import game.actors.friendly.merchants.quirks.NoQuirk;
+import game.artifacts.Upgradable;
 import game.artifacts.weapons.skills.FocusSkill;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.TimedWeaponSkill;
@@ -22,7 +23,7 @@ import game.capabilities.Status;
  * Created By:
  * @author Fahad Assadi
  */
-public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable {
+public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable, Upgradable {
     /*
      Keeps track of the number of turns the weapon's skill has been active for
      */
@@ -125,6 +126,16 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
                 this.resetWeapon();
             }
         }
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public int upgradeLimit() {
+        return 0;
     }
 
     /**

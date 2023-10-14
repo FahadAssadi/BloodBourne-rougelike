@@ -7,9 +7,10 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
-import game.actors.merchants.quirks.RobQuirk;
+import game.actors.friendly.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
+import game.artifacts.Upgradable;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.StabAndStepSkill;
 import game.artifacts.weapons.skills.WeaponSkill;
@@ -20,7 +21,7 @@ import game.capabilities.Status;
  * Class representing a GreatKnife weapon.
  * This class extends the WeaponItem class and implements the WeaponSkill and Sellable interface.
  */
-public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
+public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upgradable {
     // Default attributes for the Great Knife
     private static final String DEFAULT_NAME = "Great Knife";
     private static final char DEFAULT_DISPLAY_CHAR = '>';
@@ -95,6 +96,16 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable {
     @Override
     public void resetWeapon() {
         this.removeCapability(Status.SKILL_ACTIVE);
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public int upgradeLimit() {
+        return 0;
     }
 
     /**
