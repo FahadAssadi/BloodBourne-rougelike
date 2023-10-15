@@ -134,8 +134,13 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
     }
 
     @Override
-    public int upgradeLimit() {
+    public int getUpgradeLimit() {
         return 0;
+    }
+
+    @Override
+    public boolean canUpgrade() {
+        return false;
     }
 
     /**

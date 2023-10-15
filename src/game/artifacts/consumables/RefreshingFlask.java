@@ -24,6 +24,16 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Upgra
     private static final double DEFAULT_STAMINA_RESTORATION = 0.2;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 25;
 
+    /*
+     Keeps track of the number of times the item has been upgraded
+     */
+    private int upgradeCount;
+
+    private static final int DEFAULT_REFRESHING_FLASK_UPGRADE_LIMIT = 1;
+    private static final double DEFAULT_UPGRADED_STAMINA_RESTORATION = 1.0;
+
+    private static double STAMINA_RESTORATION = DEFAULT_STAMINA_RESTORATION;
+
     /**
      * Constructor for the RefreshingFlask class.
      */
@@ -47,7 +57,7 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Upgra
     @Override
     public void consume(Actor actor) {
         // Calculate the amount of stamina to restore based on a percentage of maximum stamina
-        int restoreStaminaBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.STAMINA) * DEFAULT_STAMINA_RESTORATION);
+        int restoreStaminaBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.STAMINA) * STAMINA_RESTORATION);
         // Increase the actor's stamina by the calculated amount
         actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, restoreStaminaBy);
         // Remove the consumed Refreshing Vial from the actor's inventory
@@ -56,13 +66,25 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Upgra
 
     @Override
     public void upgrade() {
-
+        if (this.canUpgrade()) {
+            this.STAMINA_RESTORATION = DEFAULT_UPGRADED_STAMINA_RESTORATION;
+            this.upgradeCount += 1;
+        }
     }
 
     @Override
-    public int upgradeLimit() {
-        return 0;
+    public int getUpgradeLimit() {
+        return DEFAULT_REFRESHING_FLASK_UPGRADE_LIMIT;
     }
+
+    @Override
+    public boolean canUpgrade() {
+        if (this.upgradeCount < this.getUpgradeLimit()) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Define allowable actions related to the Refreshing Vial for the owner actor.

@@ -104,9 +104,15 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     }
 
     @Override
-    public int upgradeLimit() {
+    public int getUpgradeLimit() {
         return 0;
     }
+
+    @Override
+    public boolean canUpgrade() {
+        return false;
+    }
+
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.

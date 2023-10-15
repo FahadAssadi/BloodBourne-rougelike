@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
+import game.actions.UpgradeAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.friendly.merchants.quirks.PricingQuirk;
@@ -20,8 +21,18 @@ public class HealingVial extends Item implements Consumable, Sellable, Upgradabl
     private static final String DEFAULT_NAME = "Healing Vial";
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
-    private static final double DEFAULT_HEATH_RESTORATION = 0.1;
+    private static final double DEFAULT_HEALTH_RESTORATION = 0.1;
     private static final int DEFAULT_HEALING_VIAL_PRICE = 35;
+
+    /*
+     Keeps track of the number of times the item has been upgraded
+     */
+    private int upgradeCount;
+
+    private static final int DEFAULT_HEALING_VIAL_UPGRADE_LIMIT = 1;
+    private static final double DEFAULT_UPGRADED_HEALTH_RESTORATION = 0.8;
+
+    private static double HEALTH_RESTORATION = DEFAULT_HEALTH_RESTORATION;
 
     /**
      * Constructor for the HealingVial class.
@@ -47,7 +58,7 @@ public class HealingVial extends Item implements Consumable, Sellable, Upgradabl
     @Override
     public void consume(Actor actor) {
         // Calculate the amount of health to restore based on a percentage of maximum health
-        int healActorBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.HEALTH) * (DEFAULT_HEATH_RESTORATION));
+        int healActorBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.HEALTH) * (HEALTH_RESTORATION));
         // Heal the actor by the calculated amount
         actor.heal(healActorBy);
 
@@ -57,12 +68,23 @@ public class HealingVial extends Item implements Consumable, Sellable, Upgradabl
 
     @Override
     public void upgrade() {
-
+        if (this.canUpgrade()) {
+            this.HEALTH_RESTORATION = DEFAULT_UPGRADED_HEALTH_RESTORATION;
+            this.upgradeCount += 1;
+        }
     }
 
     @Override
-    public int upgradeLimit() {
-        return 0;
+    public int getUpgradeLimit() {
+        return DEFAULT_HEALING_VIAL_UPGRADE_LIMIT;
+    }
+
+    @Override
+    public boolean canUpgrade() {
+        if (this.upgradeCount < this.getUpgradeLimit()) {
+            return true;
+        }
+        return false;
     }
 
     /**
