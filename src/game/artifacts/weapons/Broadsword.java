@@ -41,6 +41,12 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
     private static final float DEFAULT_DAMAGE_MULTIPLIER_INCREASE = 0.1f;
     private static final int DEFAULT_UPDATED_HITRATE = 90;
 
+    // Keeps track of the number of times the BroadSword has been upgraded
+    private int upgradeCount = 0;
+
+    private static final int UPGRADE_DAMAGE_INCREASE = 10;
+    private int upgradedDamage = 0;
+
     /**
      * Default constructor for the Broadsword class.
      * Initializes the Broadsword with default attributes.
@@ -128,19 +134,38 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
         }
     }
 
+    /**
+     * Upgrades the weapon.
+     */
     @Override
     public void upgrade() {
-
+        this.upgradeCount += 1;
+        this.upgradedDamage = UPGRADE_DAMAGE_INCREASE * upgradeCount;
     }
 
+    /**
+     * Gets the upgrade limit of the weapon.
+     */
     @Override
     public int getUpgradeLimit() {
         return 0;
     }
 
+    /**
+     * Determines if the weapon is upgradable.
+     */
     @Override
     public boolean canUpgrade() {
-        return false;
+        return true;
+    }
+
+    /**
+     * New accessor for damage done by this weapon, now adapted to the upgradable feature.
+     *
+     * @return the damage
+     */
+    public int damage() {
+        return super.damage() + this.upgradedDamage;
     }
 
     /**

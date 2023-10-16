@@ -30,6 +30,8 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
 
+    private static double UPGRADE_HIT_RATE_INCREASE = 0.01;
+
     /**
      * Default constructor for the Great Knife class.
      * Initializes the Great Knife with default attributes.
@@ -98,21 +100,29 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
+    /**
+     * Upgrades the weapon.
+     */
     @Override
     public void upgrade() {
-
+        this.increaseHitRate((int) (this.chanceToHit() * UPGRADE_HIT_RATE_INCREASE));
     }
 
+    /**
+     * Gets the upgrade limit of the weapon.
+     */
     @Override
     public int getUpgradeLimit() {
         return 0;
     }
 
+    /**
+     * Determines if the weapon is upgradable.
+     */
     @Override
     public boolean canUpgrade() {
-        return false;
+        return true;
     }
-
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
