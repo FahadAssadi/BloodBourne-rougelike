@@ -146,6 +146,7 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
      *
      * @return the damage
      */
+    @Override
     public int damage() {
         return super.damage() + this.upgradedDamage;
     }
