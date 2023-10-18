@@ -109,22 +109,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     }
 
     /**
-     * Gets the upgrade limit of the weapon.
-     */
-    @Override
-    public int getUpgradeLimit() {
-        return 0;
-    }
-
-    /**
-     * Determines if the weapon is upgradable.
-     */
-    @Override
-    public boolean canUpgrade() {
-        return true;
-    }
-
-    /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
      *
      * @param otherActor The actor interacting with the Broadsword

@@ -8,16 +8,16 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
+import game.artifacts.LimitedUpgrade;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.friendly.merchants.quirks.ScamQuirk;
-import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Refreshing Vial in the game.
  */
-public class RefreshingFlask extends Item implements Consumable, Sellable, Upgradable {
+public class RefreshingFlask extends Item implements Consumable, Sellable, LimitedUpgrade {
     private static final String DEFAULT_NAME = "Refreshing Flask";
     private static final char DEFAULT_DISPLAY_CHAR = 'u';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
@@ -84,7 +84,6 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Upgra
         }
         return false;
     }
-
 
     /**
      * Define allowable actions related to the Refreshing Vial for the owner actor.

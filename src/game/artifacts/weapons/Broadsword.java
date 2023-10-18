@@ -7,10 +7,8 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
-import game.artifacts.Sellable;
-import game.artifacts.TransactionItem;
+import game.artifacts.*;
 import game.actors.friendly.merchants.quirks.NoQuirk;
-import game.artifacts.Upgradable;
 import game.artifacts.weapons.skills.FocusSkill;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.TimedWeaponSkill;
@@ -141,22 +139,6 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
     public void upgrade() {
         this.upgradeCount += 1;
         this.upgradedDamage = UPGRADE_DAMAGE_INCREASE * upgradeCount;
-    }
-
-    /**
-     * Gets the upgrade limit of the weapon.
-     */
-    @Override
-    public int getUpgradeLimit() {
-        return 0;
-    }
-
-    /**
-     * Determines if the weapon is upgradable.
-     */
-    @Override
-    public boolean canUpgrade() {
-        return true;
     }
 
     /**

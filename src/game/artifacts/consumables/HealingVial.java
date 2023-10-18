@@ -7,17 +7,16 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
-import game.actions.UpgradeAction;
+import game.artifacts.LimitedUpgrade;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.friendly.merchants.quirks.PricingQuirk;
-import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.
  */
-public class HealingVial extends Item implements Consumable, Sellable, Upgradable {
+public class HealingVial extends Item implements Consumable, Sellable, LimitedUpgrade {
     private static final String DEFAULT_NAME = "Healing Vial";
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
