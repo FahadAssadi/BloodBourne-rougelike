@@ -13,6 +13,8 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
+import game.monologue.MonologueListenable;
+import game.monologue.MonologueManager;
 
 /**
  * Class representing the Player.
@@ -21,7 +23,7 @@ import game.misc.displays.FancyMessage;
  * Modified by:
  * @author Fahad Assadi
  */
-public class Player extends Actor {
+public class Player extends Actor implements MonologueListenable {
     // Default attributes for the Player
     private static final String DEFAULT_NAME = "The Abstracted One";
     private static final char DEFAULT_DISPLAY_CHAR = '@';
@@ -60,6 +62,8 @@ public class Player extends Actor {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
+
+        registerAsMonologueListenable();
     }
 
     /**
@@ -153,5 +157,25 @@ public class Player extends Actor {
                 this.getAttributeMaximum(BaseActorAttributes.STAMINA),
                 this.getBalance()
         ));
+    }
+
+    @Override
+    public Boolean hasDefeatedAbxervyer() {
+        return null;
+    }
+
+    @Override
+    public Boolean hasGreatKnife() {
+        return null;
+    }
+
+    @Override
+    public Boolean hasGiantHammer() {
+        return null;
+    }
+
+    @Override
+    public void registerAsMonologueListenable() {
+        MonologueManager.getMonologueManager().addListener(this);
     }
 }
