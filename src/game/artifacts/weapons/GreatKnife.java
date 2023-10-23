@@ -69,6 +69,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
+        actor.addCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
     /**

@@ -8,8 +8,10 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
@@ -88,6 +90,21 @@ public class Player extends Actor implements MonologueListenable {
         int increaseStaminaBy = (int) Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) * (double) staminaPercentage/100);
         this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, increaseStaminaBy);
     }
+
+    /**
+     * Modified version of removeItemFromInventory()
+     * Checks whether a Great Knife is the item being removed
+     */
+    @Override
+    public void removeItemFromInventory(Item item) {
+        // instanceof is used here because the requirement specifically references Great Knife
+        if(item instanceof GreatKnife) {
+            this.removeCapability(Status.CARRIES_GREAT_KNIFE);
+        }
+
+        super.removeItemFromInventory(item);
+    }
+
 
     /**
      * Handle the Player becoming unconscious due to natural causes.
