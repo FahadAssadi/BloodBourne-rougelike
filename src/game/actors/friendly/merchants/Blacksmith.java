@@ -34,8 +34,4 @@ public class Blacksmith extends Friendly {
 
     }
 
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return null;
-    }
 }

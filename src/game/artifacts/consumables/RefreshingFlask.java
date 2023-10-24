@@ -23,6 +23,8 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_STAMINA_RESTORATION = 0.2;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 25;
+    private static  final int DEFAULT_UPGRADABLE_PRICE =175;
+
 
     /*
      Keeps track of the number of times the item has been upgraded
@@ -67,9 +69,14 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
     @Override
     public void upgrade() {
         if (this.canUpgrade()) {
-            this.STAMINA_RESTORATION = DEFAULT_UPGRADED_STAMINA_RESTORATION;
+            STAMINA_RESTORATION = DEFAULT_UPGRADED_STAMINA_RESTORATION;
             this.upgradeCount += 1;
         }
+    }
+
+    @Override
+    public int getUpgradablePrice() {
+        return DEFAULT_UPGRADABLE_PRICE;
     }
 
     @Override
@@ -79,10 +86,7 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
 
     @Override
     public boolean canUpgrade() {
-        if (this.upgradeCount < this.getUpgradeLimit()) {
-            return true;
-        }
-        return false;
+        return this.upgradeCount < this.getUpgradeLimit();
     }
 
     /**

@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.actors.enemies.ForestWatcher;
+import game.actors.friendly.merchants.Blacksmith;
 import game.actors.friendly.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
@@ -315,6 +316,8 @@ public class Application {
         // Adding the player to the Abandoned Village map
         Player player = new Player();
         world.addPlayer(player, gameMap.at(29, 5));
+        gameMap.at(31,6).addActor(new Blacksmith());
+        player.addBalance(10000);
 
         // Run the game world
         world.run();

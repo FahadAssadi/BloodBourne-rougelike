@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
+import game.actions.UpgradeAction;
 import game.artifacts.LimitedUpgrade;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
@@ -23,6 +24,7 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
     private static final double DEFAULT_HEALTH_RESTORATION = 0.1;
     private static final int DEFAULT_HEALING_VIAL_PRICE = 35;
 
+    private static final int DEFAULT_UPGRADABLE_PRICE = 250;
     /*
      Keeps track of the number of times the item has been upgraded
      */
@@ -71,6 +73,13 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
             this.HEALTH_RESTORATION = DEFAULT_UPGRADED_HEALTH_RESTORATION;
             this.upgradeCount += 1;
         }
+    }
+
+    @Override
+    public int getUpgradablePrice() {
+
+        return DEFAULT_UPGRADABLE_PRICE;
+
     }
 
     @Override

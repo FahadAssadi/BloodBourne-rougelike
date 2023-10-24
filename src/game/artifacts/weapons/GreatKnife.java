@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
+import game.actions.UpgradeAction;
 import game.actors.friendly.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
@@ -29,7 +30,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final String DEFAULT_VERB = "slashes";
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
-
+    private static  final int DEFAULT_UPGRADABLE_PRICE = 2000;
     private static double UPGRADE_HIT_RATE_INCREASE = 0.01;
 
     /**
@@ -107,6 +108,11 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     @Override
     public void upgrade() {
         this.increaseHitRate((int) (this.chanceToHit() * UPGRADE_HIT_RATE_INCREASE));
+    }
+
+    @Override
+    public int getUpgradablePrice() {
+        return DEFAULT_UPGRADABLE_PRICE;
     }
 
     /**
