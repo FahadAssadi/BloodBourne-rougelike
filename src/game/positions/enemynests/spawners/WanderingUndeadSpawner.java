@@ -26,4 +26,5 @@ public class WanderingUndeadSpawner extends Spawner{
     public Actor spawnActor() {
         return new WanderingUndead();
     }
+
 }

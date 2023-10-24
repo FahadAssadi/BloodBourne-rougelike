@@ -32,6 +32,8 @@ public class LivingBranch extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
     private static final int DEFAULT_BLOOD_BERRY_DROP_RATE = 50;
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 500;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+
 
     /**
      * Default constructor for the LivingBranch Class.
@@ -58,7 +60,7 @@ public class LivingBranch extends Enemy {
      */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
     }
 
     /**
