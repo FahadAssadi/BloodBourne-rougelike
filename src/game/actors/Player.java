@@ -97,8 +97,7 @@ public class Player extends Actor implements MonologueListenable {
      */
     @Override
     public void removeItemFromInventory(Item item) {
-        // instanceof is used here because the requirement specifically references Great Knife
-        if(item instanceof GreatKnife) {
+        if(this.hasCapability(Status.CARRIES_GREAT_KNIFE)) {
             this.removeCapability(Status.CARRIES_GREAT_KNIFE);
         }
 
