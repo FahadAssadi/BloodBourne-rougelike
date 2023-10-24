@@ -11,7 +11,6 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
@@ -104,7 +103,6 @@ public class Player extends Actor implements MonologueListenable {
         super.removeItemFromInventory(item);
     }
 
-
     /**
      * Handle the Player becoming unconscious due to natural causes.
      *
@@ -177,17 +175,12 @@ public class Player extends Actor implements MonologueListenable {
 
     @Override
     public Boolean hasDefeatedAbxervyer() {
-        return null;
+        return (this.hasCapability(Status.HAS_DEFEATED_BOSS));
     }
 
     @Override
     public Boolean hasGreatKnife() {
-        return null;
-    }
-
-    @Override
-    public Boolean hasGiantHammer() {
-        return null;
+        return (this.hasCapability(Status.CARRIES_GREAT_KNIFE));
     }
 
     @Override

@@ -2,9 +2,8 @@ package game.monologue;
 
 public interface MonologueListenable {
 
-    Boolean hasDefeatedAbxervyer();
-    Boolean hasGreatKnife();
-    Boolean hasGiantHammer();
+    public Boolean hasDefeatedAbxervyer();
+    public Boolean hasGreatKnife();
 
     default void registerAsMonologueListenable() {
         MonologueManager.getMonologueManager().addListener(this);
