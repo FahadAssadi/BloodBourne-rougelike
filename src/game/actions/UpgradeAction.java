@@ -5,23 +5,36 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.Upgradable;
 
-public class UpgradeAction extends Action {
-    private Upgradable item;
 
-    public UpgradeAction(Upgradable item){
-        this.item = item;
+public class UpgradeAction extends Action {
+    /**
+     * The item to be upgraded.
+     */
+    private final Upgradable upgradable;
+
+    public UpgradeAction(Upgradable upgradable) {
+        this.upgradable = upgradable;
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        this.item.upgrade();
-        // TODO: ADD THE MESSAGE
-        return null;
+        String message;
+
+        this.upgradable.upgrade();
+
+        if (actor.getBalance() < upgradable.getUpgradablePrice()){
+            return actor + " needs " + (upgradable.getUpgradablePrice() - actor.getBalance()) + " more to complete the upgrade.";
+        }
+
+        actor.deductBalance(this.upgradable.getUpgradablePrice());
+
+        message = actor + " upgrades " + this.upgradable + " for " + upgradable.getUpgradablePrice();
+
+        return message;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        // TODO: ADD THE MESSAGE
-        return null;
+        return actor + " upgrades " + upgradable + " for " + upgradable.getUpgradablePrice();
     }
 }

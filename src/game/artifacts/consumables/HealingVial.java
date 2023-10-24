@@ -139,6 +139,10 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
             ));
         }
 
+        if (otherActor.hasCapability(Ability.UPGRADES)) {
+            actions.add(new UpgradeAction(this));
+        }
+
         return actions;
     }
 }

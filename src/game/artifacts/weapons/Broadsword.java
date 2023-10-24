@@ -47,6 +47,7 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
     private static final int UPGRADE_DAMAGE_INCREASE = 10;
     private int upgradedDamage = 0;
 
+
     /**
      * Default constructor for the Broadsword class.
      * Initializes the Broadsword with default attributes.
@@ -203,6 +204,10 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
                     new TransactionItem(this, this.getSellingPrice()),
                     new NoQuirk() // No specific quirk for this transaction
             ));
+        }
+
+        if (otherActor.hasCapability(Ability.UPGRADES)) {
+            actions.add(new UpgradeAction(this));
         }
 
         return actions;

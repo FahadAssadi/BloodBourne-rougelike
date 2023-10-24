@@ -149,6 +149,10 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
             ));
         }
 
+        if (otherActor.hasCapability(Ability.UPGRADES)) {
+            actions.add(new UpgradeAction(this));
+        }
+
         return actions;
     }
 }

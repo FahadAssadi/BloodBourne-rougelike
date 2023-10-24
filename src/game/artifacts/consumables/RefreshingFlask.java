@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
+import game.actions.UpgradeAction;
 import game.artifacts.LimitedUpgrade;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
@@ -130,6 +131,10 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
                     new TransactionItem(this, this.getSellingPrice()),
                     new ScamQuirk(50) // Scamming the player by taking the item without paying
             ));
+        }
+
+        if (otherActor.hasCapability(Ability.UPGRADES)) {
+            actions.add(new UpgradeAction(this));
         }
 
         return actions;
