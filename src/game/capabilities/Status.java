@@ -28,10 +28,6 @@ public enum Status {
      */
     POSSESS_KEY,
     /**
-     * This status indicates that an actor cannot be killed by stepping on a Void square.
-     */
-    VOID_PROOF,
-    /**
      * This status indicates that an actor carries a Great Knife
      */
     CARRIES_GREAT_KNIFE,
