@@ -11,6 +11,7 @@ import game.actors.friendly.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.weapons.GiantHammer;
+import game.artifacts.weapons.GreatKnife;
 import game.misc.displays.FancyMessage;
 import game.misc.displays.MapStrings;
 import game.positions.*;
@@ -215,6 +216,7 @@ public class Application {
         // Adding the player to the Abandoned Village map
         Player player = new Player();
         world.addPlayer(player, gameMap.at(29, 5));
+        gameMap.at(31,5).addItem(new GreatKnife());
         gameMap.at(31,6).addActor(new Blacksmith());
         player.addBalance(10000);
 

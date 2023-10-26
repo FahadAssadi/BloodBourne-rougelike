@@ -73,7 +73,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
-        actor.addCapability(Status.CARRIES_GREAT_KNIFE);
+        this.addCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
     /**
@@ -103,7 +103,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     @Override
     public void resetWeapon() {
         this.removeCapability(Status.SKILL_ACTIVE);
-        this.removeCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
 
@@ -159,4 +158,5 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     public int getUpgradePrice() {
         return 0;
     }
+
 }

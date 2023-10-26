@@ -53,7 +53,7 @@ public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
-        actor.addCapability(Status.CARRIES_GIANT_HAMMER);
+        this.addCapability(Status.CARRIES_GIANT_HAMMER);
     }
 
     /**
