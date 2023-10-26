@@ -9,6 +9,7 @@ import game.actions.AttackAction;
 import game.actors.behaviours.AttackBehaviour;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.consumables.Runes;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**
@@ -40,7 +41,7 @@ public class LivingBranch extends Enemy {
      */
     public LivingBranch() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -52,7 +53,7 @@ public class LivingBranch extends Enemy {
      */
     public LivingBranch(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**

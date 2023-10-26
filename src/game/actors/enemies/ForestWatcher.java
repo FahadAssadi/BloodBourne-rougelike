@@ -13,6 +13,7 @@ import game.actors.behaviours.AttackBehaviour;
 import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
 import game.weather.Weather;
@@ -54,7 +55,7 @@ public class ForestWatcher extends Enemy {
      */
     public ForestWatcher() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -64,7 +65,7 @@ public class ForestWatcher extends Enemy {
     public ForestWatcher(Ground postDeathFormation) {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.postDeathFormation = postDeathFormation;
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -143,7 +144,7 @@ public class ForestWatcher extends Enemy {
         // Once the boss is defeated, the location where the boss last stood turns into a Gate to the Ancient Wood
         map.locationOf(this).setGround(postDeathFormation);
 
-        actor.addCapability(Status.HAS_DEFEATED_BOSS);
+        actor.addCapability(Status.KILLED_ABXERVYER);
 
         // Print message when the boss is defeated
         System.out.println(FancyMessage.BOSS_DIED);

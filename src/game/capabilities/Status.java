@@ -28,13 +28,9 @@ public enum Status {
      */
     POSSESS_KEY,
     /**
-     * This status indicates that an actor cannot die in the void.
-     */
-    VOID_PROOF,
-    /**
      * This status indicates that an actor has defeated the Forest Watcher
      */
-    HAS_DEFEATED_BOSS,
+    KILLED_ABXERVYER,
     /**
      * This status indicates that an actor carries a Great Knife
      */

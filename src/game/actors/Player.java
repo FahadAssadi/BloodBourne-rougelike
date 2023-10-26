@@ -8,16 +8,11 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
-import game.monologue.MonologueListenable;
-import game.monologue.MonologueManager;
-
 /**
  * Class representing the Player.
  * Created by:
@@ -25,7 +20,7 @@ import game.monologue.MonologueManager;
  * Modified by:
  * @author Fahad Assadi
  */
-public class Player extends Actor implements MonologueListenable {
+public class Player extends Actor {
     // Default attributes for the Player
     private static final String DEFAULT_NAME = "The Abstracted One";
     private static final char DEFAULT_DISPLAY_CHAR = '@';
@@ -64,8 +59,6 @@ public class Player extends Actor implements MonologueListenable {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
-
-        registerAsMonologueListenable();
     }
 
     /**
@@ -89,20 +82,6 @@ public class Player extends Actor implements MonologueListenable {
     private void restoreStamina(int staminaPercentage) {
         int increaseStaminaBy = (int) Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) * (double) staminaPercentage/100);
         this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, increaseStaminaBy);
-    }
-
-    /**
-     * Modified version of removeItemFromInventory()
-     * Checks whether a Great Knife is the item being removed
-     */
-    @Override
-    public void removeItemFromInventory(Item item) {
-        if(item instanceof GreatKnife) {
-            // Occurs only if the Player is removing a GreatKnife
-            this.removeCapability(Status.CARRIES_GREAT_KNIFE);
-        }
-
-        super.removeItemFromInventory(item);
     }
 
     /**
@@ -175,23 +154,17 @@ public class Player extends Actor implements MonologueListenable {
         ));
     }
 
-    @Override
+    // All Dialogue Affecting Attributes
     public Boolean hasDefeatedAbxervyer() {
-        return (this.hasCapability(Status.HAS_DEFEATED_BOSS));
+        return this.hasCapability(Status.KILLED_ABXERVYER);
     }
 
-    @Override
     public Boolean hasGreatKnife() {
-        return (this.hasCapability(Status.CARRIES_GREAT_KNIFE));
+        return this.hasCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
-    @Override
     public Boolean hasGiantHammer() {
-        return (this.hasCapability(Status.CARRIES_GIANT_HAMMER));
+        return this.hasCapability(Status.CARRIES_GIANT_HAMMER);
     }
 
-    @Override
-    public void registerAsMonologueListenable() {
-        MonologueManager.getMonologueManager().addListener(this);
-    }
 }

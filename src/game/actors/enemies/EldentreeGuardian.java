@@ -12,6 +12,7 @@ import game.actors.behaviours.WanderBehaviour;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.artifacts.consumables.Runes;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**
@@ -41,7 +42,7 @@ public class EldentreeGuardian extends Enemy {
      */
     public EldentreeGuardian() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -53,7 +54,7 @@ public class EldentreeGuardian extends Enemy {
      */
     public EldentreeGuardian(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
