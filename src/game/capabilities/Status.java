@@ -28,7 +28,19 @@ public enum Status {
      */
     POSSESS_KEY,
     /**
-     * This status indicates that an actor cannot die in the void.
+     * This status indicates that an actor cannot be killed by stepping on a Void square.
      */
-    VOID_PROOF
+    VOID_PROOF,
+    /**
+     * This status indicates that an actor carries a Great Knife
+     */
+    CARRIES_GREAT_KNIFE,
+    /**
+     * This status indicates that an actor carries a Giant Hammer
+     */
+    CARRIES_GIANT_HAMMER,
+    /**
+     * This status indicates that an actor has defeated the Forest Watcher
+     */
+    FELLED_ABXERVYER,
 }

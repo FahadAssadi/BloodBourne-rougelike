@@ -41,6 +41,7 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
 
     // Keeps track of the number of times the BroadSword has been upgraded
     private int upgradeCount = 0;
+    private static final int DEFAULT_UPGRADE_LIMIT = Integer.MAX_VALUE;
 
     private static final int UPGRADE_DAMAGE_INCREASE = 10;
     private int upgradedDamage = 0;
@@ -137,8 +138,10 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
      */
     @Override
     public void upgrade() {
-        this.upgradeCount += 1;
-        this.upgradedDamage = UPGRADE_DAMAGE_INCREASE * upgradeCount;
+        if(this.upgradeCount < DEFAULT_UPGRADE_LIMIT) {
+            this.upgradeCount += 1;
+            this.upgradedDamage = UPGRADE_DAMAGE_INCREASE * upgradeCount;
+        }
     }
 
     /**
