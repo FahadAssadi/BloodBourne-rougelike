@@ -1,8 +1,10 @@
 package game.state;
 
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actors.enemies.Enemy;
 import game.artifacts.consumables.Runes;
+import game.capabilities.Status;
 import game.positions.LockedGate;
 
 import java.util.ArrayList;
@@ -45,10 +47,60 @@ public class EntityManager {
         return entityManager;
     }
 
+    /**
+     * Adds all game maps from the world to the manager
+     */
     public void addGameMaps(List<GameMap> maps){
         entityManager.maps = maps;
     }
 
+    /**
+     * Resets all entities.
+     */
+    public void resetEntities() {
+        resetEnemies();
+        resetBosses();
+        resetRunes();
+        resetGates();
+    }
+
+    /**
+     * Resets all spawned enemies (not incl. bosses) by removing them from the map
+     */
+    private void resetEnemies() {
+        for (Actor enemy: enemies) {
+            for (GameMap map: maps) {
+                if (enemy.hasCapability(Status.HOSTILE) && !enemy.hasCapability(Status.BOSS)) {
+                    map.removeActor(enemy);
+                }
+            }
+        }
+    }
+
+    /**
+     * Resets all bosses by resetting their health to full if they have not been defeated.
+     */
+    private void resetBosses() {
+        // TODO
+    }
+
+    /**
+     * Resets all unlocked gates by locking them again.
+     */
+    private void resetRunes() {
+        // TODO
+    }
+
+    /**
+     * Resets runes by wiping from the map all runes dropped in previous turns that the player did not pick up.
+     */
+    private void resetGates() {
+        // TODO
+    }
+
+
+
+    // INITIAL APPROACH
 //    public void addResettable(Resettable resettable){
 //        entityManager.resettables.add(resettable);
 //    }
