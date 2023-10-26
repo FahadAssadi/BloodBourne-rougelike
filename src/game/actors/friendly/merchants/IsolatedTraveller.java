@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * A class representing an isolated traveler who serves as a merchant in the game.
  */
-public class IsolatedTraveller extends Friendly implements Listenable{
+public class IsolatedTraveller extends Friendly {
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
@@ -71,32 +71,6 @@ public class IsolatedTraveller extends Friendly implements Listenable{
         return sellableItems;
     }
 
-    @Override
-    public List<String> getMonologueList(Actor actor) {
-        List<String> monologueList = new ArrayList<>();
-
-        monologueList.add("Of course, I will never give you up, valuable customer!");
-        monologueList.add("I promise I will never let you down with the quality of the items that I sell.");
-        monologueList.add("You can always find me here. I'm never gonna run around and desert you, dear customer!");
-        monologueList.add("I'm never gonna make you cry with unfair prices.");
-        monologueList.add("Trust is essential in this business. I promise I’m never gonna say goodbye to a valuable customer like you.");
-        monologueList.add("Don't worry, I’m never gonna tell a lie and hurt you.");
-
-        if (actor.hasCapability(Status.CARRIES_GIANT_HAMMER)){
-            monologueList.add("Ooh, that’s a fascinating weapon you got there. I will pay a good price for it. You wouldn't get this price from any other guy.");
-        }
-
-        if (!actor.hasCapability(Status.FELLED_ABXERVYER)){
-            monologueList.add("You know the rules of this world, and so do I. Each area is ruled by a lord. Defeat the lord of this area, Abxervyer, and you may proceed to the next area.");
-        } else {
-            if (actor.hasCapability(Status.CARRIES_GIANT_HAMMER)){
-                monologueList.add("Congratulations on defeating the lord of this area. I noticed you still hold on to that hammer. Why don’t you sell it to me? We've known each other for so long. I can tell you probably don’t need that weapon any longer.");
-            }
-        }
-
-        return monologueList;
-    }
-
     /**
      * Defines the allowable actions for the Isolated Traveller based on the presence of other actors and their direction.
      *
@@ -112,8 +86,6 @@ public class IsolatedTraveller extends Friendly implements Listenable{
         generateSellingMenu().forEach(((purchasableItem, quirk) -> {
             actions.add(new PurchaseAction(purchasableItem, quirk));
         }));
-
-        actions.add(new ListenAction(this));
 
         return actions;
     }

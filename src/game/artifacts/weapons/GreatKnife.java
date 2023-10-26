@@ -29,9 +29,10 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final String DEFAULT_VERB = "slashes";
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
-    private static final int DEFAULT_UPGRADABLE_PRICE = 2000;
     private static final double UPGRADE_HIT_RATE_INCREASE = 0.01;
-    private static final int DEFAULT_UPGRADE_LIMIT = 999999; // Value that is practically too high to become 0
+    private static final int DEFAULT_UPGRADE_LIMIT = Integer.MAX_VALUE; // Value that is practically too high to become 0
+    private static final int DEFAULT_UPGRADE_PRICE = 2000;
+    private static final int DEFAULT_UPGRADED_HIT_RATE_INCREASE = 1;
 
     private int upgradeCount = 0;
 
@@ -140,18 +141,18 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
             ));
         }
 
-
         return actions;
     }
 
     @Override
     public void upgrade() {
-
+        this.upgradeCount++;
+        this.increaseHitRate(DEFAULT_UPGRADED_HIT_RATE_INCREASE * this.upgradeCount);
     }
 
     @Override
     public boolean isUpgradable() {
-        return false;
+        return this.upgradeCount < DEFAULT_UPGRADE_LIMIT;
     }
 
     @Override
