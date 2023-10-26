@@ -2,6 +2,6 @@ package game.artifacts;
 
 public interface Upgradable {
     void upgrade();
-
-    int getUpgradablePrice();
+    boolean isUpgradable();
+    int getUpgradePrice();
 }

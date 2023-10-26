@@ -11,7 +11,6 @@ import game.capabilities.Status;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Blacksmith extends Friendly implements Listenable{
     // Default attributes for the Blacksmith
     private static final String DEFAULT_NAME = "Blacksmith";
