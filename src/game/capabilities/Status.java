@@ -38,5 +38,5 @@ public enum Status {
     /**
      * This status indicates that an actor has defeated the Forest Watcher
      */
-    FELLED_ABXERVYER,
+    DEFEATED_ABXERVYER,
 }

@@ -46,7 +46,7 @@ public class Blacksmith extends Friendly implements Listenable{
             monologueList.add("Hey now, that’s a weapon from a foreign land that I have not seen for so long. I can upgrade it for you if you wish.");
         }
 
-        if (actor.hasCapability(Status.FELLED_ABXERVYER)){
+        if (actor.hasCapability(Status.DEFEATED_ABXERVYER)){
             monologueList.add("Somebody once told me that a sacred tree rules the land beyond the ancient woods until this day.");
         } else {
             monologueList.add("Beyond the burial ground, you’ll come across the ancient woods ruled by Abxervyer. Use my creation to slay them and proceed further!");
