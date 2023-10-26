@@ -28,15 +28,15 @@ public enum Status {
      */
     POSSESS_KEY,
     /**
-     * This status indicates that an actor has defeated the Forest Watcher
-     */
-    KILLED_ABXERVYER,
-    /**
      * This status indicates that an actor carries a Great Knife
      */
     CARRIES_GREAT_KNIFE,
     /**
      * This status indicates that an actor carries a Giant Hammer
      */
-    CARRIES_GIANT_HAMMER
+    CARRIES_GIANT_HAMMER,
+    /**
+     * This status indicates that an actor has defeated the Forest Watcher
+     */
+    FELLED_ABXERVYER,
 }

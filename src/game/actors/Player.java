@@ -156,7 +156,7 @@ public class Player extends Actor {
 
     // All Dialogue Affecting Attributes
     public Boolean hasDefeatedAbxervyer() {
-        return this.hasCapability(Status.KILLED_ABXERVYER);
+        return this.hasCapability(Status.FELLED_ABXERVYER);
     }
 
     public Boolean hasGreatKnife() {
