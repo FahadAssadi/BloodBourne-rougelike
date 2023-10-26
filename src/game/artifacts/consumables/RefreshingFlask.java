@@ -9,33 +9,28 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
 import game.actions.UpgradeAction;
-import game.artifacts.LimitedUpgrade;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.friendly.merchants.quirks.ScamQuirk;
+import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Refreshing Vial in the game.
  */
-public class RefreshingFlask extends Item implements Consumable, Sellable, LimitedUpgrade {
+public class RefreshingFlask extends Item implements Consumable, Sellable, Upgradable {
     private static final String DEFAULT_NAME = "Refreshing Flask";
     private static final char DEFAULT_DISPLAY_CHAR = 'u';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_STAMINA_RESTORATION = 0.2;
     private static final int DEFAULT_REFRESHING_FLASK_PRICE = 25;
-    private static  final int DEFAULT_UPGRADABLE_PRICE =175;
-
-
-    /*
-     Keeps track of the number of times the item has been upgraded
-     */
-    private int upgradeCount;
-
-    private static final int DEFAULT_REFRESHING_FLASK_UPGRADE_LIMIT = 1;
+    private static final int DEFAULT_UPGRADE_LIMIT = 1;
+    private static final int DEFAULT_UPGRADE_PRICE = 175;
     private static final double DEFAULT_UPGRADED_STAMINA_RESTORATION = 1.0;
 
-    private static double STAMINA_RESTORATION = DEFAULT_STAMINA_RESTORATION;
+    private double staminaRestoration = DEFAULT_STAMINA_RESTORATION;
+    private int upgradeCount = 0;
+
 
     /**
      * Constructor for the RefreshingFlask class.
@@ -52,6 +47,22 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
         return DEFAULT_REFRESHING_FLASK_PRICE;
     }
 
+    @Override
+    public void upgrade() {
+        this.upgradeCount++;
+        this.staminaRestoration = DEFAULT_UPGRADED_STAMINA_RESTORATION;
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        return this.upgradeCount < DEFAULT_UPGRADE_LIMIT;
+    }
+
+    @Override
+    public int getUpgradePrice() {
+        return DEFAULT_UPGRADE_PRICE;
+    }
+
     /**
      * Define the behavior of consuming the Refreshing Vial to restore the actor's stamina.
      *
@@ -60,34 +71,11 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
     @Override
     public void consume(Actor actor) {
         // Calculate the amount of stamina to restore based on a percentage of maximum stamina
-        int restoreStaminaBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.STAMINA) * STAMINA_RESTORATION);
+        int restoreStaminaBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.STAMINA) * staminaRestoration);
         // Increase the actor's stamina by the calculated amount
         actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, restoreStaminaBy);
         // Remove the consumed Refreshing Vial from the actor's inventory
         actor.removeItemFromInventory(this);
-    }
-
-    @Override
-    public void upgrade() {
-        if (this.canUpgrade()) {
-            STAMINA_RESTORATION = DEFAULT_UPGRADED_STAMINA_RESTORATION;
-            this.upgradeCount += 1;
-        }
-    }
-
-    @Override
-    public int getUpgradablePrice() {
-        return DEFAULT_UPGRADABLE_PRICE;
-    }
-
-    @Override
-    public int getUpgradeLimit() {
-        return DEFAULT_REFRESHING_FLASK_UPGRADE_LIMIT;
-    }
-
-    @Override
-    public boolean canUpgrade() {
-        return this.upgradeCount < this.getUpgradeLimit();
     }
 
     /**
@@ -133,8 +121,10 @@ public class RefreshingFlask extends Item implements Consumable, Sellable, Limit
             ));
         }
 
-        if (otherActor.hasCapability(Ability.UPGRADES)) {
-            actions.add(new UpgradeAction(this));
+        if (otherActor.hasCapability(Ability.UPGRADES)){
+            if (this.isUpgradable()){
+                actions.add(new UpgradeAction(this));
+            }
         }
 
         return actions;

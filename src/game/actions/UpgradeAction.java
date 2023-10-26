@@ -6,9 +6,6 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.Upgradable;
 
 public class UpgradeAction extends Action {
-    /**
-     * The item to be upgraded.
-     */
     private final Upgradable upgradable;
 
     public UpgradeAction(Upgradable upgradable) {
