@@ -7,7 +7,6 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
-import game.actions.UpgradeAction;
 import game.artifacts.*;
 import game.actors.friendly.merchants.quirks.NoQuirk;
 import game.artifacts.weapons.skills.FocusSkill;
@@ -39,14 +38,10 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
     private static final int DEFAULT_SKILL_DURATION = 5;
     private static final float DEFAULT_DAMAGE_MULTIPLIER_INCREASE = 0.1f;
     private static final int DEFAULT_UPDATED_HITRATE = 90;
-    private static  final int DEFAULT_UPGRADABLE_PRICE =1000;
+    private static final int DEFAULT_UPGRADE_LIMIT = 999999;
+    private static final int DEFAULT_UPGRADE_PRICE = 1000;
 
-    // Keeps track of the number of times the BroadSword has been upgraded
     private int upgradeCount = 0;
-
-    private static final int UPGRADE_DAMAGE_INCREASE = 10;
-    private int upgradedDamage = 0;
-
 
     /**
      * Default constructor for the Broadsword class.
@@ -135,28 +130,19 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
         }
     }
 
-    /**
-     * Upgrades the weapon.
-     */
     @Override
     public void upgrade() {
-        this.upgradeCount += 1;
-        this.upgradedDamage = UPGRADE_DAMAGE_INCREASE * upgradeCount;
+
     }
 
     @Override
-    public int getUpgradablePrice() {
-        return DEFAULT_UPGRADABLE_PRICE;
+    public boolean isUpgradable() {
+        return true;
     }
 
-    /**
-     * New accessor for damage done by this weapon, now adapted to the upgradable feature.
-     *
-     * @return the damage
-     */
     @Override
-    public int damage() {
-        return super.damage() + this.upgradedDamage;
+    public int getUpgradePrice() {
+        return 0;
     }
 
     /**
@@ -204,10 +190,6 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
                     new TransactionItem(this, this.getSellingPrice()),
                     new NoQuirk() // No specific quirk for this transaction
             ));
-        }
-
-        if (otherActor.hasCapability(Ability.UPGRADES)) {
-            actions.add(new UpgradeAction(this));
         }
 
         return actions;

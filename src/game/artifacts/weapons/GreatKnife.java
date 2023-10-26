@@ -7,7 +7,6 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
-import game.actions.UpgradeAction;
 import game.actors.friendly.merchants.quirks.RobQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
@@ -31,7 +30,10 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
     private static final int DEFAULT_UPGRADABLE_PRICE = 2000;
-    private static double UPGRADE_HIT_RATE_INCREASE = 0.01;
+    private static final double UPGRADE_HIT_RATE_INCREASE = 0.01;
+    private static final int DEFAULT_UPGRADE_LIMIT = 999999; // Value that is practically too high to become 0
+
+    private int upgradeCount = 0;
 
     /**
      * Default constructor for the Great Knife class.
@@ -103,18 +105,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
         this.removeCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
-    /**
-     * Upgrades the weapon.
-     */
-    @Override
-    public void upgrade() {
-        this.increaseHitRate((int) (this.chanceToHit() * UPGRADE_HIT_RATE_INCREASE));
-    }
-
-    @Override
-    public int getUpgradablePrice() {
-        return DEFAULT_UPGRADABLE_PRICE;
-    }
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
@@ -150,10 +140,22 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
             ));
         }
 
-        if (otherActor.hasCapability(Ability.UPGRADES)) {
-            actions.add(new UpgradeAction(this));
-        }
 
         return actions;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
+
+    @Override
+    public int getUpgradePrice() {
+        return 0;
     }
 }
