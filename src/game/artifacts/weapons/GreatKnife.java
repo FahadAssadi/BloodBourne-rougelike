@@ -29,8 +29,12 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final String DEFAULT_VERB = "slashes";
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
+    private static final double UPGRADE_HIT_RATE_INCREASE = 0.01;
+    private static final int DEFAULT_UPGRADE_LIMIT = Integer.MAX_VALUE; // Value that is practically too high to become 0
+    private static final int DEFAULT_UPGRADE_PRICE = 2000;
+    private static final int DEFAULT_UPGRADED_HIT_RATE_INCREASE = 1;
 
-    private static double UPGRADE_HIT_RATE_INCREASE = 0.01;
+    private int upgradeCount = 0;
 
     /**
      * Default constructor for the Great Knife class.
@@ -69,6 +73,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
+        this.addCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
     /**
@@ -100,13 +105,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
         this.removeCapability(Status.SKILL_ACTIVE);
     }
 
-    /**
-     * Upgrades the weapon.
-     */
-    @Override
-    public void upgrade() {
-        this.increaseHitRate((int) (this.chanceToHit() * UPGRADE_HIT_RATE_INCREASE));
-    }
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
@@ -144,4 +142,21 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
 
         return actions;
     }
+
+    @Override
+    public void upgrade() {
+        this.upgradeCount++;
+        this.increaseHitRate(DEFAULT_UPGRADED_HIT_RATE_INCREASE * this.upgradeCount);
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        return this.upgradeCount < DEFAULT_UPGRADE_LIMIT;
+    }
+
+    @Override
+    public int getUpgradePrice() {
+        return 0;
+    }
+
 }

@@ -20,7 +20,7 @@ public class WeatherSusceptiblesManager {
      * Constructor for `WeatherSusceptiblesManager` that initializes lists of SunnySusceptibles and RainySusceptibles.
      *
      */
-    public WeatherSusceptiblesManager(){
+    private WeatherSusceptiblesManager(){
         this.sunnySusceptibles = new ArrayList<>();
         this.rainySusceptibles = new ArrayList<>();
     }

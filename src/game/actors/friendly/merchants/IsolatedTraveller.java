@@ -1,10 +1,7 @@
 package game.actors.friendly.merchants;
 
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.PurchaseAction;
 import game.actors.friendly.Friendly;
@@ -17,14 +14,17 @@ import game.actors.friendly.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
+import game.capabilities.Status;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * A class representing an isolated traveler who serves as a merchant in the game.
  */
-public class IsolatedTraveller extends Friendly {
+public class IsolatedTraveller extends Friendly implements Listenable {
     // Default attributes for the Isolated Traveller
     private static final String DEFAULT_NAME = "Isolated Traveller";
     private static final char DEFAULT_DISPLAY_CHAR = 'ඞ';
@@ -68,6 +68,36 @@ public class IsolatedTraveller extends Friendly {
         sellableItems.put(new TransactionItem(new GreatKnife(), DEFAULT_GREAT_KNIFE_PRICE), new PricingQuirk(5, 300));
 
         return sellableItems;
+    }
+
+    @Override
+    public List<String> getMonologueList(Actor actor) {
+        List<String> monologueList = new ArrayList<>();
+
+        // Default monologues
+        monologueList.add("Of course, I will never give you up, valuable customer!");
+        monologueList.add("I promise I will never let you down with the quality of the items that I sell.");
+        monologueList.add("You can always find me here. I'm never gonna run around and desert you, dear customer!");
+        monologueList.add("I'm never gonna make you cry with unfair prices.");
+        monologueList.add("Trust is essential in this business. I promise I’m never gonna say goodbye to a valuable customer like you.");
+        monologueList.add("Don't worry, I’m never gonna tell a lie and hurt you.");
+
+        // If the player holds a Giant Hammer
+        if (actor.hasCapability(Status.CARRIES_GIANT_HAMMER)){
+            monologueList.add("Ooh, that’s a fascinating weapon you got there. I will pay a good price for it. You wouldn't get this price from any other guy.");
+        }
+
+        // If the player hasn’t defeated Abxervyer
+        if (!actor.hasCapability(Status.DEFEATED_ABXERVYER)){
+            monologueList.add("You know the rules of this world, and so do I. Each area is ruled by a lord. Defeat the lord of this area, Abxervyer, and you may proceed to the next area.");
+        } else {
+            // Once the player defeats Abxervyer & they still hold the giant hammer
+            if (actor.hasCapability(Status.CARRIES_GIANT_HAMMER)){
+                monologueList.add("Congratulations on defeating the lord of this area. I noticed you still hold on to that hammer. Why don’t you sell it to me? We've known each other for so long. I can tell you probably don’t need that weapon any longer.");
+            }
+        }
+
+        return monologueList;
     }
 
     /**

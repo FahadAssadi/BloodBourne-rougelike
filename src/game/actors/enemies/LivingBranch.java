@@ -9,6 +9,7 @@ import game.actions.AttackAction;
 import game.actors.behaviours.AttackBehaviour;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.consumables.Runes;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**
@@ -32,13 +33,15 @@ public class LivingBranch extends Enemy {
     private static final String DEFAULT_INTRINSIC_WEAPON_VERB = "knocks";
     private static final int DEFAULT_BLOOD_BERRY_DROP_RATE = 50;
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 500;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+
 
     /**
      * Default constructor for the LivingBranch Class.
      */
     public LivingBranch() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -50,7 +53,7 @@ public class LivingBranch extends Enemy {
      */
     public LivingBranch(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -58,7 +61,7 @@ public class LivingBranch extends Enemy {
      */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
     }
 
     /**

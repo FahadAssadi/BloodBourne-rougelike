@@ -7,31 +7,28 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
 import game.actions.SellAction;
-import game.artifacts.LimitedUpgrade;
+import game.actions.UpgradeAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.actors.friendly.merchants.quirks.PricingQuirk;
+import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
 /**
  * A specific consumable item representing a Healing Vial in the game.
  */
-public class HealingVial extends Item implements Consumable, Sellable, LimitedUpgrade {
+public class HealingVial extends Item implements Consumable, Sellable, Upgradable {
     private static final String DEFAULT_NAME = "Healing Vial";
     private static final char DEFAULT_DISPLAY_CHAR = 'a';
     private static final boolean DEFAULT_PORTABILITY_STATUS = true;
     private static final double DEFAULT_HEALTH_RESTORATION = 0.1;
     private static final int DEFAULT_HEALING_VIAL_PRICE = 35;
-
-    /*
-     Keeps track of the number of times the item has been upgraded
-     */
-    private int upgradeCount;
-
-    private static final int DEFAULT_HEALING_VIAL_UPGRADE_LIMIT = 1;
+    private static final int DEFAULT_UPGRADE_LIMIT = 1;
+    private static final int DEFAULT_UPGRADE_PRICE = 250;
     private static final double DEFAULT_UPGRADED_HEALTH_RESTORATION = 0.8;
 
-    private static double HEALTH_RESTORATION = DEFAULT_HEALTH_RESTORATION;
+    private double healthRestoration = DEFAULT_HEALTH_RESTORATION;
+    private int upgradeCount = 0;
 
     /**
      * Constructor for the HealingVial class.
@@ -40,13 +37,28 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
     }
 
-
     /**
      * @return The default price that the player sells this item for
      */
     @Override
     public int getSellingPrice() {
         return DEFAULT_HEALING_VIAL_PRICE;
+    }
+
+    @Override
+    public void upgrade() {
+        this.upgradeCount++;
+        this.healthRestoration = DEFAULT_UPGRADED_HEALTH_RESTORATION;
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        return this.upgradeCount < DEFAULT_UPGRADE_LIMIT;
+    }
+
+    @Override
+    public int getUpgradePrice() {
+        return DEFAULT_UPGRADE_PRICE;
     }
 
     /**
@@ -57,33 +69,12 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
     @Override
     public void consume(Actor actor) {
         // Calculate the amount of health to restore based on a percentage of maximum health
-        int healActorBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.HEALTH) * (HEALTH_RESTORATION));
+        int healActorBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.HEALTH) * healthRestoration);
         // Heal the actor by the calculated amount
         actor.heal(healActorBy);
 
         // Remove the consumed Healing Vial from the actor's inventory
         actor.removeItemFromInventory(this);
-    }
-
-    @Override
-    public void upgrade() {
-        if (this.canUpgrade()) {
-            this.HEALTH_RESTORATION = DEFAULT_UPGRADED_HEALTH_RESTORATION;
-            this.upgradeCount += 1;
-        }
-    }
-
-    @Override
-    public int getUpgradeLimit() {
-        return DEFAULT_HEALING_VIAL_UPGRADE_LIMIT;
-    }
-
-    @Override
-    public boolean canUpgrade() {
-        if (this.upgradeCount < this.getUpgradeLimit()) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -130,6 +121,13 @@ public class HealingVial extends Item implements Consumable, Sellable, LimitedUp
             ));
         }
 
+        if (otherActor.hasCapability(Ability.UPGRADES)){
+            if (this.isUpgradable()){
+                actions.add(new UpgradeAction(this));
+            }
+        }
+
         return actions;
     }
+
 }

@@ -7,10 +7,12 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import game.actors.behaviours.AttackBehaviour;
+import game.actors.behaviours.FollowBehaviour;
 import game.actors.behaviours.WanderBehaviour;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
 import game.artifacts.consumables.Runes;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 
 /**
@@ -31,13 +33,16 @@ public class EldentreeGuardian extends Enemy {
     private static final int DEFAULT_HEAL_VIAL_DROP_RATE = 25;
     private static final int DEFAULT_REFRESHING_VIAL_DROP_RATE = 15;
     private static final int DEFAULT_RUNE_DROP_AMOUNT = 250;
+    private static final int DEFAULT_ATTACK_BEHAVIOUR_PRIORITY = 1;
+    private static final int DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY = 2;
+    private static final int DEFAULT_WANDER_BEHAVIOUR_PRIORITY = 999;
 
     /**
      * Default constructor for the Eldentree Guardian Class.
      */
     public EldentreeGuardian() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -49,7 +54,7 @@ public class EldentreeGuardian extends Enemy {
      */
     public EldentreeGuardian(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Status.VOID_PROOF);
+        this.addCapability(Ability.VOID_PROOF);
     }
 
     /**
@@ -57,8 +62,8 @@ public class EldentreeGuardian extends Enemy {
      */
     @Override
     protected void addBehaviours() {
-        this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(999, new WanderBehaviour());;
+        this.behaviours.put(DEFAULT_ATTACK_BEHAVIOUR_PRIORITY, new AttackBehaviour());
+        this.behaviours.put(DEFAULT_WANDER_BEHAVIOUR_PRIORITY, new WanderBehaviour());;
     }
 
     /**
@@ -94,6 +99,7 @@ public class EldentreeGuardian extends Enemy {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
+            this.behaviours.put(DEFAULT_FOLLOW_BEHAVIOUR_PRIORITY, new FollowBehaviour(otherActor));
         }
         return actions;
     }

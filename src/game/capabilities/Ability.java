@@ -22,4 +22,8 @@ public enum Ability {
      * This ability suggests that an actor has the capability to upgrade items.
      */
     UPGRADES,
+    /**
+     * This status indicates that an actor cannot die in the void.
+     */
+    VOID_PROOF,
 }
