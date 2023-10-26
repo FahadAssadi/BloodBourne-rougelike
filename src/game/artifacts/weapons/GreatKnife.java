@@ -156,7 +156,7 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
 
     @Override
     public int getUpgradePrice() {
-        return 0;
+        return DEFAULT_UPGRADE_PRICE;
     }
 
 }
