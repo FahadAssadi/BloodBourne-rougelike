@@ -12,6 +12,7 @@ import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.weapons.GiantHammer;
 import game.misc.displays.FancyMessage;
+import game.misc.displays.MapStrings;
 import game.positions.*;
 import game.positions.enemynests.Bush;
 import game.positions.enemynests.Graveyard;
@@ -46,107 +47,13 @@ public class Application {
                 new Void()
         );
 
-        // The Abandoned Village map
-        List<String> map = Arrays.asList(
-                "...........................................................",
-                "...#######.................................................",
-                "...#__.......................................++++..........",
-                "...#..___#...................................+++++++.......",
-                "...###.###................#######..............+++.........",
-                "..........................#_____#................+++.......",
-                "........~~................#_____#.................+........",
-                ".........~~~..............###_###................++........",
-                "...~~~~~~~~....+++.........................................",
-                "....~~~~~........+++++++..................###..##...++++...",
-                "~~~~~~~..............+++..................#___..#...++.....",
-                "~~~~~~.................++.................#..___#....+++...",
-                "~~~~~~~~~.................................#######.......++."
-        );
-
-        // The Burial Ground map
-        List<String> map2 = Arrays.asList(
-                "...........+++++++........~~~~~~++....~~",
-                "...........++++++.........~~~~~~+.....~~",
-                "............++++...........~~~~~......++",
-                "............+.+.............~~~.......++",
-                "..........++~~~.......................++",
-                ".........+++~~~....#######...........+++",
-                ".........++++~.....#_____#.........+++++",
-                "..........+++......#_____#........++++++",
-                "..........+++......###_###.......~~+++++",
-                "..........~~.....................~~...++",
-                "..........~~~..................++.......",
-                "...........~~....~~~~~.........++.......",
-                "......~~....++..~~~~~~~~~~~......~......",
-                "....+~~~~..++++++++~~~~~~~~~....~~~.....",
-                "....+~~~~..++++++++~~~..~~~~~..~~~~~...."
-        );
-
-        // The Ancient Woods map
-        List<String> map3 = Arrays.asList(
-                "....+++..............................+++++++++....~~~....~~~",
-                "+...+++..............................++++++++.....~~~.....~~",
-                "++...............#######..............++++.........~~.......",
-                "++...............#_____#...........................~~~......",
-                "+................#_____#............................~~......",
-                ".................###_###............~...............~~.....~",
-                "...............................~.+++~~..............~~....~~",
-                ".....................~........~~+++++...............~~~...~~",
-                "....................~~~.........++++............~~~~~~~...~~",
-                "....................~~~~.~~~~..........~........~~~~~~.....~",
-                "++++...............~~~~~~~~~~~........~~~.......~~~~~~......",
-                "+++++..............~~~~~~~~~~~........~~~........~~~~~......"
-        );
-
-        // The Boss Map (Abxervyer)
-        List<String> map4 = Arrays.asList(
-                "~~~~.......+++......~+++++..............",
-                "~~~~.......+++.......+++++..............",
-                "~~~++......+++........++++..............",
-                "~~~++......++...........+..............+",
-                "~~~~~~...........+.......~~~++........++",
-                "~~~~~~..........++++....~~~~++++......++",
-                "~~~~~~...........+++++++~~~~.++++.....++",
-                "~~~~~..............++++++~~...+++.....++",
-                "......................+++......++.....++",
-                ".......................+~~............++",
-                ".......................~~~~...........++",
-                "........................~~++...........+",
-                ".....++++...............+++++...........",
-                ".....++++~..............+++++...........",
-                "......+++~~.............++++...........~",
-                ".......++..++++.......................~~",
-                "...........+++++......................~~",
-                "...........++++++.....................~~",
-                "..........~~+++++......................~",
-                ".........~~~~++++..................~~..~"
-        );
-
-        // The Overgrown Sanctuary
-        List<String> map5 = Arrays.asList(
-                "++++.....++++........++++~~~~~.......~~~..........",
-                "++++......++.........++++~~~~.........~...........",
-                "+++..................+++++~~.......+++............",
-                "....................++++++......++++++............",
-                "...................++++........++++++~~...........",
-                "...................+++.........+++..~~~...........",
-                "..................+++..........++...~~~...........",
-                "~~~...........................~~~..~~~~...........",
-                "~~~~............+++..........~~~~~~~~~~...........",
-                "~~~~............+++.........~~~~~~~~~~~~..........",
-                "++~..............+++.......+~~........~~..........",
-                "+++..............+++......+++..........~~.........",
-                "+++..............+++......+++..........~~.........",
-                "~~~..............+++......+++..........~~~........",
-                "~~~~.............+++......+++..........~~~........"
-        );
-
         // Created game maps for Abandoned Village, Burial Ground, Ancient Woods, and the Boss Map (Abxervyer)
-        GameMap gameMap = new GameMap(groundFactory, map);
-        GameMap burialGrounds = new GameMap(groundFactory, map2);
-        GameMap ancientWoods = new GameMap(groundFactory, map3);
-        GameMap bossMap = new GameMap(groundFactory, map4);
-        GameMap overgrownSanctuary = new GameMap(groundFactory, map5);
+        GameMap gameMap = new GameMap(groundFactory, MapStrings.map1);
+        GameMap burialGrounds = new GameMap(groundFactory, MapStrings.map2);
+        GameMap ancientWoods = new GameMap(groundFactory, MapStrings.map3);
+        GameMap bossMap = new GameMap(groundFactory, MapStrings.map4);
+        GameMap overgrownSanctuary = new GameMap(groundFactory, MapStrings.map5);
+
         world.addGameMap(gameMap);
         world.addGameMap(burialGrounds);
         world.addGameMap(ancientWoods);
@@ -160,21 +67,13 @@ public class Application {
         MoveActorAction travelToBossMap = new MoveActorAction(bossMap.at(6,1), "to The Boss Map");
         MoveActorAction travelToOvergrownSanctuary = new MoveActorAction(overgrownSanctuary.at(6,1), "to The Overgrown Sanctuary");
 
-        LockedGate gateToBurialGrounds = new LockedGate(new ArrayList<>(Arrays.asList(
-                travelToBurialGrounds
-        )));
+        LockedGate gateToBurialGrounds = new LockedGate(new ArrayList<>(Arrays.asList(travelToBurialGrounds)));
 
-        LockedGate gateToAbandonedVillage = new LockedGate(new ArrayList<>(Arrays.asList(
-                travelToAbandonedVillage
-        )));
+        LockedGate gateToAbandonedVillage = new LockedGate(new ArrayList<>(Arrays.asList(travelToAbandonedVillage)));
 
-        LockedGate gateToAncientWoods = new LockedGate(new ArrayList<>(Arrays.asList(
-                travelToAncientWoods
-        )));
+        LockedGate gateToAncientWoods = new LockedGate(new ArrayList<>(Arrays.asList(travelToAncientWoods)));
 
-        LockedGate gateToBossMap = new LockedGate(new ArrayList<>(Arrays.asList(
-                travelToBossMap
-        )));
+        LockedGate gateToBossMap = new LockedGate(new ArrayList<>(Arrays.asList(travelToBossMap)));
 
         LockedGate gateToAncientWoodsAndOvergrownSanctuary = new LockedGate(new ArrayList<>(Arrays.asList(
                 travelToAncientWoods,
