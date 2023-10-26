@@ -25,7 +25,7 @@ public class ListenAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        // TODO: ADD THIS
-        return null;
+        // TODO: CHANGE THIS
+        return "Listen to the " + this.merchant;
     }
 }

@@ -18,6 +18,11 @@ public class Blacksmith extends Friendly implements Listenable{
     private static final char DEFAULT_DISPLAY_CHAR = 'B';
     private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
 
+    public Blacksmith() {
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
+        this.addCapability(Ability.UPGRADES);
+    }
+
     /**
      * The constructor of the Blacksmith class.
      *
@@ -27,10 +32,6 @@ public class Blacksmith extends Friendly implements Listenable{
      */
     public Blacksmith(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.addCapability(Ability.UPGRADES);
-    }
-    public Blacksmith() {
-        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.UPGRADES);
     }
 
