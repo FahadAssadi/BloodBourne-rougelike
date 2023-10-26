@@ -11,6 +11,7 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.misc.displays.FancyMessage;
@@ -96,7 +97,8 @@ public class Player extends Actor implements MonologueListenable {
      */
     @Override
     public void removeItemFromInventory(Item item) {
-        if(this.hasCapability(Status.CARRIES_GREAT_KNIFE)) {
+        if(item instanceof GreatKnife) {
+            // Occurs only if the Player is removing a GreatKnife
             this.removeCapability(Status.CARRIES_GREAT_KNIFE);
         }
 
@@ -181,6 +183,11 @@ public class Player extends Actor implements MonologueListenable {
     @Override
     public Boolean hasGreatKnife() {
         return (this.hasCapability(Status.CARRIES_GREAT_KNIFE));
+    }
+
+    @Override
+    public Boolean hasGiantHammer() {
+        return (this.hasCapability(Status.CARRIES_GIANT_HAMMER));
     }
 
     @Override

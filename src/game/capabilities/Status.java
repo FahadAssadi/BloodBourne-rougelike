@@ -38,5 +38,9 @@ public enum Status {
     /**
      * This status indicates that an actor carries a Great Knife
      */
-    CARRIES_GREAT_KNIFE
+    CARRIES_GREAT_KNIFE,
+    /**
+     * This status indicates that an actor carries a Giant Hammer
+     */
+    CARRIES_GIANT_HAMMER
 }
