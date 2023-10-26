@@ -10,6 +10,8 @@ import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
 import game.misc.Utility;
+import game.gamestate.EntityManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -52,6 +54,9 @@ public abstract class Enemy extends Actor {
         this.addBehaviours();
         this.addDroppableItems();
         this.addCapability(Status.HOSTILE);
+
+        // Add enemy to the entity manager
+        EntityManager.getEntityManager().registerEnemy(this);
     }
 
     /**

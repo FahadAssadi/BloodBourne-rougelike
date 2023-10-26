@@ -21,7 +21,7 @@ import game.positions.enemynests.Hut;
 import game.positions.enemynests.spawners.*;
 import game.positions.Void;
 import game.artifacts.weapons.Broadsword;
-import game.state.EntityManager;
+import game.gamestate.EntityManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

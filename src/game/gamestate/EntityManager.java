@@ -1,4 +1,4 @@
-package game.state;
+package game.gamestate;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -16,7 +16,6 @@ public class EntityManager {
 
 //    private final List<Resettable> resettables;
     private final List<Enemy> enemies;
-    private final List<Enemy> bosses;
     private final List<Runes> runes;
     private final List<LockedGate> gates;
 
@@ -28,7 +27,6 @@ public class EntityManager {
      */
     private EntityManager(){
         this.enemies = new ArrayList<>();
-        this.bosses = new ArrayList<>();
         this.runes = new ArrayList<>();
         this.gates = new ArrayList<>();
     }
@@ -50,8 +48,16 @@ public class EntityManager {
     /**
      * Adds all game maps from the world to the manager
      */
-    public void addGameMaps(List<GameMap> maps){
+    public void registerGameMaps(List<GameMap> maps){
         entityManager.maps = maps;
+    }
+
+    public void registerEnemy(Enemy enemy){
+        entityManager.enemies.add(enemy);
+    }
+
+    public void registerGate(LockedGate gate){
+        entityManager.gates.add(gate);
     }
 
     /**
