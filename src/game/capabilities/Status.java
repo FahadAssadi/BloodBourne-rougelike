@@ -43,4 +43,8 @@ public enum Status {
      * This status indicates that an actor has defeated the Forest Watcher
      */
     DEFEATED_ABXERVYER,
+    /**
+     * This status indicates that an entity is about to undergo a reset
+     */
+    RESET
 }
