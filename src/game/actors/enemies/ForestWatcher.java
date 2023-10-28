@@ -3,6 +3,7 @@ package game.actors.enemies;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
@@ -15,6 +16,7 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.gamestate.Resettable;
 import game.misc.displays.FancyMessage;
 import game.weather.Weather;
 import game.weather.susceptibles.WeatherSusceptiblesManager;
@@ -115,6 +117,12 @@ public class ForestWatcher extends Enemy {
              Weather.getWeather().weatherTransition();
         }
         return null;
+    }
+
+    @Override
+    public void reset() {
+        int toHeal = this.getAttributeMaximum(BaseActorAttributes.HEALTH) - this.getAttribute(BaseActorAttributes.HEALTH);
+        this.heal(toHeal);
     }
 
     /**
