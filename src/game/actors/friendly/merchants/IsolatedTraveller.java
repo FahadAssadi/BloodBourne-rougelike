@@ -1,18 +1,16 @@
-package game.actors.friendly.merchants.traders;
+package game.actors.friendly.merchants;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.ListenAction;
 import game.actions.PurchaseAction;
 import game.actors.friendly.Friendly;
-import game.actors.friendly.merchants.Listenable;
 import game.artifacts.TransactionItem;
 import game.artifacts.consumables.HealingVial;
 import game.artifacts.consumables.RefreshingFlask;
-import game.actors.friendly.merchants.traders.quirks.PricingQuirk;
-import game.actors.friendly.merchants.traders.quirks.Quirk;
-import game.actors.friendly.merchants.traders.quirks.ScamQuirk;
+import game.actors.friendly.merchants.quirks.PricingQuirk;
+import game.actors.friendly.merchants.quirks.Quirk;
+import game.actors.friendly.merchants.quirks.ScamQuirk;
 import game.artifacts.weapons.GreatKnife;
 import game.capabilities.Ability;
 import game.artifacts.weapons.Broadsword;
@@ -90,7 +88,7 @@ public class IsolatedTraveller extends Friendly implements Listenable {
         }
 
         // If the player hasn’t defeated Abxervyer
-        if (!actor.hasCapability(Status.FELLED_ABXERVYER)){
+        if (!actor.hasCapability(Status.DEFEATED_ABXERVYER)){
             monologueList.add("You know the rules of this world, and so do I. Each area is ruled by a lord. Defeat the lord of this area, Abxervyer, and you may proceed to the next area.");
         } else {
             // Once the player defeats Abxervyer & they still hold the giant hammer
@@ -117,8 +115,6 @@ public class IsolatedTraveller extends Friendly implements Listenable {
         generateSellingMenu().forEach(((purchasableItem, quirk) -> {
             actions.add(new PurchaseAction(purchasableItem, quirk));
         }));
-
-        actions.add(new ListenAction(this));
 
         return actions;
     }

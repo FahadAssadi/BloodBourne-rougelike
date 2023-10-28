@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
-import game.actors.friendly.merchants.traders.quirks.ScamQuirk;
+import game.actors.friendly.merchants.quirks.ScamQuirk;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
 import game.artifacts.weapons.skills.GreatSlamSkill;

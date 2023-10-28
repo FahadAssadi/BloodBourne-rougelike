@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.actors.enemies.ForestWatcher;
 import game.actors.friendly.merchants.Blacksmith;
-import game.actors.friendly.merchants.traders.IsolatedTraveller;
+import game.actors.friendly.merchants.IsolatedTraveller;
 import game.actors.Player;
 import game.artifacts.consumables.Bloodberry;
 import game.artifacts.weapons.GiantHammer;
@@ -24,6 +24,7 @@ import game.artifacts.weapons.Broadsword;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * The main class to start the game.

@@ -10,7 +10,7 @@ import game.actions.SellAction;
 import game.actions.UpgradeAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.friendly.merchants.traders.quirks.PricingQuirk;
+import game.actors.friendly.merchants.quirks.PricingQuirk;
 import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 

@@ -11,7 +11,7 @@ import game.actions.SellAction;
 import game.actions.UpgradeAction;
 import game.artifacts.Sellable;
 import game.artifacts.TransactionItem;
-import game.actors.friendly.merchants.traders.quirks.ScamQuirk;
+import game.actors.friendly.merchants.quirks.ScamQuirk;
 import game.artifacts.Upgradable;
 import game.capabilities.Ability;
 
