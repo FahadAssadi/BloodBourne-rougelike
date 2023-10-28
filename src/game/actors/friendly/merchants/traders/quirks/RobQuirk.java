@@ -1,4 +1,4 @@
-package game.actors.friendly.merchants.quirks;
+package game.actors.friendly.merchants.traders.quirks;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
@@ -6,30 +6,23 @@ import game.artifacts.TransactionItem;
 import game.misc.Utility;
 
 /**
- * A quirk representing a merchant's behavior to scam the actor (usually the player) during a transaction.
+ * A quirk representing a merchant's behavior to rob the actor (usually the player) during a purchase transaction.
  */
-public class ScamQuirk implements Quirk {
-    private final double DEFAULT_SCAM_PROBABILITY = 100;
+public class RobQuirk implements Quirk{
     private final double probability;
 
     /**
-     * Constructor for the ScamQuirk class with a custom probability.
+     * Constructor for the RobQuirk class.
      *
      * @param probability The probability of this quirk occurring during a transaction.
      */
-    public ScamQuirk(double probability) {
+    public RobQuirk(double probability){
         this.probability = probability;
     }
 
     /**
-     * Default constructor for the ScamQuirk class with a probability of 100%.
-     */
-    public ScamQuirk() {
-        this.probability = DEFAULT_SCAM_PROBABILITY;
-    }
-
-    /**
-     * Performs the selling behavior associated with this quirk, which involves deducting the actor's balance.
+     * Performs the selling behavior associated with this quirk.
+     * Don't have an implementation yet.
      *
      * @param actor           The actor involved in the transaction.
      * @param transactionItem The item being transacted.
@@ -37,18 +30,11 @@ public class ScamQuirk implements Quirk {
      */
     @Override
     public String performMerchantSelling(Actor actor, TransactionItem transactionItem) {
-        int price = transactionItem.getPrice();
-        int actorBalance = actor.getBalance();
-
-        int balanceToDeduct = Math.min(price, actorBalance);
-
-        actor.deductBalance(balanceToDeduct);
-
-        return actor + " purchases nothing for " + balanceToDeduct;
+        return null;
     }
 
     /**
-     * Performs the purchasing behavior associated with this quirk, which involves selling the item for 0 runes.
+     * Performs the purchasing behavior associated with this quirk.
      *
      * @param actor           The actor involved in the transaction.
      * @param transactionItem The item being transacted.
@@ -56,11 +42,13 @@ public class ScamQuirk implements Quirk {
      */
     @Override
     public String performMerchantPurchasing(Actor actor, TransactionItem transactionItem) {
+        // Implementation details for robbing the actor and performing a negative transaction.
         Item item = transactionItem.getItem();
 
         actor.removeItemFromInventory(item);
+        new ScamQuirk().performMerchantSelling(actor,transactionItem);
 
-        return actor + " sells " + item + " for 0 runes.";
+        return actor + " sells " + item + " for -" + Math.min(actor.getBalance(), transactionItem.getPrice());
     }
 
     /**

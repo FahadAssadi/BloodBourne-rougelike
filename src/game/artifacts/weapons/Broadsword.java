@@ -8,7 +8,7 @@ import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
 import game.artifacts.*;
-import game.actors.friendly.merchants.quirks.NoQuirk;
+import game.actors.friendly.merchants.traders.quirks.NoQuirk;
 import game.artifacts.weapons.skills.FocusSkill;
 import game.artifacts.weapons.skills.Skill;
 import game.artifacts.weapons.skills.TimedWeaponSkill;

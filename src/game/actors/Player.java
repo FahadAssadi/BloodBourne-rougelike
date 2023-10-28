@@ -8,7 +8,6 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.capabilities.Ability;
@@ -154,18 +153,4 @@ public class Player extends Actor {
                 this.getBalance()
         ));
     }
-
-    // All Dialogue Affecting Attributes
-    public Boolean hasDefeatedAbxervyer() {
-        return this.hasCapability(Status.DEFEATED_ABXERVYER);
-    }
-
-    public Boolean hasGreatKnife() {
-        return this.hasCapability(Status.CARRIES_GREAT_KNIFE);
-    }
-
-    public Boolean hasGiantHammer() {
-        return this.hasCapability(Status.CARRIES_GIANT_HAMMER);
-    }
-
 }

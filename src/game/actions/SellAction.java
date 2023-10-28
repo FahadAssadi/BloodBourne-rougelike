@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.artifacts.TransactionItem;
-import game.actors.friendly.merchants.quirks.Quirk;
+import game.actors.friendly.merchants.traders.quirks.Quirk;
 
 /**
  * An action that allows an actor to sell an item to the IsolatedTraveller.

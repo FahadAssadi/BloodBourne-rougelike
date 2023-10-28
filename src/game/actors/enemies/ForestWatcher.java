@@ -144,7 +144,7 @@ public class ForestWatcher extends Enemy {
         // Once the boss is defeated, the location where the boss last stood turns into a Gate to the Ancient Wood
         map.locationOf(this).setGround(postDeathFormation);
 
-        actor.addCapability(Status.DEFEATED_ABXERVYER);
+        actor.addCapability(Status.FELLED_ABXERVYER);
 
         // Print message when the boss is defeated
         System.out.println(FancyMessage.BOSS_DIED);
