@@ -2,18 +2,24 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.artifacts.consumables.Runes;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.gamestate.EntityManager;
+import game.gamestate.Resettable;
 import game.misc.displays.FancyMessage;
+
 /**
  * Class representing the Player.
  * Created by:
@@ -21,7 +27,7 @@ import game.misc.displays.FancyMessage;
  * Modified by:
  * @author Fahad Assadi
  */
-public class Player extends Actor {
+public class Player extends Actor implements Resettable {
     // Default attributes for the Player
     private static final String DEFAULT_NAME = "The Abstracted One";
     private static final char DEFAULT_DISPLAY_CHAR = '@';
@@ -32,6 +38,8 @@ public class Player extends Actor {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final int DEFAULT_STAMINA_RESTORATION_PERCENTAGE = 1;
 
+    private  MoveActorAction respawnAction;
+
     /**
      * Default constructor for the Player class.
      * It initializes the Player with default attributes.
@@ -39,7 +47,7 @@ public class Player extends Actor {
     public Player(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(DEFAULT_STAMINA));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -56,7 +64,7 @@ public class Player extends Actor {
     public Player(String name, char displayChar, int hitPoints, int stamina) {
         super(name, displayChar, hitPoints);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(stamina));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -74,6 +82,9 @@ public class Player extends Actor {
                 DEFAULT_INTRINSIC_WEAPON_HITRATE
         );
     }
+    public void setRespawnAction(MoveActorAction respawnAction) {
+        this.respawnAction = respawnAction;
+    }
 
     /**
      * Restore the Player's stamina by a certain percentage.
@@ -86,21 +97,41 @@ public class Player extends Actor {
     }
 
     /**
+     * Resets values of Player attributes to maximum.
+     */
+    @Override
+    public void reset() {
+        this.addCapability(Status.RESET);
+
+        int maxStamina = this.getAttributeMaximum(BaseActorAttributes.STAMINA);
+        this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.UPDATE, maxStamina);
+
+        int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
+        this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, maxHealth);
+
+        int balance = this.getBalance();
+        this.deductBalance(balance);
+    }
+
+    /**
      * Handle the Player becoming unconscious due to natural causes.
+     * Drops the contents of the Player's wallet at their last location.
      *
      * @param map GameMap where the Player is located
      * @return String indicating the result of becoming unconscious
      */
     @Override
     public String unconscious(GameMap map) {
-        this.hurt(this.getAttribute(BaseActorAttributes.HEALTH));
+        EntityManager.getEntityManager().resetEntities();
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
+        this.respawnAction.execute(this,map);
         new Display().println(FancyMessage.YOU_DIED);
-
-        return super.unconscious(map);
+        return this + " ceased to exist.";
     }
 
     /**
      * Handle the Player becoming unconscious due to another actor's actions.
+     * Drops the contents of the Player's wallet at their last location.
      *
      * @param actor The actor causing the Player to become unconscious
      * @param map   GameMap where the Player and the other actor are located
@@ -109,8 +140,10 @@ public class Player extends Actor {
     @Override
     public String unconscious(Actor actor, GameMap map) {
         new Display().println(FancyMessage.YOU_DIED);
-
-        return super.unconscious(actor,map);
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
+        EntityManager.getEntityManager().resetEntities();
+        this.respawnAction.execute(this,map);
+        return this + " met their demise in the hand of " + actor;
     }
 
     /**
@@ -124,6 +157,11 @@ public class Player extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (this.hasCapability(Status.RESET)) {
+            this.removeCapability(Status.RESET);
+            return new DoNothingAction();
+        }
+
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
@@ -137,6 +175,7 @@ public class Player extends Actor {
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
+
     }
 
     /**

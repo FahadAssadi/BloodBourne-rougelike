@@ -3,6 +3,8 @@ package game.actors.enemies;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
@@ -15,6 +17,7 @@ import game.actors.behaviours.WanderBehaviour;
 import edu.monash.fit2099.engine.items.DropAction;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.gamestate.Resettable;
 import game.misc.displays.FancyMessage;
 import game.weather.Weather;
 import game.weather.susceptibles.WeatherSusceptiblesManager;
@@ -56,6 +59,7 @@ public class ForestWatcher extends Enemy {
     public ForestWatcher() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.VOID_PROOF);
+        this.addCapability(Status.BOSS);
     }
 
     /**
@@ -66,6 +70,7 @@ public class ForestWatcher extends Enemy {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.postDeathFormation = postDeathFormation;
         this.addCapability(Ability.VOID_PROOF);
+        this.addCapability(Status.BOSS);
     }
 
     /**
@@ -88,6 +93,7 @@ public class ForestWatcher extends Enemy {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        // we override playTurn here so we dont remove the boss when reset.
         String message = this.weatherEffects();
         if (message!=null) {
             display.println(message);
@@ -112,6 +118,13 @@ public class ForestWatcher extends Enemy {
              Weather.getWeather().weatherTransition();
         }
         return null;
+    }
+
+    @Override
+    public void reset() {
+        int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
+        this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE,maxHealth);
+
     }
 
     /**
@@ -147,7 +160,7 @@ public class ForestWatcher extends Enemy {
         actor.addCapability(Status.DEFEATED_ABXERVYER);
 
         // Print message when the boss is defeated
-        System.out.println(FancyMessage.BOSS_DIED);
+        new Display().println(FancyMessage.BOSS_DIED);
 
         return super.unconscious(actor, map);
     }

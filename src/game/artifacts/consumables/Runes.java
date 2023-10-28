@@ -3,13 +3,16 @@ package game.artifacts.consumables;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeAction;
+import game.capabilities.Status;
+import game.gamestate.Resettable;
 
 
 /**
  * A specific consumable item representing Runes, the currency, in the game.
  */
-public class Runes extends Item implements Consumable {
+public class Runes extends Item implements Consumable, Resettable {
     private final static String DEFAULT_DISPLAY_NAME = "Runes";
     private final static char DEFAULT_DISPLAY_CHAR = '$';
     private final static boolean DEFAULT_PORTABLE_STATUS = true;
@@ -24,6 +27,7 @@ public class Runes extends Item implements Consumable {
     public Runes(int runesAmount) {
         super(DEFAULT_DISPLAY_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABLE_STATUS);
         this.runesAmount = runesAmount;
+        registerResettable();
     }
 
     /***
@@ -36,6 +40,7 @@ public class Runes extends Item implements Consumable {
     public Runes(String name, char displayChar, boolean portable, int runesAmount) {
         super(name, displayChar, portable);
         this.runesAmount = runesAmount;
+        registerResettable();
     }
 
     /**
@@ -62,5 +67,18 @@ public class Runes extends Item implements Consumable {
         actions.add(new ConsumeAction(this));
 
         return actions;
+    }
+
+    @Override
+    public void tick(Location currentLocation) {
+        if (this.hasCapability(Status.RESET))
+        {
+            currentLocation.removeItem(this);
+        }
+    }
+
+    @Override
+    public void reset() {
+        this.addCapability(Status.RESET);
     }
 }

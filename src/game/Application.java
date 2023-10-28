@@ -21,6 +21,7 @@ import game.positions.enemynests.Hut;
 import game.positions.enemynests.spawners.*;
 import game.positions.Void;
 import game.artifacts.weapons.Broadsword;
+import game.gamestate.EntityManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,11 +56,18 @@ public class Application {
         GameMap bossMap = new GameMap(groundFactory, MapStrings.map4);
         GameMap overgrownSanctuary = new GameMap(groundFactory, MapStrings.map5);
 
-        world.addGameMap(gameMap);
-        world.addGameMap(burialGrounds);
-        world.addGameMap(ancientWoods);
-        world.addGameMap(bossMap);
-        world.addGameMap(overgrownSanctuary);
+        // Create a list of all maps
+        List<GameMap> maps = new ArrayList<>();
+        maps.add(gameMap);
+        maps.add(burialGrounds);
+        maps.add(ancientWoods);
+        maps.add(bossMap);
+        maps.add(overgrownSanctuary);
+
+        // Add all maps to the World
+        for (GameMap map: maps) {
+            world.addGameMap(map);
+        }
 
         // Created travel actions and Locked Gates to allow possible travel between all maps in the game
         MoveActorAction travelToBurialGrounds = new MoveActorAction(burialGrounds.at(38,14), "to The Burial Grounds");
@@ -219,6 +227,8 @@ public class Application {
         gameMap.at(31,5).addItem(new GreatKnife());
         gameMap.at(31,6).addActor(new Blacksmith());
         player.addBalance(10000);
+        MoveActorAction respawnAtVillageAction = new MoveActorAction(gameMap.at(29,5), "to The Abandoned Village");
+        player.setRespawnAction(respawnAtVillageAction);
 
         // Run the game world
         world.run();

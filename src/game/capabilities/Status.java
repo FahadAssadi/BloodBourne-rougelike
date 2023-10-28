@@ -20,6 +20,10 @@ public enum Status {
      */
     HOSTILE,
     /**
+     * This status indicates that an actor is the boss of the game.
+     */
+    BOSS,
+    /**
      * This status represents the activation of a special skill or ability for an actor.
      */
     SKILL_ACTIVE,
@@ -38,5 +42,9 @@ public enum Status {
     /**
      * This status indicates that an actor has defeated the Forest Watcher
      */
-    FELLED_ABXERVYER,
+    DEFEATED_ABXERVYER,
+    /**
+     * This status indicates that an entity is about to undergo a reset
+     */
+    RESET
 }

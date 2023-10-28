@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.UnlockGateAction;
 import game.capabilities.Ability;
+import game.capabilities.Status;
+import game.gamestate.Resettable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
  * A class representing a locked gate in the game world.
  * This gate can be locked or unlocked by actions.
  */
-public class LockedGate extends Ground {
+public class LockedGate extends Ground implements Resettable {
     private boolean isLocked;
     private List<Action> teleportActions = new ArrayList<>();
     private static final char DEFAULT_DISPLAY_CHAR = '=';
@@ -48,6 +50,15 @@ public class LockedGate extends Ground {
     @Override
     public boolean canActorEnter(Actor actor) {
         return !isLocked;
+    }
+
+    /**
+     * Locks the LockedGate when resetting.
+     */
+    @Override
+    public void reset() {
+        this.addCapability(Status.RESET);
+        this.isLocked = DEFAULT_LOCKED_STATUS;
     }
 
     /**

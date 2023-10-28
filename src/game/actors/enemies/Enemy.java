@@ -9,7 +9,10 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
+import game.gamestate.Resettable;
 import game.misc.Utility;
+import game.gamestate.EntityManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +26,7 @@ import java.util.TreeMap;
  *
  * @author Fahad Assadi
  */
-public abstract class Enemy extends Actor {
+public abstract class Enemy extends Actor implements Resettable {
     /**
      * A map to store behaviors, where the key is an integer priority
      */
@@ -52,6 +55,9 @@ public abstract class Enemy extends Actor {
         this.addBehaviours();
         this.addDroppableItems();
         this.addCapability(Status.HOSTILE);
+
+        // Add enemy to the entity manager
+        registerResettable();
     }
 
     /**
@@ -88,6 +94,12 @@ public abstract class Enemy extends Actor {
         return super.unconscious(actor, map);
     }
 
+    @Override
+    public void reset() {
+        // Add the RESET status to the actor (used in playTurn to remove it from the map)
+        this.addCapability(Status.RESET);
+    }
+
     /**
      * Determine the action the enemy should perform during its turn.
      *
@@ -99,6 +111,12 @@ public abstract class Enemy extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        // All spawned enemies (not including bosses) will be removed from the map if they have the RESET status
+        if (this.hasCapability(Status.RESET)) {
+            map.removeActor(this);
+            return new DoNothingAction();
+        }
+
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
 
