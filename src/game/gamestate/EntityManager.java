@@ -16,8 +16,6 @@ public class EntityManager {
 
     private List<Resettable> resettables;
 
-    private List<GameMap> maps;
-
     /**
      * Constructor for `EntityManager`.
      *
@@ -38,13 +36,6 @@ public class EntityManager {
         }
 
         return entityManager;
-    }
-
-    /**
-     * Adds all game maps from the world to the manager
-     */
-    public void registerGameMaps(List<GameMap> maps){
-        entityManager.maps = maps;
     }
 
     /**
