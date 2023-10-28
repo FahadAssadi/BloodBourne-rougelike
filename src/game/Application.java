@@ -64,8 +64,6 @@ public class Application {
         maps.add(bossMap);
         maps.add(overgrownSanctuary);
 
-        EntityManager.getEntityManager().registerGameMaps(maps);
-
         // Add all maps to the World
         for (GameMap map: maps) {
             world.addGameMap(map);

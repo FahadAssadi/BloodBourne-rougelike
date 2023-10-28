@@ -108,7 +108,6 @@ public class Player extends Actor implements Resettable {
         int balance = this.getBalance();
         this.deductBalance(balance);
         currentMap.locationOf(this).addItem(new Runes(balance));
-
     }
 
     /**
@@ -166,7 +165,6 @@ public class Player extends Actor implements Resettable {
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
-
     }
 
     /**
