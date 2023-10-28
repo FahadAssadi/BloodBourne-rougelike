@@ -166,6 +166,7 @@ public class Player extends Actor implements Resettable {
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
+
     }
 
     /**
