@@ -33,6 +33,9 @@ public class Player extends Actor implements Resettable {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final int DEFAULT_STAMINA_RESTORATION_PERCENTAGE = 1;
 
+    // For respawning
+    private static GameMap currentMap;
+
     /**
      * Default constructor for the Player class.
      * It initializes the Player with default attributes.
@@ -101,6 +104,11 @@ public class Player extends Actor implements Resettable {
 
         int maxMana = this.getAttributeMaximum(BaseActorAttributes.MANA);
         this.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.UPDATE, maxMana);
+
+        int balance = this.getBalance();
+        this.deductBalance(balance);
+        currentMap.locationOf(this).addItem(new Runes(balance));
+
     }
 
     /**
@@ -112,11 +120,8 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(GameMap map) {
+        currentMap = map;
         this.reset();
-
-        int balance = this.getBalance();
-        this.deductBalance(balance);
-        map.locationOf(this).addItem(new Runes(balance));
 
         return super.unconscious(map);
     }
@@ -131,11 +136,8 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
+        currentMap = map;
         this.reset();
-
-        int balance = this.getBalance();
-        this.deductBalance(balance);
-        map.locationOf(this).addItem(new Runes(balance));
 
         return super.unconscious(actor,map);
     }
