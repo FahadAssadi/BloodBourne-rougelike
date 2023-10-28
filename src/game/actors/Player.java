@@ -105,7 +105,7 @@ public class Player extends Actor implements Resettable {
 
     /**
      * Handle the Player becoming unconscious due to natural causes.
-     * Drops the content's of the Player's wallet at their last location.
+     * Drops the contents of the Player's wallet at their last location.
      *
      * @param map GameMap where the Player is located
      * @return String indicating the result of becoming unconscious
@@ -123,7 +123,7 @@ public class Player extends Actor implements Resettable {
 
     /**
      * Handle the Player becoming unconscious due to another actor's actions.
-     * Drops the content's of the Player's wallet at their last location.
+     * Drops the contents of the Player's wallet at their last location.
      *
      * @param actor The actor causing the Player to become unconscious
      * @param map   GameMap where the Player and the other actor are located

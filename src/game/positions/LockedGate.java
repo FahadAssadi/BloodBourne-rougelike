@@ -53,7 +53,7 @@ public class LockedGate extends Ground implements Resettable {
     }
 
     /**
-     * Locks the LockedGate.
+     * Locks the LockedGate when resetting.
      */
     @Override
     public void reset() {
