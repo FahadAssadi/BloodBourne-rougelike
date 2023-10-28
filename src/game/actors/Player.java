@@ -8,12 +8,13 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.artifacts.consumables.Runes;
 import game.capabilities.Ability;
 import game.capabilities.Status;
-import game.misc.displays.FancyMessage;
+import game.gamestate.Resettable;
+
 /**
  * Class representing the Player.
  * Created by:
@@ -21,7 +22,7 @@ import game.misc.displays.FancyMessage;
  * Modified by:
  * @author Fahad Assadi
  */
-public class Player extends Actor {
+public class Player extends Actor implements Resettable {
     // Default attributes for the Player
     private static final String DEFAULT_NAME = "The Abstracted One";
     private static final char DEFAULT_DISPLAY_CHAR = '@';
@@ -86,21 +87,43 @@ public class Player extends Actor {
     }
 
     /**
+     * Resets values of Player attributes to maximum.
+     */
+    @Override
+    public void reset() {
+        this.addCapability(Status.RESET);
+
+        int maxStamina = this.getAttributeMaximum(BaseActorAttributes.STAMINA);
+        this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.UPDATE, maxStamina);
+
+        int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
+        this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, maxHealth);
+
+        int maxMana = this.getAttributeMaximum(BaseActorAttributes.MANA);
+        this.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.UPDATE, maxMana);
+    }
+
+    /**
      * Handle the Player becoming unconscious due to natural causes.
+     * Drops the content's of the Player's wallet at their last location.
      *
      * @param map GameMap where the Player is located
      * @return String indicating the result of becoming unconscious
      */
     @Override
     public String unconscious(GameMap map) {
-        this.hurt(this.getAttribute(BaseActorAttributes.HEALTH));
-        new Display().println(FancyMessage.YOU_DIED);
+        this.reset();
+
+        int balance = this.getBalance();
+        this.deductBalance(balance);
+        map.locationOf(this).addItem(new Runes(balance));
 
         return super.unconscious(map);
     }
 
     /**
      * Handle the Player becoming unconscious due to another actor's actions.
+     * Drops the content's of the Player's wallet at their last location.
      *
      * @param actor The actor causing the Player to become unconscious
      * @param map   GameMap where the Player and the other actor are located
@@ -108,7 +131,11 @@ public class Player extends Actor {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        new Display().println(FancyMessage.YOU_DIED);
+        this.reset();
+
+        int balance = this.getBalance();
+        this.deductBalance(balance);
+        map.locationOf(this).addItem(new Runes(balance));
 
         return super.unconscious(actor,map);
     }
