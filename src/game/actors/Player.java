@@ -51,7 +51,7 @@ public class Player extends Actor implements Resettable {
     public Player(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(DEFAULT_STAMINA));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -68,7 +68,7 @@ public class Player extends Actor implements Resettable {
     public Player(String name, char displayChar, int hitPoints, int stamina) {
         super(name, displayChar, hitPoints);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(stamina));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -113,12 +113,8 @@ public class Player extends Actor implements Resettable {
         int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
         this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, maxHealth);
 
-        int maxMana = this.getAttributeMaximum(BaseActorAttributes.MANA);
-        this.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.UPDATE, maxMana);
-
         int balance = this.getBalance();
         this.deductBalance(balance);
-        currentMap.locationOf(this).addItem(new Runes(balance));
 
     }
 
@@ -131,10 +127,11 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(GameMap map) {
-        String deathMessage = FancyMessage.YOU_DIED;
         EntityManager.getEntityManager().resetEntities();
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
         this.respawnAction.execute(this,map);
-        return deathMessage;
+        new Display().println(FancyMessage.YOU_DIED);
+        return this + " ceased to exist.";
     }
 
     /**
@@ -147,10 +144,11 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        String deathMessage = FancyMessage.YOU_DIED;
+        new Display().println(FancyMessage.YOU_DIED);
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
         EntityManager.getEntityManager().resetEntities();
         this.respawnAction.execute(this,map);
-        return deathMessage;
+        return this + " met their demise in the hand of " + actor;
     }
 
     /**
