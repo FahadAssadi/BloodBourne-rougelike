@@ -139,10 +139,10 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        new Display().println(FancyMessage.YOU_DIED);
-        map.locationOf(this).addItem(new Runes(this.getBalance()));
         EntityManager.getEntityManager().resetEntities();
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
         this.respawnAction.execute(this,map);
+        new Display().println(FancyMessage.YOU_DIED);
         return this + " met their demise in the hand of " + actor;
     }
 
