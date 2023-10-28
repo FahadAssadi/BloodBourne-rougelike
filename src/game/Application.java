@@ -227,6 +227,8 @@ public class Application {
         gameMap.at(31,5).addItem(new GreatKnife());
         gameMap.at(31,6).addActor(new Blacksmith());
         player.addBalance(10000);
+        MoveActorAction respawnAtVillageAction = new MoveActorAction(gameMap.at(29,5), "to The Abandoned Village");
+        player.setRespawnAction(respawnAtVillageAction);
 
         // Run the game world
         world.run();
