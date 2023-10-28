@@ -3,6 +3,7 @@ package game.actors.enemies;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -121,8 +122,9 @@ public class ForestWatcher extends Enemy {
 
     @Override
     public void reset() {
-        int toHeal = this.getAttributeMaximum(BaseActorAttributes.HEALTH) - this.getAttribute(BaseActorAttributes.HEALTH);
-        this.heal(toHeal);
+        int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
+        this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE,maxHealth);
+
     }
 
     /**

@@ -2,6 +2,7 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
@@ -9,11 +10,14 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.artifacts.consumables.Runes;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.gamestate.EntityManager;
 import game.gamestate.Resettable;
+import game.misc.displays.FancyMessage;
 
 /**
  * Class representing the Player.
@@ -33,8 +37,12 @@ public class Player extends Actor implements Resettable {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final int DEFAULT_STAMINA_RESTORATION_PERCENTAGE = 1;
 
-    // For respawning
-    private static GameMap currentMap;
+    private GameMap currentMap;
+
+
+    private  MoveActorAction respawnAction;
+
+
 
     /**
      * Default constructor for the Player class.
@@ -78,6 +86,9 @@ public class Player extends Actor implements Resettable {
                 DEFAULT_INTRINSIC_WEAPON_HITRATE
         );
     }
+    public void setRespawnAction(MoveActorAction respawnAction) {
+        this.respawnAction = respawnAction;
+    }
 
     /**
      * Restore the Player's stamina by a certain percentage.
@@ -120,10 +131,10 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(GameMap map) {
-        currentMap = map;
-        this.reset();
-
-        return super.unconscious(map);
+        String deathMessage = FancyMessage.YOU_DIED;
+        EntityManager.getEntityManager().resetEntities();
+        this.respawnAction.execute(this,map);
+        return deathMessage;
     }
 
     /**
@@ -136,10 +147,10 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        currentMap = map;
-        this.reset();
-
-        return super.unconscious(actor,map);
+        String deathMessage = FancyMessage.YOU_DIED;
+        EntityManager.getEntityManager().resetEntities();
+        this.respawnAction.execute(this,map);
+        return deathMessage;
     }
 
     /**
