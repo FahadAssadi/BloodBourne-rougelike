@@ -90,6 +90,7 @@ public class ForestWatcher extends Enemy {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        // we override playTurn here so we dont remove the boss when reset.
         String message = this.weatherEffects();
         if (message!=null) {
             display.println(message);

@@ -113,9 +113,7 @@ public abstract class Enemy extends Actor implements Resettable {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         // All spawned enemies (not including bosses) will be removed from the map if they have the RESET status
         if (this.hasCapability(Status.RESET)) {
-            if (!this.hasCapability(Status.BOSS)) {
                 map.removeActor(this);
-            }
         }
 
         for (Behaviour behaviour : behaviours.values()) {
