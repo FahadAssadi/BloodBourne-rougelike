@@ -69,14 +69,25 @@ public class Runes extends Item implements Consumable, Resettable {
         return actions;
     }
 
+    /**
+     * Inform an Item on the ground of the passage of time.
+     * This method is called once per turn, if the item rests upon the ground.
+     *
+     * Removes item from its location if it is being reset
+     *
+     * @param currentLocation The location of the ground on which we lie.
+     *
+     */
     @Override
     public void tick(Location currentLocation) {
-        if (this.hasCapability(Status.RESET))
-        {
+        if (this.hasCapability(Status.RESET)) {
             currentLocation.removeItem(this);
         }
     }
 
+    /**
+     * Reset logic for Runes
+     */
     @Override
     public void reset() {
         this.addCapability(Status.RESET);
