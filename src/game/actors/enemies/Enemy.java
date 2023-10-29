@@ -94,9 +94,12 @@ public abstract class Enemy extends Actor implements Resettable {
         return super.unconscious(actor, map);
     }
 
+    /**
+     * Reset logic for general enemies
+     */
     @Override
     public void reset() {
-        // Add the RESET status to the actor (used in playTurn to remove it from the map)
+        // Add the RESET status to the actor to signify that the player is about to get reset
         this.addCapability(Status.RESET);
     }
 
@@ -117,6 +120,7 @@ public abstract class Enemy extends Actor implements Resettable {
             return new DoNothingAction();
         }
 
+        // Determine which behaviour the actor should perform
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
 

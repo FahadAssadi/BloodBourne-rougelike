@@ -10,15 +10,19 @@ import game.positions.LockedGate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Singleton class that manages and triggers the resetting of Resettable game entities
+ */
 public class EntityManager {
-
     private static EntityManager entityManager;
 
+    /**
+     * Array of resettable game entities
+     */
     private List<Resettable> resettables;
 
     /**
      * Constructor for `EntityManager`.
-     *
      */
     private EntityManager(){
         this.resettables = new ArrayList<>();
@@ -53,5 +57,4 @@ public class EntityManager {
             resettable.reset();
         }
     }
-
 }

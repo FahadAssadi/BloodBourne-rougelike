@@ -59,7 +59,6 @@ public class ForestWatcher extends Enemy {
     public ForestWatcher() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.VOID_PROOF);
-        this.addCapability(Status.BOSS);
     }
 
     /**
@@ -70,7 +69,6 @@ public class ForestWatcher extends Enemy {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.postDeathFormation = postDeathFormation;
         this.addCapability(Ability.VOID_PROOF);
-        this.addCapability(Status.BOSS);
     }
 
     /**
@@ -120,11 +118,14 @@ public class ForestWatcher extends Enemy {
         return null;
     }
 
+    /**
+     * Reset logic for a boss enemy (overrides Enemy)
+     */
     @Override
     public void reset() {
+        // Reset the boss's health to its maximum
         int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
         this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE,maxHealth);
-
     }
 
     /**
