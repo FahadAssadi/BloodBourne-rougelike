@@ -101,7 +101,6 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public void reset() {
-        this.addCapability(Status.RESET);
 
         int maxStamina = this.getAttributeMaximum(BaseActorAttributes.STAMINA);
         this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.UPDATE, maxStamina);

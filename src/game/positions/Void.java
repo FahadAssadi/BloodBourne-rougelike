@@ -4,11 +4,8 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.artifacts.consumables.Runes;
 import game.capabilities.Ability;
-import game.capabilities.Status;
-import game.gamestate.EntityManager;
-import game.misc.displays.FancyMessage;
+
 
 /**
  * A special type of ground representing a void or empty space.

@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
 
-public class Friendly extends Actor {
+public abstract class Friendly extends Actor {
     /**
      * The constructor of the Actor class.
      *

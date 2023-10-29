@@ -21,7 +21,6 @@ public class LockedGate extends Ground implements Resettable {
     private boolean isLocked;
     private List<Action> teleportActions = new ArrayList<>();
     private static final char DEFAULT_DISPLAY_CHAR = '=';
-    private static final boolean DEFAULT_LOCKED_STATUS = true;
 
     /**
      * Constructor for the LockedGate class.
@@ -30,7 +29,7 @@ public class LockedGate extends Ground implements Resettable {
      */
     public LockedGate(List<Action> actions){
         super(DEFAULT_DISPLAY_CHAR);
-        this.isLocked = DEFAULT_LOCKED_STATUS;
+        this.isLocked = true;
         this.teleportActions = actions;
     }
 
@@ -58,7 +57,6 @@ public class LockedGate extends Ground implements Resettable {
     @Override
     public void reset() {
         this.addCapability(Status.RESET);
-        this.isLocked = DEFAULT_LOCKED_STATUS;
     }
 
     /**
@@ -75,6 +73,10 @@ public class LockedGate extends Ground implements Resettable {
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
+        if (this.hasCapability(Status.RESET))
+        {
+            this.isLocked = true;
+        }
 
         if (this.isLocked){
             actions.add(new UnlockGateAction(this));

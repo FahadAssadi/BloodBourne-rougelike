@@ -11,7 +11,6 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
 import game.gamestate.Resettable;
 import game.misc.Utility;
-import game.gamestate.EntityManager;
 
 import java.util.HashMap;
 import java.util.Map;
