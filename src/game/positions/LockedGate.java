@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class LockedGate extends Ground implements Resettable {
     private boolean isLocked;
-    private List<Action> teleportActions = new ArrayList<>();
+    private final List<Action> teleportActions;
     private static final char DEFAULT_DISPLAY_CHAR = '=';
 
     /**
