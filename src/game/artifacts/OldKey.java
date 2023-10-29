@@ -18,16 +18,9 @@ public class OldKey extends Item {
      */
     public OldKey() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_PORTABILITY_STATUS);
+        this.addCapability(Status.POSSESS_KEY);
+
     }
 
-    /**
-     * Override the tick method to add the POSSESS_KEY capability to the actor when the key is in the actor's inventory.
-     *
-     * @param currentLocation The location of the item.
-     * @param actor           The actor holding the item.
-     */
-    @Override
-    public void tick(Location currentLocation, Actor actor) {
-        actor.addCapability(Status.POSSESS_KEY);
-    }
+
 }

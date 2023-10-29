@@ -29,6 +29,7 @@ public class LockedGate extends Ground implements Resettable {
      */
     public LockedGate(List<Action> actions){
         super(DEFAULT_DISPLAY_CHAR);
+        registerResettable();
         this.isLocked = true;
         this.teleportActions = actions;
     }
