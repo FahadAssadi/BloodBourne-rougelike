@@ -50,6 +50,7 @@ public class Runes extends Item implements Consumable, Resettable {
      */
     @Override
     public void consume(Actor actor) {
+        System.out.println(this.runesAmount);
         actor.addBalance(this.runesAmount);
         actor.removeItemFromInventory(this);
     }

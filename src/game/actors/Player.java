@@ -136,11 +136,14 @@ public class Player extends Actor implements Resettable {
     @Override
     public String unconscious(GameMap map) {
 
+        // Freeze the current balance as it is about to be reset.
+        int runeAmount = this.getBalance();
+
         // Triggers the resetting of game entities upon player death.
         EntityManager.getEntityManager().resetEntities();
 
         // Drops the contents of the Player's wallet at their last location.
-        map.locationOf(this).addItem(new Runes(this.getBalance()));
+        map.locationOf(this).addItem(new Runes(runeAmount));
 
         // Triggers respawning of player
         this.respawnAction.execute(this,map);
@@ -163,11 +166,14 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
+        // Freeze the current balance as it is about to be reset.
+        int runeAmount = this.getBalance();
+
         // Triggers the resetting of game entities upon player death.
         EntityManager.getEntityManager().resetEntities();
 
         // Drops the contents of the Player's wallet at their last location.
-        map.locationOf(this).addItem(new Runes(this.getBalance()));
+        map.locationOf(this).addItem(new Runes(runeAmount));
 
         // Triggers respawning of player
         this.respawnAction.execute(this,map);
@@ -192,8 +198,6 @@ public class Player extends Actor implements Resettable {
         // Removes the RESET status from the player if it has it, and do nothing in this turn
         if (this.hasCapability(Status.PLAYER_RESET)) {
             this.removeCapability(Status.PLAYER_RESET);
-            return new DoNothingAction();
-
         }
 
         // Handle multi-turn Actions
