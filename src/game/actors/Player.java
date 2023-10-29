@@ -72,6 +72,7 @@ public class Player extends Actor implements Resettable {
 
     /**
      * Get the intrinsic weapon of the Player.
+     *
      * @return An intrinsic weapon object with default damage, verb, and hit rate.
      */
     @Override
@@ -82,6 +83,13 @@ public class Player extends Actor implements Resettable {
                 DEFAULT_INTRINSIC_WEAPON_HITRATE
         );
     }
+
+
+    /**
+     * Sets the MoveActorAction responsible for moving the player to its respawn location.
+     *
+     * @param respawnAction
+     */
     public void setRespawnAction(MoveActorAction respawnAction) {
         this.respawnAction = respawnAction;
     }
@@ -97,41 +105,56 @@ public class Player extends Actor implements Resettable {
     }
 
     /**
-     * Resets values of Player attributes to maximum.
+     * Resets values of Player attributes to maximum and deducts its balance upon death.
      */
     @Override
     public void reset() {
+        // Add the RESET status to the actor to signify that the player is about to get reset
         this.addCapability(Status.RESET);
 
+        // Reset value of the player's stamina to full.
         int maxStamina = this.getAttributeMaximum(BaseActorAttributes.STAMINA);
         this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.UPDATE, maxStamina);
 
+        // Reset value of the player's health to full.
         int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
         this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, maxHealth);
 
-        int balance = this.getBalance();
-        this.deductBalance(balance);
+        // Reset runes in the player’s wallet back to 0
+        this.deductBalance(this.getBalance());
     }
 
     /**
      * Handle the Player becoming unconscious due to natural causes.
+     * Triggers the resetting of game entities upon player death.
      * Drops the contents of the Player's wallet at their last location.
+     * Triggers respawning of player.
      *
      * @param map GameMap where the Player is located
      * @return String indicating the result of becoming unconscious
      */
     @Override
     public String unconscious(GameMap map) {
+        // Triggers the resetting of game entities upon player death.
         EntityManager.getEntityManager().resetEntities();
+
+        // Drops the contents of the Player's wallet at their last location.
         map.locationOf(this).addItem(new Runes(this.getBalance()));
+
+        // Triggers respawning of player
         this.respawnAction.execute(this,map);
+
+        // Display the "YOU DIED" message
         new Display().println(FancyMessage.YOU_DIED);
+
         return this + " ceased to exist.";
     }
 
     /**
      * Handle the Player becoming unconscious due to another actor's actions.
+     * Triggers the resetting of game entities upon player death.
      * Drops the contents of the Player's wallet at their last location.
+     * Triggers respawning of player.
      *
      * @param actor The actor causing the Player to become unconscious
      * @param map   GameMap where the Player and the other actor are located
@@ -139,10 +162,18 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        new Display().println(FancyMessage.YOU_DIED);
-        map.locationOf(this).addItem(new Runes(this.getBalance()));
+        // Triggers the resetting of game entities upon player death.
         EntityManager.getEntityManager().resetEntities();
+
+        // Drops the contents of the Player's wallet at their last location.
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
+
+        // Triggers respawning of player
         this.respawnAction.execute(this,map);
+
+        // Display the "YOU DIED" message
+        new Display().println(FancyMessage.YOU_DIED);
+
         return this + " met their demise in the hand of " + actor;
     }
 
@@ -157,6 +188,7 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        // Removes the RESET status from the player if it has it, and do nothing in this turn
         if (this.hasCapability(Status.RESET)) {
             this.removeCapability(Status.RESET);
             return new DoNothingAction();

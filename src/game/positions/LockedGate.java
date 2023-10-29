@@ -57,7 +57,6 @@ public class LockedGate extends Ground implements Resettable {
      */
     @Override
     public void reset() {
-        this.addCapability(Status.RESET);
         this.isLocked = DEFAULT_LOCKED_STATUS;
     }
 
