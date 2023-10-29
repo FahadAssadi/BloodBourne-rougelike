@@ -160,7 +160,7 @@ public class ForestWatcher extends Enemy {
         actor.addCapability(Status.DEFEATED_ABXERVYER);
 
         // Print message when the boss is defeated
-        System.out.println(FancyMessage.BOSS_DIED);
+        new Display().println(FancyMessage.BOSS_DIED);
 
         return super.unconscious(actor, map);
     }

@@ -2,6 +2,7 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
@@ -37,12 +38,7 @@ public class Player extends Actor implements Resettable {
     private static final int DEFAULT_INTRINSIC_WEAPON_HITRATE = 80;
     private static final int DEFAULT_STAMINA_RESTORATION_PERCENTAGE = 1;
 
-    private GameMap currentMap;
-
-
     private  MoveActorAction respawnAction;
-
-
 
     /**
      * Default constructor for the Player class.
@@ -51,7 +47,7 @@ public class Player extends Actor implements Resettable {
     public Player(){
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(DEFAULT_STAMINA));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -68,7 +64,7 @@ public class Player extends Actor implements Resettable {
     public Player(String name, char displayChar, int hitPoints, int stamina) {
         super(name, displayChar, hitPoints);
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(stamina));
-
+        registerResettable();
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Ability.TELEPORTS);
         this.addCapability(Ability.WALKS_SAFE_TILES);
@@ -113,12 +109,8 @@ public class Player extends Actor implements Resettable {
         int maxHealth = this.getAttributeMaximum(BaseActorAttributes.HEALTH);
         this.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, maxHealth);
 
-        int maxMana = this.getAttributeMaximum(BaseActorAttributes.MANA);
-        this.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.UPDATE, maxMana);
-
         int balance = this.getBalance();
         this.deductBalance(balance);
-        currentMap.locationOf(this).addItem(new Runes(balance));
     }
 
     /**
@@ -130,10 +122,11 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(GameMap map) {
-        String deathMessage = FancyMessage.YOU_DIED;
         EntityManager.getEntityManager().resetEntities();
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
         this.respawnAction.execute(this,map);
-        return deathMessage;
+        new Display().println(FancyMessage.YOU_DIED);
+        return this + " ceased to exist.";
     }
 
     /**
@@ -146,10 +139,11 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(Actor actor, GameMap map) {
-        String deathMessage = FancyMessage.YOU_DIED;
+        new Display().println(FancyMessage.YOU_DIED);
+        map.locationOf(this).addItem(new Runes(this.getBalance()));
         EntityManager.getEntityManager().resetEntities();
         this.respawnAction.execute(this,map);
-        return deathMessage;
+        return this + " met their demise in the hand of " + actor;
     }
 
     /**
@@ -163,6 +157,11 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (this.hasCapability(Status.RESET)) {
+            this.removeCapability(Status.RESET);
+            return new DoNothingAction();
+        }
+
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
@@ -176,6 +175,7 @@ public class Player extends Actor implements Resettable {
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
+
     }
 
     /**
