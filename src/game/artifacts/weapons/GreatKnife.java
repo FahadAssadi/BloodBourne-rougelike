@@ -29,7 +29,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     private static final String DEFAULT_VERB = "slashes";
     private static final int DEFAULT_HITRATE = 70;
     private static final int DEFAULT_GREAT_KNIFE_PRICE = 175;
-    private static final double UPGRADE_HIT_RATE_INCREASE = 0.01;
     private static final int DEFAULT_UPGRADE_LIMIT = Integer.MAX_VALUE; // Value that is practically too high to become 0
     private static final int DEFAULT_UPGRADE_PRICE = 2000;
     private static final int DEFAULT_UPGRADED_HIT_RATE_INCREASE = 1;
@@ -104,7 +103,6 @@ public class GreatKnife extends WeaponItem implements WeaponSkill, Sellable, Upg
     public void resetWeapon() {
         this.removeCapability(Status.SKILL_ACTIVE);
     }
-
 
     /**
      * Get a list of allowable actions for the Great Knife when it's in a specific location.
