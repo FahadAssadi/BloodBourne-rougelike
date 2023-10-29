@@ -1,12 +1,5 @@
 package game.gamestate;
 
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.GameMap;
-import game.actors.enemies.Enemy;
-import game.artifacts.consumables.Runes;
-import game.capabilities.Status;
-import game.positions.LockedGate;
-
 import java.util.ArrayList;
 import java.util.List;
 
