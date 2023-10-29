@@ -20,10 +20,6 @@ public enum Status {
      */
     HOSTILE,
     /**
-     * This status indicates that an actor is the boss of the game.
-     */
-    BOSS,
-    /**
      * This status represents the activation of a special skill or ability for an actor.
      */
     SKILL_ACTIVE,
