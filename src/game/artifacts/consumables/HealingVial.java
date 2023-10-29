@@ -72,9 +72,8 @@ public class HealingVial extends Item implements Consumable, Sellable, Upgradabl
         int healActorBy = (int) (actor.getAttributeMaximum(BaseActorAttributes.HEALTH) * healthRestoration);
         // Heal the actor by the calculated amount
         actor.heal(healActorBy);
-
-        // Remove the consumed Healing Vial from the actor's inventory
         actor.removeItemFromInventory(this);
+
     }
 
     /**
