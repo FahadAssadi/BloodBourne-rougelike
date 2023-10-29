@@ -57,6 +57,8 @@ public class LockedGate extends Ground implements Resettable {
     @Override
     public void reset() {
         this.addCapability(Status.RESET);
+        this.isLocked = true;
+
     }
 
     /**
@@ -73,11 +75,6 @@ public class LockedGate extends Ground implements Resettable {
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
-        if (this.hasCapability(Status.RESET))
-        {
-            this.isLocked = true;
-        }
-
         if (this.isLocked){
             actions.add(new UnlockGateAction(this));
         } else {
