@@ -11,6 +11,11 @@ import game.misc.Utility;
 public abstract class Spawner {
     private int spawnChance;
 
+    /**
+     * Creates a new Spawner object (parent constructor of abstract class)
+     * This constructor is called by children spawners.
+     * @param spawnChance is the specified Spawn rate of the enemy.
+     */
     public Spawner(int spawnChance){
         this.spawnChance = spawnChance;
     }

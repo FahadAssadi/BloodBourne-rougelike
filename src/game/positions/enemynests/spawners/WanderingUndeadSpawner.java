@@ -13,6 +13,10 @@ public class WanderingUndeadSpawner extends Spawner{
     // The chance of spawning a WanderingUndead (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 25;
 
+    /**
+     * Creates a new instance of the WanderingUndeadSpawner with the default spawn chance.
+     * Constructor method that calls the parent class's constructor (Spawner)
+     */
     public WanderingUndeadSpawner() {
         super(DEFAULT_SPAWN_CHANCE);
     }

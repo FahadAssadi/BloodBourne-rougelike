@@ -11,6 +11,10 @@ public class RedWolfSpawner extends Spawner {
     // The chance of spawning a RedWolf (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 30;
 
+    /**
+     * Creates a new instance of the RedWoldSpawner with the default spawn chance.
+     * Constructor method that calls the parent class's constructor (Spawner)
+     */
     public RedWolfSpawner() {
         super(DEFAULT_SPAWN_CHANCE);
     }

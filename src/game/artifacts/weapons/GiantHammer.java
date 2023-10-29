@@ -16,6 +16,9 @@ import game.artifacts.weapons.skills.WeaponSkill;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
+/**
+ * Class that represents the GiantHammer Weapon.
+ */
 public class GiantHammer extends WeaponItem implements WeaponSkill, Sellable {
     private static final String DEFAULT_NAME = "Giant hammer";
     private static final char DEFAULT_DISPLAY_CHAR = 'P';

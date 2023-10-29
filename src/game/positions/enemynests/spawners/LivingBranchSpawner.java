@@ -10,14 +10,18 @@ import game.actors.enemies.LivingBranch;
 public class LivingBranchSpawner extends Spawner{
     private static final int DEFAULT_SPAWN_CHANCE = 90;
 
+    /**
+     * Creates a new instance of the LivingBranchSpawner with the default spawn chance.
+     * Constructor method that calls the parent class's constructor (Spawner)
+     */
     public LivingBranchSpawner() {
         super(DEFAULT_SPAWN_CHANCE);
     }
 
     /**
-     * Spawn a new instance of the RedWolf enemy actor.
+     * Spawn a new instance of the LivingBranch enemy actor.
      *
-     * @return A new instance of the RedWolf actor.
+     * @return A new instance of the LivingBranch actor.
      */
     @Override
     public Actor spawnActor() {

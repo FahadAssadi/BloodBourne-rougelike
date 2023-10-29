@@ -11,12 +11,18 @@ import game.capabilities.Status;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Blacksmith NPC class.
+ */
 public class Blacksmith extends Friendly implements Listenable{
     // Default attributes for the Blacksmith
     private static final String DEFAULT_NAME = "Blacksmith";
     private static final char DEFAULT_DISPLAY_CHAR = 'B';
     private static final int DEFAULT_HITPOINTS = 200; //randomly assigned, doesn't affect gameplay.
 
+    /**
+     * The default constructor of the Blacksmith class.
+     */
     public Blacksmith() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_HITPOINTS);
         this.addCapability(Ability.UPGRADES);
