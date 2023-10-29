@@ -110,7 +110,7 @@ public class Player extends Actor implements Resettable {
     @Override
     public void reset() {
         // Add the RESET status to the actor to signify that the player is about to get reset
-        this.addCapability(Status.RESET);
+        this.addCapability(Status.PLAYER_RESET);
 
         // Reset value of the player's stamina to full.
         int maxStamina = this.getAttributeMaximum(BaseActorAttributes.STAMINA);
@@ -135,6 +135,7 @@ public class Player extends Actor implements Resettable {
      */
     @Override
     public String unconscious(GameMap map) {
+
         // Triggers the resetting of game entities upon player death.
         EntityManager.getEntityManager().resetEntities();
 
@@ -189,9 +190,10 @@ public class Player extends Actor implements Resettable {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         // Removes the RESET status from the player if it has it, and do nothing in this turn
-        if (this.hasCapability(Status.RESET)) {
-            this.removeCapability(Status.RESET);
+        if (this.hasCapability(Status.PLAYER_RESET)) {
+            this.removeCapability(Status.PLAYER_RESET);
             return new DoNothingAction();
+
         }
 
         // Handle multi-turn Actions
@@ -225,36 +227,4 @@ public class Player extends Actor implements Resettable {
                 this.getBalance()
         ));
     }
-
-
-    // All Dialogue Affecting Attributes
-
-    /**
-     * Checks if the character has defeated Abxervyer.
-     *
-     * @return `true` if the character has defeated Abxervyer, `false` otherwise.
-     */
-    public Boolean hasDefeatedAbxervyer() {
-        return this.hasCapability(Status.DEFEATED_ABXERVYER);
-    }
-
-
-    /**
-     * Checks if the character carries a great knife.
-     *
-     * @return `true` if the character carries a great knife, `false` otherwise.
-     */
-    public Boolean hasGreatKnife() {
-        return this.hasCapability(Status.CARRIES_GREAT_KNIFE);
-    }
-
-    /**
-     * Checks if the character carries a giant hammer.
-     *
-     * @return `true` if the character carries a giant hammer, `false` otherwise.
-     */
-    public Boolean hasGiantHammer() {
-        return this.hasCapability(Status.CARRIES_GIANT_HAMMER);
-    }
-
 }

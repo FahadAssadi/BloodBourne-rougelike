@@ -42,5 +42,9 @@ public enum Status {
     /**
      * This status indicates that an entity is about to undergo a reset
      */
-    RESET
+    RESET,
+    /**
+     * This status indicates that the player is about to undergo a reset (has died)
+     */
+    PLAYER_RESET
 }
