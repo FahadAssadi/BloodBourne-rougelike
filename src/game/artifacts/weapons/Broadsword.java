@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.ActivateSkillAction;
 import game.actions.AttackAction;
 import game.actions.SellAction;
+import game.actions.UpgradeAction;
 import game.artifacts.*;
 import game.actors.friendly.merchants.quirks.NoQuirk;
 import game.artifacts.weapons.skills.FocusSkill;
@@ -209,7 +210,11 @@ public class Broadsword extends WeaponItem implements TimedWeaponSkill, Sellable
                     new NoQuirk() // No specific quirk for this transaction
             ));
         }
-
+        if (otherActor.hasCapability(Ability.UPGRADES)){
+            if (this.isUpgradable()){
+                actions.add(new UpgradeAction(this));
+            }
+        }
         return actions;
     }
 }
