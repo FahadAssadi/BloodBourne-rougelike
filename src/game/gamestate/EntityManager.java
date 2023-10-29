@@ -37,6 +37,7 @@ public class EntityManager {
 
     /**
      * Resets all resettables
+     * @param resettable is a list of all Resettable entities and grounds in the game.
      */
     public void registerResettable(Resettable resettable){
         entityManager.resettables.add(resettable);

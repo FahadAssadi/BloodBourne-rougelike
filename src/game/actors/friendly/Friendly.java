@@ -8,6 +8,9 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
 
+/**
+ * The abstract class representing a friendly NPC like Blacksmith.
+ */
 public abstract class Friendly extends Actor {
     /**
      * The constructor of the Actor class.

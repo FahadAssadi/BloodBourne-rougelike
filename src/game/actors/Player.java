@@ -87,7 +87,8 @@ public class Player extends Actor implements Resettable {
     /**
      * Sets the MoveActorAction responsible for moving the player to its respawn location.
      *
-     * @param respawnAction
+     * @param respawnAction represents the MoveActorAction that teleports the
+     * actor back to the original start point after death.
      */
     public void setRespawnAction(MoveActorAction respawnAction) {
         this.respawnAction = respawnAction;
@@ -225,15 +226,33 @@ public class Player extends Actor implements Resettable {
         ));
     }
 
+
     // All Dialogue Affecting Attributes
+
+    /**
+     * Checks if the character has defeated Abxervyer.
+     *
+     * @return `true` if the character has defeated Abxervyer, `false` otherwise.
+     */
     public Boolean hasDefeatedAbxervyer() {
         return this.hasCapability(Status.DEFEATED_ABXERVYER);
     }
 
+
+    /**
+     * Checks if the character carries a great knife.
+     *
+     * @return `true` if the character carries a great knife, `false` otherwise.
+     */
     public Boolean hasGreatKnife() {
         return this.hasCapability(Status.CARRIES_GREAT_KNIFE);
     }
 
+    /**
+     * Checks if the character carries a giant hammer.
+     *
+     * @return `true` if the character carries a giant hammer, `false` otherwise.
+     */
     public Boolean hasGiantHammer() {
         return this.hasCapability(Status.CARRIES_GIANT_HAMMER);
     }

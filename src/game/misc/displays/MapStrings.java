@@ -3,8 +3,14 @@ package game.misc.displays;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * A storage space for all strings representing maps.
+ */
 public class MapStrings {
-    // The Abandoned Village map
+    /**
+     * Abandoned Village Map
+      */
     public static List<String> map1 = Arrays.asList(
             "...........................................................",
             "...#######.................................................",
@@ -21,7 +27,9 @@ public class MapStrings {
             "~~~~~~~~~.................................#######.......++."
     );
 
-    // The Burial Ground map
+    /**
+     * Burial Ground map
+      */
     public static List<String> map2 = Arrays.asList(
             "...........+++++++........~~~~~~++....~~",
             "...........++++++.........~~~~~~+.....~~",
@@ -40,7 +48,9 @@ public class MapStrings {
             "....+~~~~..++++++++~~~..~~~~~..~~~~~...."
     );
 
-    // The Ancient Woods map
+    /**
+     * The Ancient Woods map
+      */
     public static List<String> map3 = Arrays.asList(
             "....+++..............................+++++++++....~~~....~~~",
             "+...+++..............................++++++++.....~~~.....~~",
@@ -56,7 +66,9 @@ public class MapStrings {
             "+++++..............~~~~~~~~~~~........~~~........~~~~~......"
     );
 
-    // The Boss Map (Abxervyer)
+    /**
+     * The Boss Map (Abxervyer)
+     */
     public static List<String> map4 = Arrays.asList(
             "~~~~.......+++......~+++++..............",
             "~~~~.......+++.......+++++..............",
@@ -80,7 +92,9 @@ public class MapStrings {
             ".........~~~~++++..................~~..~"
     );
 
-    // The Overgrown Sanctuary
+    /**
+     *  The Overgrown Sanctuary
+     */
     public static List<String> map5 = Arrays.asList(
             "++++.....++++........++++~~~~~.......~~~..........",
             "++++......++.........++++~~~~.........~...........",

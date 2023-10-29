@@ -13,6 +13,10 @@ public class HollowSoldierSpawner extends Spawner{
     // The chance of spawning a HollowSoldier (out of 100)
     private static final int DEFAULT_SPAWN_CHANCE = 10;
 
+    /**
+     * Creates a new instance of the HollowSoldierSpawner with the default spawn chance.
+     * Constructor method that calls the parent class's constructor (Spawner)
+     */
     public HollowSoldierSpawner() {
         super(DEFAULT_SPAWN_CHANCE);
     }
